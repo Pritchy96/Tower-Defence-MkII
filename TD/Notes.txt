@@ -1,0 +1,9 @@
+﻿04/07/14
+Transferred Graphics
+Implimented Drawing mechanics
+Completed conversion of Level Class
+Level loading is piss poor
+Implimented Enemy class
+Created a Vector2 class which emulates the one found in the XNA framework - Converted all instances of Points to Vector2's
+Redid Level loading clode so it runs, still needs work
+

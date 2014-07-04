@@ -1,0 +1,130 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{D280563A-A68F-435C-A89E-64541FFA2C6D}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Tower_Defence</RootNamespace>
+    <AssemblyName>Tower_Defence</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Enemy.cs" />
+    <Compile Include="Level.cs" />
+    <Compile Include="Sprite.cs" />
+    <Compile Include="States\BasicState.cs" />
+    <Compile Include="DBPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DBPanel.Designer.cs">
+      <DependentUpon>DBPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Manager.cs" />
+    <Compile Include="Screen.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Screen.Designer.cs">
+      <DependentUpon>Screen.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="States\MainState.cs" />
+    <Compile Include="States\MenuState.cs" />
+    <Compile Include="Util\Vector2.cs" />
+    <EmbeddedResource Include="Screen.resx">
+      <DependentUpon>Screen.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Notes.txt" />
+    <Content Include="Resources\Ingame\Enemies\En_Basic.bmp" />
+    <Content Include="Resources\Ingame\GUI\Tow_Basic\Tow_Basic_But_Hover.png" />
+    <Content Include="Resources\Ingame\GUI\Tow_Basic\Tow_Basic_But_Normal.png" />
+    <Content Include="Resources\Ingame\GUI\Tow_Slow\Tow_Slow_But_Hover.png" />
+    <Content Include="Resources\Ingame\GUI\Tow_Slow\Tow_Slow_But_Normal.png" />
+    <Content Include="Resources\Ingame\GUI\Toolbar.bmp" />
+    <Content Include="Resources\Ingame\Health_Bar.bmp" />
+    <Content Include="Resources\Ingame\Radius_Texture.png" />
+    <Content Include="Resources\Ingame\Tiles\Bottom_Left.bmp" />
+    <Content Include="Resources\Ingame\Tiles\Bottom_Right.bmp" />
+    <Content Include="Resources\Ingame\Tiles\Cross.bmp" />
+    <Content Include="Resources\Ingame\Tiles\Horizontal.bmp" />
+    <Content Include="Resources\Ingame\Tiles\Placeable_Tile.bmp" />
+    <Content Include="Resources\Ingame\Tiles\Top_Left.bmp" />
+    <Content Include="Resources\Ingame\Tiles\Top_Right.bmp" />
+    <Content Include="Resources\Ingame\Tiles\Vertical.bmp" />
+    <Content Include="Resources\Ingame\Towers\Basic\Tow_Basic.png" />
+    <Content Include="Resources\Ingame\Towers\Basic\Bul_Basic.bmp" />
+    <Content Include="Resources\Ingame\Towers\Basic\Tow_Basic_Upgrade.png" />
+    <Content Include="Resources\Ingame\Towers\Slow\Bul_Slow.bmp" />
+    <Content Include="Resources\Ingame\Towers\Slow\Tow_Slow.png" />
+    <Content Include="Resources\Ingame\Towers\Slow\Tow_Slow_Upgrade.png" />
+    <Content Include="Resources\Menu\Menu_Background.png" />
+    <Content Include="Resources\Menu\Menu_Play_But.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
