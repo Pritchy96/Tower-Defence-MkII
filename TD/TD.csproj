@@ -44,8 +44,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Enemy.cs" />
-    <Compile Include="Level.cs" />
+    <Compile Include="States\Ingame\Enemy.cs" />
+    <Compile Include="States\Ingame\Level.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="States\Ingame\Player.cs" />
+    <Compile Include="States\Ingame\Wave.cs" />
     <Compile Include="Sprite.cs" />
     <Compile Include="States\BasicState.cs" />
     <Compile Include="DBPanel.cs">
@@ -63,7 +70,7 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="States\MainState.cs" />
+    <Compile Include="States\Ingame\MainState.cs" />
     <Compile Include="States\MenuState.cs" />
     <Compile Include="Util\Vector2.cs" />
     <EmbeddedResource Include="Screen.resx">
@@ -71,14 +78,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
-    </Compile>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -118,6 +120,7 @@
     <Content Include="Resources\Ingame\Towers\Slow\Tow_Slow_Upgrade.png" />
     <Content Include="Resources\Menu\Menu_Background.png" />
     <Content Include="Resources\Menu\Menu_Play_But.png" />
+    <None Include="Resources\En_Basic.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

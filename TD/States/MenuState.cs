@@ -7,6 +7,7 @@ using System.Windows.Forms;
 using System.Drawing;
 
 using Tower_Defence.Properties;
+using Tower_Defence;
 
     class MenuState : BasicState
     {

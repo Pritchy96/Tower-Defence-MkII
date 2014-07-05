@@ -86,7 +86,7 @@ namespace Tower_Defence
             Bitmap textureToDraw = texture;
             textureToDraw = rotateImage(texture, rotation);
 
-            e.Graphics.DrawImage(texture, (Point)position);
+            e.Graphics.DrawImage(textureToDraw, (Point)position);
         }
            
         /*'Tinted' Draw function, override.
