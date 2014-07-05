@@ -1,9 +1,39 @@
 ﻿04/07/14
 Transferred Graphics
-Implimented Drawing mechanics
+Implemented Drawing mechanics
 Completed conversion of Level Class
 Level loading is piss poor
-Implimented Enemy class
+Implemented Enemy class
 Created a Vector2 class which emulates the one found in the XNA framework - Converted all instances of Points to Vector2's
 Redid Level loading clode so it runs, still needs work
+
+05/07/14
+Imported more of the graphics: towers, bullets etc.
+Implemented the wave, wavemanager, tower, basic tower, and bullet class.
+Wave class now works.
+Reorganised classes into a better file structure.
+Continued to develop the Vector2 class as it's functionality needed expansion.
+Implemented rotation code for bullets: Prettu sure it won't work.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+TODO:
+Turrets need to aim (rotate graphically) and fire.
+Bullets need to damage and kill enemies
+Better wave spawning system: Player initialised waves, multiple waves onscreen etc.
+Transparency of images
+Proper image scaling
+Input
+Tower Upgrades
 

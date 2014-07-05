@@ -6,23 +6,29 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Tower_Defence;
 using Tower_Defence.Properties;
+using Tower_Defence.States.Ingame;
+using Tower_Defence.States.Ingame.Towers;
+using Tower_Defence.Util;
 
     class MainState : BasicState
     {
         public float speedCoef = 1;
         Level level = new Level();  //DEBUG
         Player player;
-        Wave wave;
+        WaveManager waveManager;
+        Tow_Basic test;  //DEBUG
 
         public MainState(Manager manager) : base(manager) 
         {
             player = new Player(level);
-            wave = new Wave(10, 10, 10, 10, level, Resources.En_Basic, Resources.En_Basic, player);
+            waveManager = new WaveManager(level, 10, Resources.En_Basic, Resources.Health_Bar, player);
+            test = new Tow_Basic(Resources.Tow_Basic, Resources.Tow_Basic, Resources.Bul_Basic, new Vector2(40, 240));
         }
 
         public override void Update()
         {
-            wave.Update();
+            waveManager.Update();
+            test.Update();
         }
 
         public override void MouseMoved(MouseEventArgs e)
@@ -36,7 +42,8 @@ using Tower_Defence.Properties;
         public override void Redraw(PaintEventArgs e)
         {
             level.Draw(e);
-            wave.Draw(e);
+            waveManager.Draw(e);
+            test.Draw(e);
         }
     }
 

@@ -29,6 +29,12 @@ namespace Tower_Defence.Util
             Y = y;
         }
 
+        public Vector2(float xy)
+        {
+            X = xy;
+            Y = xy;
+        }
+
         public Vector2 Normalise()
         {
             float length = DistanceTo(new Vector2(0, 0));
@@ -41,6 +47,12 @@ namespace Tower_Defence.Util
         {
             //Pythagoras to find distance from enemy position to next waypoint.
             return (float)Math.Sqrt(((Math.Pow((X - point.X), 2f)) + (Math.Pow((Y - point.Y), 2f))));
+        }
+
+        public static float Distance(Vector2 point1, Vector2 point2)
+        {
+            //Pythagoras to find distance from enemy position to next waypoint.
+            return (float)Math.Sqrt(((Math.Pow((point1.X - point2.X), 2f)) + (Math.Pow((point1.Y - point2.Y), 2f))));
         }
 
         //Overloading casting to Point data type so it works.
@@ -61,17 +73,22 @@ namespace Tower_Defence.Util
             return new Vector2(V1.X - V2.X, V1.Y - V2.Y);
         }
 
+        //Method to multiply two Vector2's using operators
+        public static Vector2 operator *(Vector2 V1, int num)
+        {
+            return new Vector2(V1.X * num, V1.Y * num);
+        }
+
         //Method to multiply two Vector2's
         public static Vector2 Multiply (Vector2 V1, Vector2 V2)
         {
             return new Vector2(V1.X * V2.X, V1.Y * V2.Y);
         }
 
-        //Multiplying a Vector2 by a scakar  
+        //Multiplying a Vector2 by a scalar float
         public static Vector2 Multiply(Vector2 V1, float num)
         {
             return new Vector2(V1.X * num, V1.Y * num);
         }
-
     }
 }

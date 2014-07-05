@@ -83,6 +83,16 @@ namespace Tower_Defence.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Bul_Basic {
+            get {
+                object obj = ResourceManager.GetObject("Bul_Basic", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Cross {
             get {
                 object obj = ResourceManager.GetObject("Cross", resourceCulture);
@@ -176,6 +186,16 @@ namespace Tower_Defence.Properties {
         internal static System.Drawing.Bitmap Top_Right {
             get {
                 object obj = ResourceManager.GetObject("Top_Right", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Tow_Basic {
+            get {
+                object obj = ResourceManager.GetObject("Tow_Basic", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

@@ -44,7 +44,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="States\Ingame\Enemy.cs" />
+    <Compile Include="States\Ingame\Towers\Tow_Basic.cs" />
+    <Compile Include="States\Ingame\Towers\Bullet.cs" />
+    <Compile Include="States\Ingame\Waves\Enemies\Enemy.cs" />
     <Compile Include="States\Ingame\Level.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -52,7 +54,8 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="States\Ingame\Player.cs" />
-    <Compile Include="States\Ingame\Wave.cs" />
+    <Compile Include="States\Ingame\Towers\Tower.cs" />
+    <Compile Include="States\Ingame\Waves\Wave.cs" />
     <Compile Include="Sprite.cs" />
     <Compile Include="States\BasicState.cs" />
     <Compile Include="DBPanel.cs">
@@ -71,6 +74,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="States\Ingame\MainState.cs" />
+    <Compile Include="States\Ingame\Waves\WaveManager.cs" />
     <Compile Include="States\MenuState.cs" />
     <Compile Include="Util\Vector2.cs" />
     <EmbeddedResource Include="Screen.resx">
