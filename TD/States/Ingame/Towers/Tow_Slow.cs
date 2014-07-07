@@ -64,11 +64,9 @@ namespace Tower_Defence.States.Ingame.Towers
                         target.SpeedModifierDuration = modifierDuration;
                     }
 
-                    //if so, damage the enemy, start the slow timer and set it's interval, and destroy the bullet.
+                    //if so, damage and slow the enemy, and destroy the bullet.
                     target.CurrentHealth -= bullet.Damage;
-                    target.SpeedModifier = speedModifier;
-                    target.speedModifierTimer.Interval = modifierDuration;
-                    target.speedModifierTimer.Start();
+                    target.Slow(speedModifier, modifierDuration);
                     bullet.Kill();
                 }
                 // Removing bullet from the game. But not really.

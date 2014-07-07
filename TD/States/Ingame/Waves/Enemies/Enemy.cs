@@ -138,6 +138,13 @@ namespace Tower_Defence
             }
         }
 
+        public void Slow(float speedMod, float modifierDuration)
+        {
+            SpeedModifier = speedMod;
+            speedModifierTimer.Interval = modifierDuration;
+            speedModifierTimer.Start();
+        }
+
         //Resets the speed modifier Coefficient to a neutral 1;
         public void ResetSpeedModifier(object source, ElapsedEventArgs e)
         {
@@ -154,12 +161,7 @@ namespace Tower_Defence
             }
         }
     }
-
 }
-
-
-
-
 
 
 /*
