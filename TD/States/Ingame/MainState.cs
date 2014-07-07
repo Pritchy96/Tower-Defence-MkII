@@ -16,13 +16,13 @@ using Tower_Defence.Util;
         Level level = new Level();  //DEBUG
         Player player;
         WaveManager waveManager;
-        Tow_Basic test;  //DEBUG
+        Tow_Slow test;  //DEBUG
 
         public MainState(Manager manager) : base(manager) 
         {
             player = new Player(level);
             waveManager = new WaveManager(level, 10, Resources.En_Basic, Resources.Health_Bar, player);
-            test = new Tow_Basic(Resources.Tow_Basic, Resources.Tow_Basic, Resources.Bul_Basic, new Vector2(40, 240));
+            test = new Tow_Slow(Resources.Tow_Slow, Resources.Tow_Slow, Resources.Bul_Basic, new Vector2(40, 240));
             player.addTowerToList(test);
         }
 

@@ -46,6 +46,7 @@
   <ItemGroup>
     <Compile Include="States\Ingame\Towers\Tow_Basic.cs" />
     <Compile Include="States\Ingame\Towers\Bullet.cs" />
+    <Compile Include="States\Ingame\Towers\Tow_Slow.cs" />
     <Compile Include="States\Ingame\Waves\Enemies\Enemy.cs" />
     <Compile Include="States\Ingame\Level.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
@@ -81,7 +82,7 @@
       <DependentUpon>Screen.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
+      <Generator>PublicResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>

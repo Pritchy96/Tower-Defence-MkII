@@ -1,11 +1,11 @@
 ﻿04/07/14
-Transferred Graphics
+Transferred inital Graphics
 Implemented Drawing mechanics
 Completed conversion of Level Class
 Level loading is piss poor
 Implemented Enemy class
 Created a Vector2 class which emulates the one found in the XNA framework - Converted all instances of Points to Vector2's
-Redid Level loading clode so it runs, still needs work
+Redid Level loading code so it runs, still needs work to make it a nice system.
 
 05/07/14
 Imported more of the graphics: towers, bullets etc.
@@ -13,10 +13,15 @@ Implemented the wave, wavemanager, tower, basic tower, and bullet class.
 Wave class now works.
 Reorganised classes into a better file structure.
 Continued to develop the Vector2 class as it's functionality needed expansion.
-Implemented rotation code for bullets: Prettu sure it won't work.
+Implemented rotation code for bullets: Pretty sure it won't work.
 
-
-
+07/07/14
+Gun now rotates correctly.
+Bullets now travel in the correct direction.
+Began to impliment slow tower: Works, but does not slow.
+Bullets damage and kill enemies. Hard to tell without Healthbars.
+Slow tower now correctly slows enemies. Currently only targets enemies without a modifier attarched via a TEMP method.
+Need to remove this temp method and make it so it only targets enemies if it's modifier is better than the one currently affecting the enemy. 
 
 
 
@@ -29,11 +34,10 @@ Implemented rotation code for bullets: Prettu sure it won't work.
 
 
 TODO:
-Turrets need to aim (rotate graphically) and fire.
-Bullets need to damage and kill enemies
 Better wave spawning system: Player initialised waves, multiple waves onscreen etc.
 Transparency of images
 Proper image scaling
 Input
 Tower Upgrades
+Healthbars
 

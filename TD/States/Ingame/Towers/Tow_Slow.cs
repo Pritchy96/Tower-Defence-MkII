@@ -9,17 +9,24 @@ using Tower_Defence.Util;
 
 namespace Tower_Defence.States.Ingame.Towers
 {
-    public class Tow_Basic : Tower
+    public class Tow_Slow : Tower
     {
+        //How fast an enemy will move when hit.
+        private float speedModifier;
+        //How long the effect will last.
+        private float modifierDuration;
+
         //Constructor.
-        public Tow_Basic(Bitmap baseTexture, Bitmap upgradedTexture, Bitmap bulletTexture, Vector2 position)
+        public Tow_Slow(Bitmap baseTexture, Bitmap upgradedTexture, Bitmap bulletTexture, Vector2 position)
             : base(baseTexture, upgradedTexture, bulletTexture, position)    //Inheriting the Tower class & providing it's constructors.
         {
             //setting range, cost, damage.
-            this.damage = 1;
-            this.cost = 15;
+            this.damage = 0;
+            this.cost = 30;
             this.range = 120;
-            this.RoF = 100;
+            this.RoF = 500f;
+            this.speedModifier = 0.2f;
+            this.modifierDuration = 1000f;
 
             base.bulletTimer.Elapsed += fire;
         }
@@ -49,8 +56,19 @@ namespace Tower_Defence.States.Ingame.Towers
                 //Does the bullet get close enough to the enemy to consider it a hit?
                 if (target != null && Vector2.Distance(bullet.Center, target.Center) < 12)
                 {
-                    //if so, damage the enemy and destroy the bullet.
+
+                    //If the speed modifier is better than anything affecting the target, apply it.
+                    if (target.SpeedModifier <= speedModifier)
+                    {
+                        target.SpeedModifier = speedModifier;
+                        target.SpeedModifierDuration = modifierDuration;
+                    }
+
+                    //if so, damage the enemy, start the slow timer and set it's interval, and destroy the bullet.
                     target.CurrentHealth -= bullet.Damage;
+                    target.SpeedModifier = speedModifier;
+                    target.speedModifierTimer.Interval = modifierDuration;
+                    target.speedModifierTimer.Start();
                     bullet.Kill();
                 }
                 // Removing bullet from the game. But not really.
@@ -60,6 +78,19 @@ namespace Tower_Defence.States.Ingame.Towers
                     i--;
                 }
             }
+
+            #region Only targetting enemies without a modifier. TEMP
+            
+            if (target != null)
+            {
+                if (target.SpeedModifier != 1)
+                {
+                    target = null;
+                }
+            }
+             
+            #endregion
+
             base.Update();
         }
 
@@ -79,6 +110,3 @@ namespace Tower_Defence.States.Ingame.Towers
 
     }
 }
-
-
-

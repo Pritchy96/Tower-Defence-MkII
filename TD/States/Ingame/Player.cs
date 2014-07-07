@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Tower_Defence.States.Ingame;
+using Tower_Defence.Util;
 
 namespace Tower_Defence
 {
@@ -34,9 +35,9 @@ namespace Tower_Defence
         private int tileY;
 
         //Placing towers.
-        private Bitmap[,] towerTextures;
-        private Bitmap bulletTexture;
-        private Bitmap laserTexture;
+      //  private Bitmap[,] towerTextures;
+      //  private Bitmap bulletTexture;
+      //  private Bitmap laserTexture;
         private int newTowerIndex;  //index of the tower's texture.
         private string newTowerType;    //The type of tower to add.
         //The ranges of each tower. Is a bit naff, but there is no way to access
@@ -44,7 +45,7 @@ namespace Tower_Defence
         private float[] ranges = new float[] { 80, 100, 60 };
 
         //Selecting Towers
-        private Bitmap radiusTexture;
+       // private Bitmap radiusTexture;
         //     public Tower selectedTower;
 
         #region Properties.
@@ -85,7 +86,7 @@ namespace Tower_Defence
             this.level = level;
         }
 
-        /*
+
         //A method to check whether the cell is clear for tower placement
         private bool IsCellClear()
         {
@@ -111,6 +112,7 @@ namespace Tower_Defence
             return inBounds && spaceClear && onPath; //if these are all true, it will return true.
         }
 
+        /*
 
         //Adding new towers.
         public void AddTower()

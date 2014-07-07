@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Timers;
 using System.Windows.Forms;
 using Tower_Defence.Util;
 
@@ -12,7 +13,7 @@ namespace Tower_Defence
 {
     public class Enemy : Sprite
     {
-        
+
         private Queue<Vector2> waypoints = new Queue<Vector2>();
         //Variables used by all instances of Enemy.
         protected float startHealth;
@@ -21,11 +22,8 @@ namespace Tower_Defence
         protected float speed = 2f;
         protected int bountyGiven;
         //Slowing enemies
-        private float speedModifier;
-        private float speedModifierDuration;
-        private float speedModifierCurrentTime;
-
-        
+        private float speedModifier = 1f;
+        public System.Timers.Timer speedModifierTimer = new System.Timers.Timer();
 
         //Getters & Setters
         public float CurrentHealth
@@ -47,24 +45,25 @@ namespace Tower_Defence
         //Distance from next Waypoint.
         public float DistanceToDestination
         {
-            get { 
+            get
+            {
                 //Pythagoras to find distance from enemy position to next waypoint.
-                return (float) Math.Sqrt(((Math.Pow((position.X - waypoints.Peek().X), 2f)) + (Math.Pow((position.Y - waypoints.Peek().Y), 2f))));
+                return (float)Math.Sqrt(((Math.Pow((position.X - waypoints.Peek().X), 2f)) + (Math.Pow((position.Y - waypoints.Peek().Y), 2f))));
             }
         }
 
         public float SpeedModifier
         {
             get { return speedModifier; }
-            set { speedModifier = value;}
+            set { speedModifier = value; }
         }
 
         public float SpeedModifierDuration
         {
-            get { return speedModifier; }
-            set { 
-                speedModifierDuration = value;
-                speedModifierCurrentTime = 0;
+            get { return (float)speedModifierTimer.Interval; }
+            set
+            {
+                speedModifierTimer.Interval = value;
             }
         }
 
@@ -82,6 +81,7 @@ namespace Tower_Defence
             this.currentHealth = startHealth;
             this.bountyGiven = bountyGiven;
             this.speed = speed;
+            speedModifierTimer.Elapsed += ResetSpeedModifier;
         }
 
         //Getting the Waypoints from Level class.
@@ -93,7 +93,6 @@ namespace Tower_Defence
             this.position = this.waypoints.Dequeue();
         }
 
-        
         //Update loop.
         public override void Update()
         {
@@ -108,52 +107,43 @@ namespace Tower_Defence
                     position = waypoints.Peek();
                     waypoints.Dequeue();
                 }
-
-                    //Or if the distance to waypoint is greater than speed...
+                //Or if the distance to waypoint is greater than speed...
                 else
                 {
                     Vector2 direction = waypoints.Peek() - position;
-                    direction.Normalise();    
+                    direction.Normalise();
 
                     //Store the original speed of the enemy.
                     float temporarySpeed = speed;
 
-                   //Has the modifier (Slow gun) finished?
-                    if (speedModifierCurrentTime > speedModifierDuration)
-                    {
-                        //Rest the modifier.
-                        speedModifier = 0;
-                        speedModifierCurrentTime = 0;
-                    }
-
-                    /*
-                    if (speedModifier != 0 && speedModifierCurrentTime <= speedModifierDuration)
-                    {
-                        //Modify enemy speed
-                        temporarySpeed *= speedModifier;
-                        //Update modifier timer.
-                        speedModifierCurrentTime += (float)gameTime.ElapsedGameTime.TotalSeconds;
-                    }
-                     * */
+                    //Modify enemy speed
+                    temporarySpeed *= speedModifier;
 
                     //Calculate a vector for the enemy to move by.
                     velocity = Vector2.Multiply(direction, temporarySpeed);
 
                     position += velocity;
                 }
-            //If there are no more waypoints, it must be at the end of it's path, therefore remove it from the game/screen.
-            }  else 
-                {
-                   alive = false; 
-                }
-                
-
-            if (currentHealth <= 0) 
+                //If there are no more waypoints, it must be at the end of it's path, therefore remove it from the game/screen.
+            }
+            else
             {
                 alive = false;
-            }       
+            }
+
+
+            if (currentHealth <= 0)
+            {
+                alive = false;
+            }
         }
 
+        //Resets the speed modifier Coefficient to a neutral 1;
+        public void ResetSpeedModifier(object source, ElapsedEventArgs e)
+        {
+            speedModifier = 1f;
+            speedModifierTimer.Stop();
+        }
 
         //Drawing enemy.
         public override void Draw(PaintEventArgs e)
@@ -164,7 +154,7 @@ namespace Tower_Defence
             }
         }
     }
-    
+
 }
 
 
