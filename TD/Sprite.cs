@@ -61,30 +61,28 @@ namespace Tower_Defence
         }
 
 
-
-
-        private Bitmap rotateImage(Bitmap b, float angle)
+        /// <summary>
+        /// Rotates the image by angle.
+        /// </summary>
+        /// <param name="oldBitmap">The old bitmap.</param>
+        /// <param name="angle">The angle.</param>
+        /// <returns></returns>
+        private static Bitmap RotateImage(Image oldBitmap, float angle)
         {
-            //create a new empty bitmap to hold rotated image
-            Bitmap returnBitmap = new Bitmap(b.Width, b.Height);
-            //make a graphics object from the empty bitmap
-            Graphics g = Graphics.FromImage(returnBitmap);
-            //move rotation point to center of image
-            g.TranslateTransform((float)center.X, (float)center.Y);
-            //rotate
-            g.RotateTransform(angle);
-            //move image back
-            g.TranslateTransform(-(float)center.X, -(float)center.Y);
-            //draw passed in image onto graphics object
-            g.DrawImage(b, new Point(0, 0));
-            return returnBitmap;
+            var newBitmap = new Bitmap(oldBitmap.Width, oldBitmap.Height);
+            var graphics = Graphics.FromImage(newBitmap);
+            graphics.TranslateTransform((float)oldBitmap.Width / 2, (float)oldBitmap.Height / 2);
+            graphics.RotateTransform(angle);
+            graphics.TranslateTransform(-(float)oldBitmap.Width / 2, -(float)oldBitmap.Height / 2);
+            graphics.DrawImage(oldBitmap, new Point(0, 0));
+            return newBitmap;
         }
+
 
         //Initial Draw method
         public virtual void Draw(PaintEventArgs e)
         {
-            Bitmap textureToDraw = texture;
-            textureToDraw = rotateImage(texture, rotation);
+            Bitmap textureToDraw = RotateImage(texture, (float)(rotation *  (180/Math.PI)));
 
             e.Graphics.DrawImage(textureToDraw, (Point)position);
         }

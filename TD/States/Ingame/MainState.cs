@@ -23,12 +23,13 @@ using Tower_Defence.Util;
             player = new Player(level);
             waveManager = new WaveManager(level, 10, Resources.En_Basic, Resources.Health_Bar, player);
             test = new Tow_Basic(Resources.Tow_Basic, Resources.Tow_Basic, Resources.Bul_Basic, new Vector2(40, 240));
+            player.addTowerToList(test);
         }
 
         public override void Update()
         {
             waveManager.Update();
-            test.Update();
+            player.Update(waveManager.Enemies);
         }
 
         public override void MouseMoved(MouseEventArgs e)

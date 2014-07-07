@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Tower_Defence.States.Ingame;
 
 namespace Tower_Defence
 {
@@ -12,7 +13,7 @@ namespace Tower_Defence
         public int money = 300;
         public int lives = 30;
 
-        //private List<Tower> towers = new List<Tower>();
+        private List<Tower> towers = new List<Tower>();
 
         /*
         private MouseState currentMouseState; //The mouse state for the current Frame
@@ -21,7 +22,7 @@ namespace Tower_Defence
         KeyboardState currentKeyState;
         KeyboardState prevKeyState;
          * */
-       
+
         //Referencing the level we're on.
         private Level level;
 
@@ -40,11 +41,11 @@ namespace Tower_Defence
         private string newTowerType;    //The type of tower to add.
         //The ranges of each tower. Is a bit naff, but there is no way to access
         //the towers ranges when you are previewing a tower. 
-        private float[] ranges = new float[] {80, 100, 60};
+        private float[] ranges = new float[] { 80, 100, 60 };
 
         //Selecting Towers
         private Bitmap radiusTexture;
-   //     public Tower selectedTower;
+        //     public Tower selectedTower;
 
         #region Properties.
         public int Money
@@ -64,6 +65,13 @@ namespace Tower_Defence
         public int NewTowerIndex
         {
             set { newTowerIndex = value; }
+        }
+
+
+        //DEBUG
+        public void addTowerToList(Tower tow)
+        {
+            towers.Add(tow);
         }
 
         #endregion
@@ -200,10 +208,13 @@ namespace Tower_Defence
             }
         }
 
-        
+        */
+
         //Update loop
-        public void Update(GameTime gameTime, List<Enemy> enemies)
+        public void Update(List<Enemy> enemies)
         {
+
+            /*
             currentMouseState = Mouse.GetState();  //Set mousestate to state of mouse in this frame.
             currentKeyState = Keyboard.GetState(); //^
 
@@ -288,63 +299,64 @@ namespace Tower_Defence
                     RemoveTower(selectedTower);
                     selectedTower = null;
             }
+        */
 
-
-                //Updating the towers.
-                foreach (Tower tower in towers)
+            //Updating the towers.
+            foreach (Tower tower in towers)
+            {
+                //Giving the tower a target if it does not have one.
+                if (tower.HasTarget == false)
                 {
-                    //Giving the tower a target if it does not have one.
-                    if (tower.HasTarget == false)
-                    {
-                        tower.GetClosestEnemy(enemies);
-                    }
-
-                    tower.Update(gameTime);
+                    tower.GetClosestEnemy(enemies);
                 }
 
-                prevMouseState = currentMouseState; //Set Oldstate to the state of the previous frame.
-                prevKeyState = currentKeyState; //Set Oldstate to the state of the previous frame.
-        }
+                tower.Update();
+            }
+            /*
+                            prevMouseState = currentMouseState; //Set Oldstate to the state of the previous frame.
+                            prevKeyState = currentKeyState; //Set Oldstate to the state of the previous frame.
+                    }
 
 
         
 
-        //Drawing/Renering.
-        public void Draw(SpriteBatch spriteBatch)
-        {
-            Tower selectedTower = null;
+                    //Drawing/Renering.
+                    public void Draw(SpriteBatch spriteBatch)
+                    {
+                        Tower selectedTower = null;
 
-            foreach (Tower tower in towers)
-            {
-                //Drawing each tower.
-                tower.Draw(spriteBatch);
+                        foreach (Tower tower in towers)
+                        {
+                            //Drawing each tower.
+                            tower.Draw(spriteBatch);
 
-                //If the tower has been clicked on..
-                if (tower.Selected)
-                {
-                    //is has been selected.
-                    selectedTower = tower;
-                }
-           }
+                            //If the tower has been clicked on..
+                            if (tower.Selected)
+                            {
+                                //is has been selected.
+                                selectedTower = tower;
+                            }
+                       }
 
-            //We move this outside the loop so that the radius is drawn after all the towers have,
-            //therefore always being on top of all towers.
-            if (selectedTower != null)
-            {
-                //Calculating a rectangle from the range of the selected tower, to scale the radius texture to it.
-                Vector2 radiusPosition = selectedTower.Center - new Vector2(selectedTower.Range);
+                        //We move this outside the loop so that the radius is drawn after all the towers have,
+                        //therefore always being on top of all towers.
+                        if (selectedTower != null)
+                        {
+                            //Calculating a rectangle from the range of the selected tower, to scale the radius texture to it.
+                            Vector2 radiusPosition = selectedTower.Center - new Vector2(selectedTower.Range);
 
-                Rectangle radiusRect = new Rectangle(
-                (int)radiusPosition.X,
-                (int)radiusPosition.Y,
-                (int)selectedTower.Range * 2,
-                (int)selectedTower.Range * 2);
+                            Rectangle radiusRect = new Rectangle(
+                            (int)radiusPosition.X,
+                            (int)radiusPosition.Y,
+                            (int)selectedTower.Range * 2,
+                            (int)selectedTower.Range * 2);
 
-                //Drawing the towers range.
-                spriteBatch.Draw(radiusTexture, radiusRect, Color.White * 0.5f);
-            }
+                            //Drawing the towers range.
+                            spriteBatch.Draw(radiusTexture, radiusRect, Color.White * 0.5f);
+                        }
+                    }
+                     * */
         }
-         * */
     }
 }
 

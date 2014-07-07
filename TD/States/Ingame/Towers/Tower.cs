@@ -119,7 +119,7 @@ namespace Tower_Defence.States.Ingame
 
             //Loops through the enemies, if the current enemy is closer to the tower
             //than the last closest enemy, that is Set as the target. 
-            foreach (Enemy enemy in enemies)
+            foreach (Enemy enemy in enemies.ToList())
             {
                 if (Vector2.Distance(center, enemy.Center) < smallestRange)
                 {
@@ -167,6 +167,7 @@ namespace Tower_Defence.States.Ingame
                 {
                     //set target to nothing(null)
                     target = null;
+                    
                     //and restart the bullet timer. This seems to break slower shooting towers.
                     //bulletTimer = 0;
                 }

@@ -59,7 +59,7 @@ namespace Tower_Defence.States.Ingame
 
         public void SetRotation(float value)
         {
-            rotation = value;
+            rotation = (float)(value * (180/Math.PI));
 
             //Transform rotates the vector speed to have the same rotation as our tower.
      //       velocity = Vector2.Transform(new Vector2(0, -speed),

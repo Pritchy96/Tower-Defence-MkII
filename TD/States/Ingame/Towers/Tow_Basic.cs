@@ -18,7 +18,7 @@ namespace Tower_Defence.States.Ingame.Towers
             //setting range, cost, damage.
             this.damage = 1;
             this.cost = 15;
-            this.range = 80;
+            this.range = 120;
             this.RoF = 100;
 
             base.bulletTimer.Elapsed += fire;
