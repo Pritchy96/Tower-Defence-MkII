@@ -54,7 +54,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="States\Ingame\Player.cs" />
     <Compile Include="States\Ingame\Towers\Tower.cs" />
     <Compile Include="States\Ingame\Waves\Wave.cs" />
     <Compile Include="Util\Sprite.cs" />

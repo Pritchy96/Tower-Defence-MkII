@@ -11,7 +11,6 @@ namespace Tower_Defence.States.Ingame.Towers
 {
     public class Tow_Basic : Tower
     {
-        //Constructor.
         public Tow_Basic(Bitmap baseTexture, Bitmap upgradedTexture, Bitmap bulletTexture, Vector2 position)
             : base(baseTexture, upgradedTexture, bulletTexture, position)    //Inheriting the Tower class & providing it's constructors.
         {
@@ -21,15 +20,7 @@ namespace Tower_Defence.States.Ingame.Towers
             this.range = 120;
             this.RoF = 100;
 
-            base.bulletTimer.Elapsed += fire;
-        }
-
-        //Upgrading the towers values.
-        public override void Upgrade()
-        {
-            damage *= 2f;
-            range *= 1.1f;
-            base.Upgrade();
+            base.bulletTimer.Elapsed += Fire;
         }
 
         public override void Update()
@@ -63,7 +54,14 @@ namespace Tower_Defence.States.Ingame.Towers
             base.Update();
         }
 
-        public override void fire(Object source, ElapsedEventArgs e)
+        public override void Upgrade()
+        {
+            damage *= 2f;
+            range *= 1.1f;
+            base.Upgrade();
+        }
+
+        public override void Fire(Object source, ElapsedEventArgs e)
         {
             //If we have a target..
             if (target != null)

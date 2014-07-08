@@ -11,17 +11,15 @@ namespace Tower_Defence.States.Ingame
 {
     public class WaveManager
     {
-
+        #region Variables
         private int numberOfWaves; //How many waves in this level?
         private Queue<Wave> waves = new Queue<Wave>(); //A queue to hold our waves.
-
+        private System.Timers.Timer waveTimer = new System.Timers.Timer();  //Timer for waves
         private Bitmap enemyTexture; //Texture of enemy in the wave.
-        private Level level; //Reference to level.
-        private Player player;
+        private MainState mainState; //Reference to level.
+        #endregion
 
-        System.Timers.Timer waveTimer = new System.Timers.Timer();
-
-        //Getter && Setters/Properties.
+        #region Properties.
         public Wave CurrentWave    //Get current wave in Queue
         {
             get { return waves.Peek(); }
@@ -34,16 +32,14 @@ namespace Tower_Defence.States.Ingame
         {
             get { return CurrentWave.RoundNumber + 1; }
         }
+        #endregion
 
-
-        //Constructor
-        public WaveManager(Level level, int numberOfWaves, Bitmap enemyTexture,
-            Bitmap healthTexture, Player player)
+        public WaveManager(MainState mainState, int numberOfWaves, Bitmap enemyTexture,
+            Bitmap healthTexture)
         {
             this.numberOfWaves = numberOfWaves;
             this.enemyTexture = enemyTexture;
-            this.player = player;
-            this.level = level;
+            this.mainState = mainState;
 
             waveTimer.Interval = 5000;
             waveTimer.Elapsed += NewWave;
@@ -65,10 +61,9 @@ namespace Tower_Defence.States.Ingame
                 //Adds 2 to cashDrop every 6 waves.
                 int cashDropModifier = (i / 6) + 1;
 
-
                 //Initialising new wave.
-                Wave wave = new Wave(i, initalNumberOfEnemies * enemyNumberModifier, initalHealth * healthHumberModifier,
-                    cashDrop * cashDropModifier, level, enemyTexture, healthTexture, player);
+                Wave wave = new Wave(mainState, i, initalNumberOfEnemies * enemyNumberModifier, initalHealth * healthHumberModifier,
+                    cashDrop * cashDropModifier, enemyTexture, healthTexture);
 
                 //Adding wave to Queue.
                 waves.Enqueue(wave);
@@ -78,7 +73,6 @@ namespace Tower_Defence.States.Ingame
             waveTimer.Start();
         }
 
-        //Update loop.
         public void Update()
         {
             CurrentWave.Update();   //Update wave.
@@ -96,11 +90,9 @@ namespace Tower_Defence.States.Ingame
                 waves.Peek().Start();   //Start the next wave.
             }
 
-            waveTimer.Stop();
+            waveTimer.Stop();   //Stop timer for wait between waves.
         }
 
-
-        //Draw the wave
         public void Draw(PaintEventArgs e)
         {
             CurrentWave.Draw(e);
@@ -110,5 +102,5 @@ namespace Tower_Defence.States.Ingame
 
 
 
-      
+
 

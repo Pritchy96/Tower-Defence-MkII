@@ -12,7 +12,11 @@ namespace Tower_Defence
 {
     public class Level
     {
+        #region Variables
         private Queue<Vector2> waypoints = new Queue<Vector2>();
+        Bitmap[] textures = { Resources.Placeable_Tile, Resources.Top_Right, Resources.Bottom_Right, Resources.Top_Left, 
+                                Resources.Bottom_Left, Resources.Horizontal, Resources.Vertical, Resources.Cross };
+        public static int TileWidth = 40;
 
         #region Map Array Code
         int[,] map = 
@@ -35,11 +39,24 @@ namespace Tower_Defence
 
         };
         #endregion
+        #endregion
 
-        Bitmap[] textures = { Resources.Placeable_Tile, Resources.Top_Right, Resources.Bottom_Right, Resources.Top_Left, 
-                                Resources.Bottom_Left, Resources.Horizontal, Resources.Vertical, Resources.Cross };
+        #region Properties
+        public int Width
+        {
+            get { return map.GetLength(0); }
+        }
 
-        public static int TileWidth = 40;
+        public int Height
+        {
+            get { return map.GetLength(1); }
+        }
+
+        public Queue<Vector2> Waypoints
+        {
+            get { return waypoints; }
+        }
+        #endregion
 
         public Level()
         {
@@ -58,21 +75,6 @@ namespace Tower_Defence
         Vector2 MultiplyPoint(Vector2 point, int coefficient)
         {
             return new Vector2(point.X * coefficient, point.Y * coefficient);
-        }
-
-        public int Width
-        {
-            get { return map.GetLength(0); }
-        }
-
-        public int Height
-        {
-            get { return map.GetLength(1); }
-        }
-
-        public Queue<Vector2> Waypoints
-        {
-            get { return waypoints; }
         }
 
         public int GetIndex(int cellX, int cellY)
@@ -112,4 +114,3 @@ namespace Tower_Defence
 
 
 
-    

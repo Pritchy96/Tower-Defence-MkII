@@ -13,7 +13,7 @@ namespace Tower_Defence
 {
     public class Sprite
     {
-        //Shared variables.
+        #region Variables
         protected Bitmap texture;
         //world relative top corner
         protected Vector2 position;
@@ -23,10 +23,10 @@ namespace Tower_Defence
         //Object relative center
         protected Vector2 origin;
         protected float rotation;
-
         private Rectangle bounds;
+        #endregion
 
-        //Getters & Setters.
+        #region Properties
         public Vector2 Center
         {
             get { return center; }
@@ -41,20 +41,18 @@ namespace Tower_Defence
         {
             get { return bounds; }
         }
+        #endregion
 
         public Sprite(Bitmap tex, Vector2 pos)
         {
             texture = tex;
-
             position = pos;
             velocity = new Vector2(0, 0);
-
             center = new Vector2(position.X + (texture.Width / 2), position.Y + (texture.Height / 2));
             origin = new Vector2(texture.Width / 2, texture.Height / 2);
 
             //Initialize rectange to fit around the Sprite.
-            this.bounds = new Rectangle((int)position.X, (int)Position.Y,
-            texture.Width, texture.Height);
+            this.bounds = new Rectangle((int)position.X, (int)Position.Y, texture.Width, texture.Height);
         }
 
         public virtual void Update()
@@ -146,11 +144,9 @@ namespace Tower_Defence
             return newBitmap;
         }
 
-        //Initial Draw method
         public virtual void Draw(PaintEventArgs e)
         {
             Bitmap textureToDraw = RotateImage(texture, (float)(rotation * (180 / Math.PI)), false, true, Color.Transparent);
-
             e.Graphics.DrawImage(textureToDraw, new Rectangle((int)position.X, (int)position.Y, texture.Width, texture.Height));
         }
            

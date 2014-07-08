@@ -13,7 +13,7 @@ namespace Tower_Defence
 {
     public class Enemy : Sprite
     {
-
+        #region Variables
         private Queue<Vector2> waypoints = new Queue<Vector2>();
         //Variables used by all instances of Enemy.
         protected float startHealth;
@@ -22,10 +22,11 @@ namespace Tower_Defence
         protected float speed = 2f;
         protected int bountyGiven;
         //Slowing enemies
-        private float speedModifier = 1f;
-        public System.Timers.Timer speedModifierTimer = new System.Timers.Timer();
+        private float speedCoef = 1f;   //Speed Coefficient
+        public System.Timers.Timer speedModifierTimer = new System.Timers.Timer();  //Timer for speed change
+        #endregion
 
-        //Getters & Setters
+        #region Properties
         public float CurrentHealth
         {
             get { return currentHealth; }
@@ -52,10 +53,10 @@ namespace Tower_Defence
             }
         }
 
-        public float SpeedModifier
+        public float SpeedCoef
         {
-            get { return speedModifier; }
-            set { speedModifier = value; }
+            get { return speedCoef; }
+            set { speedCoef = value; }
         }
 
         public float SpeedModifierDuration
@@ -67,13 +68,12 @@ namespace Tower_Defence
             }
         }
 
-        // % Health.
         public float HealthPercentage
         {
             get { return (currentHealth / startHealth) * 100; }
         }
+        #endregion
 
-        //Constructor
         public Enemy(Bitmap texture, Vector2 position, float health, int bountyGiven, float speed)
             : base(texture, position)
         {
@@ -93,7 +93,6 @@ namespace Tower_Defence
             this.position = this.waypoints.Dequeue();
         }
 
-        //Update loop.
         public override void Update()
         {
             base.Update();
@@ -117,7 +116,7 @@ namespace Tower_Defence
                     float temporarySpeed = speed;
 
                     //Modify enemy speed
-                    temporarySpeed *= speedModifier;
+                    temporarySpeed *= speedCoef;
 
                     //Calculate a vector for the enemy to move by.
                     velocity = Vector2.Multiply(direction, temporarySpeed);
@@ -138,9 +137,9 @@ namespace Tower_Defence
             }
         }
 
-        public void Slow(float speedMod, float modifierDuration)
+        public void Slow(float speedCoef, float modifierDuration)
         {
-            SpeedModifier = speedMod;
+            this.SpeedCoef = speedCoef;
             speedModifierTimer.Interval = modifierDuration;
             speedModifierTimer.Start();
         }
@@ -148,11 +147,10 @@ namespace Tower_Defence
         //Resets the speed modifier Coefficient to a neutral 1;
         public void ResetSpeedModifier(object source, ElapsedEventArgs e)
         {
-            speedModifier = 1f;
+            speedCoef = 1f;
             speedModifierTimer.Stop();
         }
 
-        //Drawing enemy.
         public override void Draw(PaintEventArgs e)
         {
             if (alive)

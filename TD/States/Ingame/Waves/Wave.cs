@@ -11,23 +11,21 @@ namespace Tower_Defence
 {
     public class Wave
     {
+        #region Variables
+        private MainState mainState;
         private int numOfEnemies;   //Number of Enemies to spawn.
         private int waveNumber; //Wave number.
         private int health; //Enemies health.
         private int cashDrop; //How much money a creep drops.
         private int enemiesSpawned = 0;  //How many enimies have spawned.
         private System.Timers.Timer spawnTimer = new System.Timers.Timer(); //Timer to set time between creep spawns during a wave.
-
         private bool enemyAtEnd; //Has an enemy reached the end of the path?
-       // private bool spawningEnemies; //Are we still spawning enemies?
-        private Level level; //Level reference.
-        private Player player; //Level reference.
         private Bitmap enemyTexture; //Texture for the enemy.
         private Bitmap healthTexture; //a Texture for the health bar.
-        public List<Enemy> enemies = new List<Enemy>(); //List of Enemies
+        public List<Enemy> enemies = new List<Enemy>(); //List of Enemies in the wave
+        #endregion
 
-
-        //Getters and Setters.
+        #region Properties
         public bool RoundOver
         {
             get
@@ -45,25 +43,22 @@ namespace Tower_Defence
         public bool EnemyAtEnd
         {
             get { return enemyAtEnd; }
-            set {enemyAtEnd = value; }  //?
+            set { enemyAtEnd = value; }  //?
         }
 
         public List<Enemy> Enemies
         {
-            get {return enemies;}
+            get { return enemies; }
         }
+        #endregion
 
-
-        //Constructor.
-        public Wave(int waveNumber, int numOfEnemies, int health, int cashDrop, Level level,
-            Bitmap enemyTexture, Bitmap healthTexture, Player player)
+        public Wave(MainState mainState, int waveNumber, int numOfEnemies, int health, int cashDrop,
+            Bitmap enemyTexture, Bitmap healthTexture)
         {
             this.waveNumber = waveNumber;
             this.numOfEnemies = numOfEnemies;
 
-            //referencing player & level.
-            this.player = player;
-            this.level = level;
+            this.mainState = mainState;
 
             //Setting the parameters passed by waveManager to this classes variables.
             this.enemyTexture = enemyTexture;
@@ -76,31 +71,8 @@ namespace Tower_Defence
             spawnTimer.Interval = 500;
             //Subscribing to the spawn event.
             spawnTimer.Elapsed += Spawn;
-
-           // spawnTimer.Start(); //DEBUG
         }
 
-
-        //Beginning the wave.
-        public void Start()
-        {
-            spawnTimer.Start();
-        }
-
-
-        //Adding the enemies.
-        private void AddEnemy()
-        {
-            //Actually adding the enemy.
-            Enemy enemy = new Enemy(enemyTexture, level.Waypoints.Peek(), health, cashDrop, 2f);
-            //Set the waypoint of the enemy, so it knows where to go.
-            enemy.SetWaypoints(level.Waypoints);
-            //Add enemy to list.
-            enemies.Add(enemy);
-            enemiesSpawned++;   
-        }
-
-        //Update method.
         public void Update()
         {
             for (int i = 0; i < enemies.Count; i++)
@@ -115,12 +87,12 @@ namespace Tower_Defence
                     if (enemy.CurrentHealth > 0)
                     {
                         enemyAtEnd = true;
-                        player.Lives -= 1;
+                        mainState.Lives -= 1;
                     }
                     //Otherwise, we've killed it! Give some money!
                     else
                     {
-                        player.Money += enemy.BountyGiven;
+                        mainState.Money += enemy.BountyGiven;
                     }
 
                     enemies.Remove(enemy);
@@ -129,6 +101,21 @@ namespace Tower_Defence
             }
         }
 
+        public void Start()
+        {
+            spawnTimer.Start();
+        }
+
+        private void AddEnemy()
+        {
+            //Actually adding the enemy.
+            Enemy enemy = new Enemy(enemyTexture, mainState.level.Waypoints.Peek(), health, cashDrop, 2f);
+            //Set the waypoint of the enemy, so it knows where to go.
+            enemy.SetWaypoints(mainState.level.Waypoints);
+            //Add enemy to list.
+            enemies.Add(enemy);
+            enemiesSpawned++;
+        }
 
         private void Spawn(Object source, ElapsedEventArgs e)
         {
@@ -136,14 +123,12 @@ namespace Tower_Defence
             if (enemiesSpawned == numOfEnemies)
             {
                 spawnTimer.Stop();
-
             }
             else
             {
                 AddEnemy();
             }
         }
-
 
         public void Draw(PaintEventArgs e)
         {
@@ -176,7 +161,7 @@ namespace Tower_Defence
                 spriteBatch.Draw(healthTexture, healthRectangle, healthColor);
                  */
             }
-                                                                  
+
         }
     }
 }
@@ -184,4 +169,3 @@ namespace Tower_Defence
 
 
 
-        
