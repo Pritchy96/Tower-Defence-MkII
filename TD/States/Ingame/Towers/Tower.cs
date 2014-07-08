@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Timers;
 using System.Windows.Forms;
+using Tower_Defence.Properties;
 using Tower_Defence.Util;
 
 namespace Tower_Defence.States.Ingame
@@ -31,6 +32,7 @@ namespace Tower_Defence.States.Ingame
         protected float upgradeAlphaAmount = 0f;    //How transparent the colour overlay should be (1 = fully upgraded!)
         protected int upgradeTotal;
 
+        Bitmap radiusTex = Resources.Radius_Texture;
 
         #region Properties
 
@@ -184,6 +186,23 @@ namespace Tower_Defence.States.Ingame
             {
                 bullet.Draw(e);
             }
+
+            //Calculating a rectangle from the range, to scale the radius texture to it.
+            Vector2 radiusPosition = new Vector2(position.X + 20, position.Y + 20) - new Vector2(range);
+
+            Rectangle radiusRect = new Rectangle(
+            (int)radiusPosition.X,
+            (int)radiusPosition.Y,
+            (int)range * 2,
+            (int)range * 2);
+
+            radiusTex.MakeTransparent();
+            //Drawing the towers range.
+           // spriteBatch.Draw(radiusTexture, radiusRect, Color.White * 0.5f);
+
+            e.Graphics.DrawImage(radiusTex, radiusRect);
+
+
 
             base.Draw(e);
 

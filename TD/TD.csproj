@@ -57,7 +57,7 @@
     <Compile Include="States\Ingame\Player.cs" />
     <Compile Include="States\Ingame\Towers\Tower.cs" />
     <Compile Include="States\Ingame\Waves\Wave.cs" />
-    <Compile Include="Sprite.cs" />
+    <Compile Include="Util\Sprite.cs" />
     <Compile Include="States\BasicState.cs" />
     <Compile Include="DBPanel.cs">
       <SubType>Component</SubType>
@@ -65,7 +65,7 @@
     <Compile Include="DBPanel.Designer.cs">
       <DependentUpon>DBPanel.cs</DependentUpon>
     </Compile>
-    <Compile Include="Manager.cs" />
+    <Compile Include="States\Manager.cs" />
     <Compile Include="Screen.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -101,13 +101,13 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Notes.txt" />
-    <Content Include="Resources\Ingame\Enemies\En_Basic.bmp" />
+    <Content Include="Resources\Ingame\Enemies\En_Basic.png" />
+    <Content Include="Resources\Ingame\GUI\Toolbar.png" />
     <Content Include="Resources\Ingame\GUI\Tow_Basic\Tow_Basic_But_Hover.png" />
     <Content Include="Resources\Ingame\GUI\Tow_Basic\Tow_Basic_But_Normal.png" />
     <Content Include="Resources\Ingame\GUI\Tow_Slow\Tow_Slow_But_Hover.png" />
     <Content Include="Resources\Ingame\GUI\Tow_Slow\Tow_Slow_But_Normal.png" />
-    <Content Include="Resources\Ingame\GUI\Toolbar.bmp" />
-    <Content Include="Resources\Ingame\Health_Bar.bmp" />
+    <Content Include="Resources\Ingame\Health_Bar.png" />
     <Content Include="Resources\Ingame\Radius_Texture.png" />
     <Content Include="Resources\Ingame\Tiles\Bottom_Left.bmp" />
     <Content Include="Resources\Ingame\Tiles\Bottom_Right.bmp" />
@@ -117,10 +117,10 @@
     <Content Include="Resources\Ingame\Tiles\Top_Left.bmp" />
     <Content Include="Resources\Ingame\Tiles\Top_Right.bmp" />
     <Content Include="Resources\Ingame\Tiles\Vertical.bmp" />
+    <Content Include="Resources\Ingame\Towers\Basic\Bul_Basic.png" />
     <Content Include="Resources\Ingame\Towers\Basic\Tow_Basic.png" />
-    <Content Include="Resources\Ingame\Towers\Basic\Bul_Basic.bmp" />
     <Content Include="Resources\Ingame\Towers\Basic\Tow_Basic_Upgrade.png" />
-    <Content Include="Resources\Ingame\Towers\Slow\Bul_Slow.bmp" />
+    <Content Include="Resources\Ingame\Towers\Slow\Bul_Slow.png" />
     <Content Include="Resources\Ingame\Towers\Slow\Tow_Slow.png" />
     <Content Include="Resources\Ingame\Towers\Slow\Tow_Slow_Upgrade.png" />
     <Content Include="Resources\Menu\Menu_Background.png" />

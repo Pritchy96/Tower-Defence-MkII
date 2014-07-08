@@ -39,7 +39,7 @@ namespace Tower_Defence
         Bitmap[] textures = { Resources.Placeable_Tile, Resources.Top_Right, Resources.Bottom_Right, Resources.Top_Left, 
                                 Resources.Bottom_Left, Resources.Horizontal, Resources.Vertical, Resources.Cross };
 
-        private const int TileWidth = 40;
+        public static int TileWidth = 40;
 
         public Level()
         {
@@ -64,29 +64,15 @@ namespace Tower_Defence
         {
             get { return map.GetLength(0); }
         }
+
         public int Height
         {
             get { return map.GetLength(1); }
         }
+
         public Queue<Vector2> Waypoints
         {
             get { return waypoints; }
-        }
-
-        public void Draw(PaintEventArgs e)
-        {
-            
-            //Draw the tiles
-            for (int x = 0; x < Height; x++)
-            {
-                for (int y = 0; y < Width; y++)
-                {
-                    Bitmap tileTexture = textures[map[y, x]];
-
-                    Rectangle tileRectangle = new Rectangle(x * TileWidth, y * TileWidth, TileWidth, TileWidth);
-                    e.Graphics.DrawImage((Image)(tileTexture), tileRectangle);
-                }
-            }
         }
 
         public int GetIndex(int cellX, int cellY)
@@ -104,6 +90,22 @@ namespace Tower_Defence
                 {
                     return 0;
                 }
+        }
+
+        public void Draw(PaintEventArgs e)
+        {
+
+            //Draw the tiles
+            for (int x = 0; x < Height; x++)
+            {
+                for (int y = 0; y < Width; y++)
+                {
+                    Bitmap tileTexture = textures[map[y, x]];
+
+                    Rectangle tileRectangle = new Rectangle(x * TileWidth, y * TileWidth, TileWidth, TileWidth);
+                    e.Graphics.DrawImage((Image)(tileTexture), tileRectangle);
+                }
+            }
         }
     }
 }

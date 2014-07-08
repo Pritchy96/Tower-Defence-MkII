@@ -4,7 +4,9 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Tower_Defence.Properties;
 using Tower_Defence.States.Ingame;
+using Tower_Defence.States.Ingame.Towers;
 using Tower_Defence.Util;
 
 namespace Tower_Defence
@@ -15,14 +17,6 @@ namespace Tower_Defence
         public int lives = 30;
 
         private List<Tower> towers = new List<Tower>();
-
-        /*
-        private MouseState currentMouseState; //The mouse state for the current Frame
-        private MouseState prevMouseState; //The mouse state for the last Frame
-
-        KeyboardState currentKeyState;
-        KeyboardState prevKeyState;
-         * */
 
         //Referencing the level we're on.
         private Level level;
@@ -35,9 +29,6 @@ namespace Tower_Defence
         private int tileY;
 
         //Placing towers.
-      //  private Bitmap[,] towerTextures;
-      //  private Bitmap bulletTexture;
-      //  private Bitmap laserTexture;
         private int newTowerIndex;  //index of the tower's texture.
         private string newTowerType;    //The type of tower to add.
         //The ranges of each tower. Is a bit naff, but there is no way to access
@@ -54,20 +45,22 @@ namespace Tower_Defence
             get { return money; }
             set { money = value; }
         }
+
         public int Lives
         {
             get { return lives; }
             set { lives = value; }
         }
+
         public string NewTowerType
         {
             set { newTowerType = value; }
         }
+
         public int NewTowerIndex
         {
             set { newTowerIndex = value; }
         }
-
 
         //DEBUG
         public void addTowerToList(Tower tow)
@@ -77,15 +70,12 @@ namespace Tower_Defence
 
         #endregion
 
-
-
         //Constructor
         public Player(Level level)
         {
             //Setting the class variables to the Constructor Variables
             this.level = level;
         }
-
 
         //A method to check whether the cell is clear for tower placement
         private bool IsCellClear()
@@ -112,8 +102,24 @@ namespace Tower_Defence
             return inBounds && spaceClear && onPath; //if these are all true, it will return true.
         }
 
-        /*
+        //Adding new towers.
+        public void AddTower()
+        {
+            Tower towerToAdd = null;
 
+            towerToAdd = new Tow_Basic(Resources.Tow_Basic, Resources.Tow_Basic, Resources.Bul_Basic, new Vector2(80, 200));
+
+            //Only add tower if there is a free space and the player has enough money.
+            if (IsCellClear() && towerToAdd.Cost <= money)
+            {
+                //Add the tower to the list of towers.
+                towers.Add(towerToAdd);
+                //Deduct cost from money total.
+                money -= towerToAdd.Cost;
+            }
+        }
+
+       /*
         //Adding new towers.
         public void AddTower()
         {
@@ -165,6 +171,7 @@ namespace Tower_Defence
         }
 
 
+
         //Removing towers.
         public void RemoveTower(Tower towerToRemove)
         {
@@ -175,8 +182,7 @@ namespace Tower_Defence
             //Remove tower from the list (Stops it being drawn, shooting etc)
             towers.Remove(towerToRemove);
         }
-
-
+  
         //Draws a preview of the tower when dragging and dropping.
         public void DrawPreview(SpriteBatch spriteBatch)
         {

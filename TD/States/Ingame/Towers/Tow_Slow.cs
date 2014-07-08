@@ -23,7 +23,7 @@ namespace Tower_Defence.States.Ingame.Towers
             //setting range, cost, damage.
             this.damage = 0;
             this.cost = 30;
-            this.range = 120;
+            this.range = 80;
             this.RoF = 500f;
             this.speedModifier = 0.2f;
             this.modifierDuration = 1000f;

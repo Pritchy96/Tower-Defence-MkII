@@ -22,6 +22,12 @@ Began to impliment slow tower: Works, but does not slow.
 Bullets damage and kill enemies. Hard to tell without Healthbars.
 Slow tower now correctly slows enemies. Currently only targets enemies without a modifier attarched via a TEMP method.
 Need to remove this temp method and make it so it only targets enemies if it's modifier is better than the one currently affecting the enemy. 
+Began using a new rotation method that works without clipping.
+Transparency, Clipping, Scaling issues and all graphics related errors are now fixed.
+
+08/07/14
+Implimented a radius feature.
+
 
 
 
