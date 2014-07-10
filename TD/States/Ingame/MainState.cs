@@ -92,7 +92,7 @@ public class MainState : BasicState
     private bool IsCellClear()
     {
         //Make sure tower is within limits of screen.
-        bool inBounds = cellX >= 0 && cellY >= 0 && cellX < level.Width && cellY < level.Height;
+        bool inBounds = cellX >= 0 && cellY >= 0 && cellX <= level.Width && cellY <= level.Height;
 
         bool spaceClear = true;
 
@@ -120,7 +120,7 @@ public class MainState : BasicState
         towerToAdd = new Tow_Basic(Resources.Tow_Basic, Resources.Tow_Basic, Resources.Bul_Basic, new Vector2(tileX, tileY));
 
         //Only add tower if there is a free space and the player has enough money.
-        if (IsCellClear() && towerToAdd.Cost <= money)
+        if (IsCellClear())  // && towerToAdd.Cost <= money
         {
             //Add the tower to the list of towers.
             towers.Add(towerToAdd);
@@ -159,9 +159,8 @@ public class MainState : BasicState
         level.Draw(e);
         waveManager.Draw(e);
 
-        //DEBUG
-        test.Draw(e);
-        test2.Draw(e);
+        foreach (Tower t in towers)
+            t.Draw(e);
     }
 }
 

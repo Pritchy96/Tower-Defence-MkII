@@ -44,12 +44,12 @@ namespace Tower_Defence
         #region Properties
         public int Width
         {
-            get { return map.GetLength(0); }
+            get { return map.GetLength(1); }
         }
 
         public int Height
         {
-            get { return map.GetLength(1); }
+            get { return map.GetLength(0); }
         }
 
         public Queue<Vector2> Waypoints
@@ -98,9 +98,9 @@ namespace Tower_Defence
         {
 
             //Draw the tiles
-            for (int x = 0; x < Height; x++)
+            for (int x = 0; x < Width; x++)
             {
-                for (int y = 0; y < Width; y++)
+                for (int y = 0; y < Height; y++)
                 {
                     Bitmap tileTexture = textures[map[y, x]];
 

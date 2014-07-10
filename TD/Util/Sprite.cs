@@ -19,7 +19,7 @@ namespace Tower_Defence
         protected Vector2 position;
         protected Vector2 velocity;
         //World relative center
-        protected Vector2 center;
+        protected  Vector2 center;
         //Object relative center
         protected Vector2 origin;
         protected float rotation;
@@ -57,7 +57,7 @@ namespace Tower_Defence
 
         public virtual void Update()
         {
-            center = new Vector2(position.X + (texture.Width / 2), position.Y + (texture.Height / 2));
+                center = new Vector2(position.X + (texture.Width / 2), position.Y + (texture.Height / 2));
         }
 
         /// <summary>

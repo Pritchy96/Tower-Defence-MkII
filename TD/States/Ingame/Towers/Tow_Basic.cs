@@ -66,12 +66,16 @@ namespace Tower_Defence.States.Ingame.Towers
             //If we have a target..
             if (target != null)
             {
-                //create a bullet at the centre of the tower.
-                Bullet bullet = new Bullet(bulletTexture, center -
-                    new Vector2(bulletTexture.Width / 2), rotation, 20, damage);
+                lock (center)
+                {
+                    //create a bullet at the centre of the tower.
+                    Bullet bullet = new Bullet(bulletTexture, center -
+                        new Vector2(bulletTexture.Width / 2), rotation, 20, damage);
 
-                //Add bullet to list.
-                bulletList.Add(bullet);
+
+                    //Add bullet to list.
+                    bulletList.Add(bullet);
+                }
             }
         }
 

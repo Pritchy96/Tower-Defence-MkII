@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Timers;
 using Tower_Defence.Util;
@@ -95,12 +96,15 @@ namespace Tower_Defence.States.Ingame.Towers
             //If we have a target..
             if (target != null)
             {
-                //create a bullet at the centre of the tower.
-                Bullet bullet = new Bullet(bulletTexture, center -
-                    new Vector2(bulletTexture.Width / 2), rotation, 20, damage);
 
-                //Add bullet to list.
-                bulletList.Add(bullet);
+                Interlocked.Read(ref center.X);  // now value of a is become 8
+                    //create a bullet at the centre of the tower.
+                    Bullet bullet = new Bullet(bulletTexture, center -
+                        new Vector2(bulletTexture.Width / 2), rotation, 20, damage);
+
+                    //Add bullet to list.
+                    bulletList.Add(bullet);
+
             }
         }
 
