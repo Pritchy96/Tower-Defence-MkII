@@ -29,7 +29,6 @@ namespace Tower_Defence.States.Ingame
 
         protected Bitmap bulletTexture;  //Texture of the towers bullet.
         protected Bitmap upgradedTower;    //Texture for the upgraded tower (for the overlay, drawn here)
-        protected Bitmap radiusTex = Resources.Radius_Texture;
         #endregion
 
         #region Properties
@@ -179,18 +178,7 @@ namespace Tower_Defence.States.Ingame
                 bullet.Draw(e);
             }
 
-            //Calculating a rectangle from the range, to scale the radius texture to it.
-            Vector2 radiusPosition = new Vector2(position.X + 20, position.Y + 20) - new Vector2(range);
 
-            Rectangle radiusRect = new Rectangle(
-            (int)radiusPosition.X,
-            (int)radiusPosition.Y,
-            (int)range * 2,
-            (int)range * 2);
-
-            radiusTex.MakeTransparent();
-            //Drawing the towers range.
-            e.Graphics.DrawImage(radiusTex, radiusRect);
 
             base.Draw(e);
 

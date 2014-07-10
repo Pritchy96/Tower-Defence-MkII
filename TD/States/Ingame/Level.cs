@@ -19,7 +19,7 @@ namespace Tower_Defence
         public static int TileWidth = 40;
 
         #region Map Array Code
-        int[,] map = 
+        private static int[,] map = 
         {
             {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
             {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,5,5,1,0},
@@ -42,12 +42,12 @@ namespace Tower_Defence
         #endregion
 
         #region Properties
-        public int Width
+        public static int Width
         {
             get { return map.GetLength(1); }
         }
 
-        public int Height
+        public static int Height
         {
             get { return map.GetLength(0); }
         }

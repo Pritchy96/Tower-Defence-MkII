@@ -14,7 +14,7 @@ using Tower_Defence;
         //Positioning Rectangle for play button.
         Rectangle playButton = new Rectangle(
             Screen.WIDTH / 2 - (Resources.Menu_Play_But.Width / 2), 
-            Screen.HEIGHT / 2 - (Resources.Menu_Play_But.Height / 2),
+            Screen.HEIGHT - (Resources.Menu_Play_But.Height + 200),
             Resources.Menu_Play_But.Width, Resources.Menu_Play_But.Height);
 
         public MenuState(Manager manager) : base(manager) 

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,6 +18,7 @@ public class MainState : BasicState
     public int money = 300;
     public int lives = 30;
     private List<Tower> towers = new List<Tower>();
+    protected Bitmap radiusTex = Resources.Radius_Texture;
 
     //Variables for checking position of tower.
     private int cellX;
@@ -24,7 +26,9 @@ public class MainState : BasicState
     private int tileX;
     private int tileY;
 
-    //Placing towers.
+    //GUI
+    Toolbar toolbar;
+    //Placing Towers
     private int newTowerIndex;  //index of the tower's texture.
     private string newTowerType;    //The type of tower to add.
     //The ranges of each tower. Is a bit naff, but there is no way to access the towers ranges when you are previewing a tower. 
@@ -65,6 +69,8 @@ public class MainState : BasicState
         : base(manager)
     {
         waveManager = new WaveManager(this, 10, Resources.En_Basic, Resources.Health_Bar);
+        toolbar = new Toolbar(); 
+       
 
         //DEBUG
         test = new Tow_Slow(Resources.Tow_Slow, Resources.Tow_Slow, Resources.Bul_Basic, new Vector2(40, 200));
@@ -76,7 +82,7 @@ public class MainState : BasicState
     public override void Update()
     {
         //Updating each tower.
-        foreach (Tower tower in towers)
+        foreach (Tower tower in towers.ToList())
         {
             //Giving the tower a target if it does not have one.
             if (tower.HasTarget == false)
@@ -92,7 +98,7 @@ public class MainState : BasicState
     private bool IsCellClear()
     {
         //Make sure tower is within limits of screen.
-        bool inBounds = cellX >= 0 && cellY >= 0 && cellX <= level.Width && cellY <= level.Height;
+        bool inBounds = cellX >= 0 && cellY >= 0 && cellX < Level.Width && cellY < Level.Height;
 
         bool spaceClear = true;
 
@@ -158,9 +164,42 @@ public class MainState : BasicState
     {
         level.Draw(e);
         waveManager.Draw(e);
+        toolbar.Draw(e);
+
+        Tower selectedTower = null;
 
         foreach (Tower t in towers)
+        {
+            //Drawing each tower.
             t.Draw(e);
+
+            //If the tower has been clicked on..
+            if (t.Selected)
+            {
+                //is has been selected.
+                selectedTower = t;
+            }
+        }
+
+        //We move this outside the loop so that the radius is drawn after all the towers have,
+        //therefore always being on top of all towers.
+        if (selectedTower != null)
+        {
+            //Calculating a rectangle from the range, to scale the radius texture to it.
+            Vector2 radiusPosition = new Vector2(selectedTower.Position.X + 20, selectedTower.Position.Y + 20) - new Vector2(selectedTower.Range);
+
+            Rectangle radiusRect = new Rectangle(
+            (int)radiusPosition.X,
+            (int)radiusPosition.Y,
+            (int)selectedTower.Range * 2,
+            (int)selectedTower.Range * 2);
+
+            radiusTex.MakeTransparent();
+            //Drawing the towers range.
+            e.Graphics.DrawImage(radiusTex, radiusRect);
+        }
+
+
     }
 }
 
