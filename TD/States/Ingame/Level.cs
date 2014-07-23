@@ -97,7 +97,7 @@ namespace Tower_Defence
         public void Draw(PaintEventArgs e)
         {
 
-            //Draw the tiles
+            //Redraw the tiles
             for (int x = 0; x < Width; x++)
             {
                 for (int y = 0; y < Height; y++)

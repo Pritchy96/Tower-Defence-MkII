@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Timers;
+using Tower_Defence.Properties;
 using Tower_Defence.Util;
 
 namespace Tower_Defence.States.Ingame.Towers
@@ -17,8 +18,8 @@ namespace Tower_Defence.States.Ingame.Towers
         //How long the effect will last.
         private float modifierDuration;
 
-        public Tow_Slow(Bitmap baseTexture, Bitmap upgradedTexture, Bitmap bulletTexture, Vector2 position)
-            : base(baseTexture, upgradedTexture, bulletTexture, position)    //Inheriting the Tower class & providing it's constructors.
+        public Tow_Slow(Vector2 position)
+            : base(Resources.Tow_Slow, Resources.Tow_Slow_Upgrade, Resources.Bul_Basic, position)    //Inheriting the Tower class & providing it's constructors.
         {
             //setting range, cost, damage.
             this.damage = 0;

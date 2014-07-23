@@ -29,6 +29,17 @@ Transparency, Clipping, Scaling issues and all graphics related errors are now f
 Implimented a radius feature.
 
 
+12/07/14
+Integrated Player.cs into Mainstate.cs: it was superflurous to have them seperate.
+Implimented a basic Toolbar graphic.
+
+23/07/14
+Implimented the upgrade tower visual code: need to find a way of setting Opacity in the Tower class, current method does not work.
+Altered tower code so that the graphics are not required to be passed to a tower when it is created.
+Began to impliment a GUI Input system.
+Renamed classes to conform to the X_Y_Z.cs name structure.
+Changed State Changing from accessing a property to a method - this allows the buttons list to be automatically cleared when changing a state.
+Converted Play button on MainMenu to use the new system.
 
 
 
@@ -41,8 +52,6 @@ Implimented a radius feature.
 
 TODO:
 Better wave spawning system: Player initialised waves, multiple waves onscreen etc.
-Transparency of images
-Proper image scaling
 Input
 Tower Upgrades
 Healthbars

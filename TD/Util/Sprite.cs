@@ -138,24 +138,140 @@ namespace Tower_Defence
                 graphicsObject.RotateTransform(angleDegrees);
                 graphicsObject.TranslateTransform(-oldWidth / 2f, -oldHeight / 2f);
 
-                // Draw the result 
+                // Redraw the result 
                 graphicsObject.DrawImage(inputImage, 0, 0);
             }
             return newBitmap;
         }
 
-        public virtual void Draw(PaintEventArgs e)
+        /*
+        public Image SetImageOpacity(Image image, float opacity)
+        {
+            try
+            {
+                //create a Bitmap the size of the image provided  
+                Bitmap bmp = new Bitmap(image.Width, image.Height);
+
+                //create a graphics object from the image  
+                using (Graphics gfx = Graphics.FromImage(bmp))
+                {
+
+                    //create a color matrix object  
+                    ColorMatrix matrix = new ColorMatrix();
+
+                    //set the opacity  
+                    matrix.Matrix33 = opacity;
+
+                    //create image attributes  
+                    ImageAttributes attributes = new ImageAttributes();
+
+                    //set the color(opacity) of the image  
+                    attributes.SetColorMatrix(matrix, ColorMatrixFlag.Default, ColorAdjustType.Bitmap);
+
+                    //now draw the image  
+                    gfx.DrawImage(image, new Rectangle(0, 0, bmp.Width, bmp.Height), 0, 0, image.Width, image.Height, GraphicsUnit.Pixel, attributes);
+                }
+                return bmp;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                return null;
+            }
+        }
+
+
+        private const int bytesPerPixel = 4;
+
+        /// <summary>
+        /// Change the opacity of an image
+        /// </summary>
+        /// <param name="originalImage">The original image</param>
+        /// <param name="opacity">Opacity, where 1.0 is no opacity, 0.0 is full transparency</param>
+        /// <returns>The changed image</returns>
+        public static Image SetImageOpacity(Image originalImage, double opacity)
+        {
+            if ((originalImage.PixelFormat & PixelFormat.Indexed) == PixelFormat.Indexed)
+            {
+                // Cannot modify an image with indexed colors
+                return originalImage;
+            }
+
+            Bitmap bmp = (Bitmap)originalImage.Clone();
+
+            // Specify a pixel format.
+            PixelFormat pxf = PixelFormat.Format32bppArgb;
+
+            // Lock the bitmap's bits.
+            Rectangle rect = new Rectangle(0, 0, bmp.Width, bmp.Height);
+            BitmapData bmpData = bmp.LockBits(rect, ImageLockMode.ReadWrite, pxf);
+
+            // Get the address of the first line.
+            IntPtr ptr = bmpData.Scan0;
+
+            // Declare an array to hold the bytes of the bitmap.
+            // This code is specific to a bitmap with 32 bits per pixels 
+            // (32 bits = 4 bytes, 3 for RGB and 1 byte for alpha).
+            int numBytes = bmp.Width * bmp.Height * bytesPerPixel;
+            byte[] argbValues = new byte[numBytes];
+
+            // Copy the ARGB values into the array.
+            System.Runtime.InteropServices.Marshal.Copy(ptr, argbValues, 0, numBytes);
+
+            // Manipulate the bitmap, such as changing the
+            // RGB values for all pixels in the the bitmap.
+            for (int counter = 0; counter < argbValues.Length; counter += bytesPerPixel)
+            {
+                // argbValues is in format BGRA (Blue, Green, Red, Alpha)
+
+                // If 100% transparent, skip pixel
+                if (argbValues[counter + bytesPerPixel - 1] == 0)
+                    continue;
+
+                int pos = 0;
+                pos++; // B value
+                pos++; // G value
+                pos++; // R value
+
+                argbValues[counter + pos] = (byte)(argbValues[counter + pos] * opacity);
+            }
+
+            // Copy the ARGB values back to the bitmap
+            System.Runtime.InteropServices.Marshal.Copy(argbValues, 0, ptr, numBytes);
+
+            // Unlock the bits.
+            bmp.UnlockBits(bmpData);
+
+            return bmp;
+        }
+        */
+
+        public static Bitmap SetImageOpacity(Image img, float opacityvalue)
+        {
+            Bitmap bmp = new Bitmap(img.Width, img.Height); // Determining Width and Height of Source Image
+            Graphics graphics = Graphics.FromImage(bmp);
+            ColorMatrix colormatrix = new ColorMatrix();
+            colormatrix.Matrix33 = opacityvalue;
+            ImageAttributes imgAttribute = new ImageAttributes();
+            imgAttribute.SetColorMatrix(colormatrix, ColorMatrixFlag.Default, ColorAdjustType.Bitmap);
+            graphics.DrawImage(img, new Rectangle(0, 0, bmp.Width, bmp.Height), 0, 0, img.Width, img.Height, GraphicsUnit.Pixel, imgAttribute);
+            graphics.Dispose();   // Releasing all resource used by graphics 
+            return bmp;
+        }
+
+        public virtual void Redraw(PaintEventArgs e)
         {
             Bitmap textureToDraw = RotateImage(texture, (float)(rotation * (180 / Math.PI)), false, true, Color.Transparent);
             e.Graphics.DrawImage(textureToDraw, new Rectangle((int)position.X, (int)position.Y, texture.Width, texture.Height));
         }
            
-        /*'Tinted' Draw function, override.
-        public virtual void Draw(SpriteBatch spriteBatch, Color color)
+        /*Tinted' Redraw function, override.
+        public virtual void Redraw(PaintEventArgs e, Color color)
         {
-            spriteBatch.Draw(texture, center, null, color, rotation, origin, 1.0f, SpriteEffects.None, 0);
+            spriteBatch.Redraw(texture, center, null, color, rotation, origin, 1.0f, SpriteEffects.None, 0);
         }
          * */
+         
     }
 }
 

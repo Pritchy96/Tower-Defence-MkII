@@ -5,14 +5,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Timers;
+using Tower_Defence.Properties;
 using Tower_Defence.Util;
 
 namespace Tower_Defence.States.Ingame.Towers
 {
     public class Tow_Basic : Tower
     {
-        public Tow_Basic(Bitmap baseTexture, Bitmap upgradedTexture, Bitmap bulletTexture, Vector2 position)
-            : base(baseTexture, upgradedTexture, bulletTexture, position)    //Inheriting the Tower class & providing it's constructors.
+        public Tow_Basic(Vector2 position)
+            : base(Resources.Tow_Basic, Resources.Tow_Basic_Upgrade, Resources.Bul_Basic, position)    //Inheriting the Tower class & providing it's constructors.
         {
             //setting range, cost, damage.
             this.damage = 1;

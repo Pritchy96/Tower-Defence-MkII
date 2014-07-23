@@ -151,11 +151,11 @@ namespace Tower_Defence
             speedModifierTimer.Stop();
         }
 
-        public override void Draw(PaintEventArgs e)
+        public override void Redraw(PaintEventArgs e)
         {
             if (alive)
             {
-                base.Draw(e);
+                base.Redraw(e);
             }
         }
     }
@@ -164,7 +164,7 @@ namespace Tower_Defence
 
 /*
         //Tinting the Enemys colour when damaged.
-        public override void Draw(SpriteBatch spriteBatch)
+        public override void Redraw(SpriteBatch spriteBatch)
         {
             if (alive)
             {
@@ -174,7 +174,7 @@ namespace Tower_Defence
                 Color color = new Color(new Vector3(1 - healthPercentage, 
                     1 - healthPercentage, 1 - healthPercentage));
 
-                base.Draw(spriteBatch, color);
+                base.Redraw(spriteBatch, color);
             }
         }
 */

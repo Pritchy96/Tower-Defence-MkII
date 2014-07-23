@@ -23,7 +23,7 @@ namespace Tower_Defence.States.Ingame
         protected bool selected;    //Is the tower clicked?
         protected int maxLevel = 5;     //Maximum level of the tower.
         protected int upgradeLevel = 0;     //The actual level the tower is
-        protected float upgradeAlphaAmount = 0f;    //How transparent the colour overlay should be (1 = fully upgraded!)
+        protected float upgradeAlphaAmount = 200f;    //How transparent the colour overlay should be (1 = fully upgraded!)
         protected int upgradeTotal;
         protected List<Bullet> bulletList = new List<Bullet>();    //List of bullets.
 
@@ -171,19 +171,22 @@ namespace Tower_Defence.States.Ingame
         public abstract void Fire(Object source, ElapsedEventArgs e);
 
         //Drawing.
-        public override void Draw(PaintEventArgs e)
+        public override void Redraw(PaintEventArgs e)
         {
             foreach (Bullet bullet in bulletList)
             {
-                bullet.Draw(e);
+                bullet.Redraw(e);
             }
 
+           // base.Redraw(e);
 
-
-            base.Draw(e);
-
+            Bitmap overlay = new Bitmap(upgradedTower);
             //Drawing the colour Upgrade Overlay TODO
-            // spriteBatch.Draw(upgradedTower, center, null, Color.White * upgradeAlphaAmount, rotation, origin, 1.0f, SpriteEffects.None, 0);
+            overlay = RotateImage(overlay, (float)(rotation * (180 / Math.PI)), false, true, Color.Transparent);
+            SetImageOpacity(overlay, upgradeAlphaAmount);
+            
+            e.Graphics.DrawImage(overlay, new Rectangle((int)position.X, (int)position.Y, texture.Width, texture.Height));
+            // spriteBatch.Redraw(upgradedTower, center, null, Color.White * upgradeAlphaAmount, rotation, origin, 1.0f, SpriteEffects.None, 0);
         }
     }
 }

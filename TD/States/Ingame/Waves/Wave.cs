@@ -12,7 +12,7 @@ namespace Tower_Defence
     public class Wave
     {
         #region Variables
-        private MainState mainState;
+        private Main_State mainState;
         private int numOfEnemies;   //Number of Enemies to spawn.
         private int waveNumber; //Wave number.
         private int health; //Enemies health.
@@ -52,7 +52,7 @@ namespace Tower_Defence
         }
         #endregion
 
-        public Wave(MainState mainState, int waveNumber, int numOfEnemies, int health, int cashDrop,
+        public Wave(Main_State mainState, int waveNumber, int numOfEnemies, int health, int cashDrop,
             Bitmap enemyTexture, Bitmap healthTexture)
         {
             this.waveNumber = waveNumber;
@@ -134,7 +134,7 @@ namespace Tower_Defence
         {
             foreach (Enemy enemy in enemies)
             {
-                enemy.Draw(e);
+                enemy.Redraw(e);
 
                 //Drawing the background of the healthbar.
                 Rectangle healthRectangle = new Rectangle((int)enemy.Position.X,
@@ -158,7 +158,7 @@ namespace Tower_Defence
 
                 //Creating the colour blend and then drawing the forground of the healthbar.
                 Color healthColor = new Color(red, green, 0);
-                spriteBatch.Draw(healthTexture, healthRectangle, healthColor);
+                spriteBatch.Redraw(healthTexture, healthRectangle, healthColor);
                  */
             }
 
