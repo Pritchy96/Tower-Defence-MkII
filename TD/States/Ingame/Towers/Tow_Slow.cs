@@ -18,8 +18,9 @@ namespace Tower_Defence.States.Ingame.Towers
         //How long the effect will last.
         private float modifierDuration;
 
-        public Tow_Slow(Vector2 position)
-            : base(Resources.Tow_Slow, Resources.Tow_Slow_Upgrade, Resources.Bul_Basic, position)    //Inheriting the Tower class & providing it's constructors.
+        //For placing towers: No position
+        public Tow_Slow()
+            : base(Resources.Tow_Slow, Resources.Tow_Slow_Upgrade, Resources.Bul_Basic)    //Inheriting the Tower class & providing it's constructors.
         {
             //setting range, cost, damage.
             this.damage = 0;
@@ -29,7 +30,7 @@ namespace Tower_Defence.States.Ingame.Towers
             this.modiferCoef = 0.2f;
             this.modifierDuration = 1000f;
 
-            base.bulletTimer.Elapsed += Fire;
+            base.BulletTimer.Elapsed += Fire;
         }
 
         public override void Update()

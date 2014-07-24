@@ -19,7 +19,7 @@ namespace Tower_Defence
         protected Vector2 position;
         protected Vector2 velocity;
         //World relative center
-        protected  Vector2 center;
+        protected Vector2 center;
         //Object relative center
         protected Vector2 origin;
         protected float rotation;
@@ -35,6 +35,7 @@ namespace Tower_Defence
         public Vector2 Position
         {
             get { return position; }
+            set { position = value; }
         }
 
         public Rectangle Bounds
@@ -55,9 +56,15 @@ namespace Tower_Defence
             this.bounds = new Rectangle((int)position.X, (int)Position.Y, texture.Width, texture.Height);
         }
 
+        public Sprite(Bitmap tex)
+        {
+            texture = tex;
+        }
+
+
         public virtual void Update()
         {
-                center = new Vector2(position.X + (texture.Width / 2), position.Y + (texture.Height / 2));
+            center = new Vector2(position.X + (texture.Width / 2), position.Y + (texture.Height / 2));
         }
 
         /// <summary>
@@ -264,18 +271,18 @@ namespace Tower_Defence
             Bitmap textureToDraw = RotateImage(texture, (float)(rotation * (180 / Math.PI)), false, true, Color.Transparent);
             e.Graphics.DrawImage(textureToDraw, new Rectangle((int)position.X, (int)position.Y, texture.Width, texture.Height));
         }
-           
+
         /*Tinted' Redraw function, override.
         public virtual void Redraw(PaintEventArgs e, Color color)
         {
             spriteBatch.Redraw(texture, center, null, color, rotation, origin, 1.0f, SpriteEffects.None, 0);
         }
          * */
-         
+
     }
 }
 
 
 
 
-    
+

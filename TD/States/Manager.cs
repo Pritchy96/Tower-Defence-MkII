@@ -8,7 +8,7 @@ using Tower_Defence.Util;
 
 public class Manager
 {
-     #region Variables
+    #region Variables
     private Basic_State currentState;
     private List<GUI_Button> buttons = new List<GUI_Button>();
     #endregion
@@ -28,7 +28,7 @@ public class Manager
 
     public Manager()
     {
-        currentState = new Menu_State(this);
+        ChangeState(new Menu_State(this));
     }
 
     public void Update()
@@ -40,6 +40,8 @@ public class Manager
     {
         buttons.Clear();
         currentState = newState;
+        currentState.CreateGUI();
+        
     }
 
     public void MouseMoved(MouseEventArgs e)

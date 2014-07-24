@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Tower_Defence;
 using Tower_Defence.Properties;
+using Tower_Defence.States;
 using Tower_Defence.States.Ingame;
 using Tower_Defence.States.Ingame.Towers;
 using Tower_Defence.Util;
@@ -27,18 +28,14 @@ public class Main_State : Basic_State
     private int tileY;
 
     //GUI
-    Toolbar toolbar;
+    private GUI_Toolbar toolbar;
+    
     //Placing Towers
-    private int newTowerIndex;  //index of the tower's texture.
-    private string newTowerType;    //The type of tower to add.
-    //The ranges of each tower. Is a bit naff, but there is no way to access the towers ranges when you are previewing a tower. 
-    private float[] ranges = new float[] { 80, 100, 60 };
+    private Tower towerToAdd;
 
     public Wave_Manager waveManager;
 
     public Level level = new Level();  //DEBUG
-    Tow_Slow test;  //DEBUG
-    Tow_Basic test2;  //DEBUG
     #endregion
 
     #region Properties
@@ -54,14 +51,9 @@ public class Main_State : Basic_State
         set { lives = value; }
     }
 
-    public string NewTowerType
+    public Tower TowerToAdd
     {
-        set { newTowerType = value; }
-    }
-
-    public int NewTowerIndex
-    {
-        set { newTowerIndex = value; }
+        set {towerToAdd = value; }
     }
     #endregion
 
@@ -69,14 +61,14 @@ public class Main_State : Basic_State
         : base(manager)
     {
         waveManager = new Wave_Manager(this, 10, Resources.En_Basic, Resources.Health_Bar);
-        toolbar = new Toolbar(); 
-       
+        
+    }
 
-        //DEBUG
-        test = new Tow_Slow(new Vector2(40, 200));
-        test2 = new Tow_Basic(new Vector2(80, 200));
-        towers.Add(test);
-        towers.Add(test2);
+    //This must be called after the class is created as the buttons are cleared after that.
+    public override void CreateGUI()
+    {
+        toolbar = new GUI_Toolbar();
+        manager.Buttons.Add(new GUI_Basic_Tow_But(this));
     }
 
     public override void Update()
@@ -113,7 +105,7 @@ public class Main_State : Basic_State
         }
 
         //Check to make sure the position selected is not on a path
-        //(remember if it = 1, it's a path tile, if it's 0, it's grass, etc)
+        //(remember if it = 1, it's a path tile, if it's 0, it's not)
         bool onPath = (level.GetIndex(cellX, cellY) == 0);
 
         return inBounds && spaceClear && onPath; //if these are all true, it will return true.
@@ -121,17 +113,15 @@ public class Main_State : Basic_State
 
     public void AddTower()
     {
-        Tower towerToAdd = null;
-
-        towerToAdd = new Tow_Basic(new Vector2(tileX, tileY));
-
         //Only add tower if there is a free space and the player has enough money.
         if (IsCellClear())  // && towerToAdd.Cost <= money
         {
-            //Add the tower to the list of towers.
+            //Making the tower real: giving it a position and adding it to the tower list.
+            towerToAdd.Position = new Vector2(tileX, tileY);
             towers.Add(towerToAdd);
             //Deduct cost from money total.
             money -= towerToAdd.Cost;
+            towerToAdd = null;
         }
     }
 
@@ -157,7 +147,47 @@ public class Main_State : Basic_State
 
     public override void MouseClicked(MouseEventArgs e)
     {
-        AddTower();
+                //Adding a tower to the position clicked as long as a tower is being placed 
+                //(isCellClear is handled in the add tower method).
+                if (towerToAdd != null)
+                {
+                    AddTower();
+                }
+                    //if there is a tower clicked..
+                    /*
+                else
+                {
+                    //Deselecting towers.
+                    if (selectedTower != null)
+                    {
+                        // If the selected tower does not contain the mouse and there is a click, 
+                        //unselect it.
+                        if (selectedTower.Bounds.Contains(currentMouseState.X, currentMouseState.Y) == false)
+                        {
+                            selectedTower.Selected = false;
+                            selectedTower = null;
+                        }
+                    }
+
+                    //If a tower is found to be selected, skip the rest of the loop.
+                    foreach (Tower tower in towers)
+                    {
+                        if (tower == selectedTower)
+                        {
+                            continue;
+                        }
+
+                        //If the tower contains the mouse, it is the selected tower.
+                        if (tower.Bounds.Contains(currentMouseState.X, currentMouseState.Y))
+                        {
+                            selectedTower = tower;
+                            tower.Selected = true;
+                        }
+                    }
+                }
+                     */
+
+      //  AddTower(new Tow_Basic(new Vector2(tileX, tileY)));
     }
 
     public override void Redraw(PaintEventArgs e)
@@ -198,8 +228,6 @@ public class Main_State : Basic_State
             //Drawing the towers range.
             e.Graphics.DrawImage(radiusTex, radiusRect);
         }
-
-
     }
 }
 
@@ -240,7 +268,8 @@ public class Main_State : Basic_State
              }
      }
 
-     //Only add tower if there is a free space and the player has enough jewgolds.
+     //Only add tower if there is a free space and the player has enough money
+ * 
      if (IsCellClear() && towerToAdd.Cost <= money)
      {
          //Add the tower to the list of towers.
@@ -261,7 +290,6 @@ public class Main_State : Basic_State
      }
  }
 */
-
 /*
        
   
@@ -390,7 +418,6 @@ public class Main_State : Basic_State
                     selectedTower = null;
             }
         */
-
 /*
                 prevMouseState = currentMouseState; //Set Oldstate to the state of the previous frame.
                 prevKeyState = currentKeyState; //Set Oldstate to the state of the previous frame.

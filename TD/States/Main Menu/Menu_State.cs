@@ -12,8 +12,11 @@ using Tower_Defence.States.Main_Menu;
 
     class Menu_State : Basic_State
     {
-
         public Menu_State(Manager manager) : base(manager) 
+        {  
+        }
+
+        public override void CreateGUI()
         {
             manager.Buttons.Add(new GUI_Play_But(manager));
         }

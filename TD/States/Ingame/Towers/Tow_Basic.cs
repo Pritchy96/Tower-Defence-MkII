@@ -12,8 +12,9 @@ namespace Tower_Defence.States.Ingame.Towers
 {
     public class Tow_Basic : Tower
     {
-        public Tow_Basic(Vector2 position)
-            : base(Resources.Tow_Basic, Resources.Tow_Basic_Upgrade, Resources.Bul_Basic, position)    //Inheriting the Tower class & providing it's constructors.
+        //For placing towers: No position
+        public Tow_Basic()
+            : base(Resources.Tow_Basic, Resources.Tow_Basic_Upgrade, Resources.Bul_Basic)    //Inheriting the Tower class & providing it's constructors.
         {
             //setting range, cost, damage.
             this.damage = 1;
@@ -21,7 +22,7 @@ namespace Tower_Defence.States.Ingame.Towers
             this.range = 120;
             this.RoF = 100;
 
-            base.bulletTimer.Elapsed += Fire;
+            base.BulletTimer.Elapsed += Fire;
         }
 
         public override void Update()

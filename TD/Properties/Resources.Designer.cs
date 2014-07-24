@@ -113,6 +113,16 @@ namespace Tower_Defence.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        public static System.Drawing.Bitmap GUI_Toolbar {
+            get {
+                object obj = ResourceManager.GetObject("GUI_Toolbar", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         public static System.Drawing.Bitmap Health_Bar {
             get {
                 object obj = ResourceManager.GetObject("Health_Bar", resourceCulture);
@@ -166,16 +176,6 @@ namespace Tower_Defence.Properties {
         public static System.Drawing.Bitmap Radius_Texture {
             get {
                 object obj = ResourceManager.GetObject("Radius_Texture", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap Toolbar {
-            get {
-                object obj = ResourceManager.GetObject("Toolbar", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

@@ -44,7 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="States\Ingame\Toolbar.cs" />
+    <Compile Include="States\Ingame\GUI\GUI_Toolbar.cs" />
     <Compile Include="States\Ingame\Towers\Tow_Basic.cs" />
     <Compile Include="States\Ingame\Towers\Bullet.cs" />
     <Compile Include="States\Ingame\Towers\Tow_Slow.cs" />
@@ -57,6 +57,7 @@
     </Compile>
     <Compile Include="States\Ingame\Towers\Tower.cs" />
     <Compile Include="States\Ingame\Waves\Wave.cs" />
+    <Compile Include="States\Ingame\GUI\GUI_Basic_Tow_But.cs" />
     <Compile Include="States\Main Menu\GUI\GUI_Play_But.cs" />
     <Compile Include="Util\GUI_Button.cs" />
     <Compile Include="Util\Sprite.cs" />
@@ -104,7 +105,7 @@
   <ItemGroup>
     <Content Include="Notes.txt" />
     <Content Include="Resources\Ingame\Enemies\En_Basic.png" />
-    <Content Include="Resources\Ingame\GUI\Toolbar.png" />
+    <Content Include="Resources\Ingame\GUI\GUI_Toolbar.png" />
     <Content Include="Resources\Ingame\GUI\Tow_Basic\Tow_Basic_But_Hover.png" />
     <Content Include="Resources\Ingame\GUI\Tow_Basic\Tow_Basic_But_Normal.png" />
     <Content Include="Resources\Ingame\GUI\Tow_Slow\Tow_Slow_But_Hover.png" />

@@ -23,7 +23,7 @@ namespace Tower_Defence.States.Ingame
         protected bool selected;    //Is the tower clicked?
         protected int maxLevel = 5;     //Maximum level of the tower.
         protected int upgradeLevel = 0;     //The actual level the tower is
-        protected float upgradeAlphaAmount = 200f;    //How transparent the colour overlay should be (1 = fully upgraded!)
+        protected float upgradeAlphaAmount = 0.5f;    //How transparent the colour overlay should be (1 = fully upgraded!)
         protected int upgradeTotal;
         protected List<Bullet> bulletList = new List<Bullet>();    //List of bullets.
 
@@ -86,10 +86,15 @@ namespace Tower_Defence.States.Ingame
             set { upgradeTotal = value; }
         }
 
+        public System.Timers.Timer BulletTimer
+        {
+            get { return bulletTimer; }
+        }
+
         #endregion
 
-        public Tower(Bitmap baseTexture, Bitmap upgradedTower, Bitmap bulletTexture, Vector2 position)
-            : base(baseTexture, position)
+        public Tower(Bitmap baseTexture, Bitmap upgradedTower, Bitmap bulletTexture)
+            : base(baseTexture)
         {
             this.bulletTexture = bulletTexture;
             this.upgradedTower = upgradedTower;

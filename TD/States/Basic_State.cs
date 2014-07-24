@@ -16,6 +16,8 @@ using System.Windows.Forms;
             this.manager = manager;
         }
 
+        public abstract void CreateGUI();
+
         public virtual void Update()
         {
         }
