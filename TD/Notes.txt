@@ -44,7 +44,9 @@ Creating towers recoded: the tower now has no parameters in it's constructor, th
 	This is to facilitate creation of towers - they don't have a position when first initialised. (Tower is created and then placed).
 Finished the implimentation of the Basic Tower. Had to rejiggle a lot of stuff, to add new towers just copy the basic tower button.
 
-
+24/07/14
+Renamed all Draw methods to Redraw
+Altered implimentation of Tower Buttons so that it works without Vector2.Distance throwing a NullReferenceException error.
 
 
 

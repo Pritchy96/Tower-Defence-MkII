@@ -93,7 +93,7 @@ namespace Tower_Defence.States.Ingame
             waveTimer.Stop();   //Stop timer for wait between waves.
         }
 
-        public void Draw(PaintEventArgs e)
+        public void Redraw(PaintEventArgs e)
         {
             CurrentWave.Draw(e);
         }

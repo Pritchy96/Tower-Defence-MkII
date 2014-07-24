@@ -19,7 +19,10 @@ public class Main_State : Basic_State
     public int money = 300;
     public int lives = 30;
     private List<Tower> towers = new List<Tower>();
+
+    
     protected Bitmap radiusTex = Resources.Radius_Texture;
+    private Tower selectedTower = null;
 
     //Variables for checking position of tower.
     private int cellX;
@@ -34,7 +37,6 @@ public class Main_State : Basic_State
     private Tower towerToAdd;
 
     public Wave_Manager waveManager;
-
     public Level level = new Level();  //DEBUG
     #endregion
 
@@ -61,7 +63,27 @@ public class Main_State : Basic_State
         : base(manager)
     {
         waveManager = new Wave_Manager(this, 10, Resources.En_Basic, Resources.Health_Bar);
-        
+        radiusTex.MakeTransparent();
+    }
+
+    public override void Update()
+    {
+        //Updating each tower.
+        foreach (Tower t in towers.ToList())
+        {
+            if (t.Placed)
+            {
+                t.Update();
+
+                //Giving the tower a target if it does not have one.
+                if (t.HasTarget == false)
+                {
+                    t.GetClosestEnemy(waveManager.Enemies);
+                }
+                
+            }
+        }
+        waveManager.Update();
     }
 
     //This must be called after the class is created as the buttons are cleared after that.
@@ -69,21 +91,6 @@ public class Main_State : Basic_State
     {
         toolbar = new GUI_Toolbar();
         manager.Buttons.Add(new GUI_Basic_Tow_But(this));
-    }
-
-    public override void Update()
-    {
-        //Updating each tower.
-        foreach (Tower tower in towers.ToList())
-        {
-            //Giving the tower a target if it does not have one.
-            if (tower.HasTarget == false)
-            {
-                tower.GetClosestEnemy(waveManager.Enemies);
-            }
-            tower.Update();
-        }
-        waveManager.Update();
     }
 
     //A method to check whether a cell is clear of towers and path.
@@ -119,6 +126,7 @@ public class Main_State : Basic_State
             //Making the tower real: giving it a position and adding it to the tower list.
             towerToAdd.Position = new Vector2(tileX, tileY);
             towers.Add(towerToAdd);
+            towerToAdd.Placed = true;   //Allows the tower to update.
             //Deduct cost from money total.
             money -= towerToAdd.Cost;
             towerToAdd = null;
@@ -152,9 +160,9 @@ public class Main_State : Basic_State
                 if (towerToAdd != null)
                 {
                     AddTower();
+                    return;
                 }
                     //if there is a tower clicked..
-                    /*
                 else
                 {
                     //Deselecting towers.
@@ -162,7 +170,7 @@ public class Main_State : Basic_State
                     {
                         // If the selected tower does not contain the mouse and there is a click, 
                         //unselect it.
-                        if (selectedTower.Bounds.Contains(currentMouseState.X, currentMouseState.Y) == false)
+                        if (selectedTower.Bounds.Contains(e.X, e.Y) == false)
                         {
                             selectedTower.Selected = false;
                             selectedTower = null;
@@ -172,42 +180,41 @@ public class Main_State : Basic_State
                     //If a tower is found to be selected, skip the rest of the loop.
                     foreach (Tower tower in towers)
                     {
-                        if (tower == selectedTower)
-                        {
-                            continue;
-                        }
-
                         //If the tower contains the mouse, it is the selected tower.
-                        if (tower.Bounds.Contains(currentMouseState.X, currentMouseState.Y))
+                        if (tower.Bounds.Contains(e.X, e.Y))
                         {
                             selectedTower = tower;
                             tower.Selected = true;
+                            return;
                         }
                     }
                 }
-                     */
+                     
 
       //  AddTower(new Tow_Basic(new Vector2(tileX, tileY)));
     }
 
     public override void Redraw(PaintEventArgs e)
     {
-        level.Draw(e);
-        waveManager.Draw(e);
-        toolbar.Draw(e);
+        level.Redraw(e);
+        waveManager.Redraw(e);
+        toolbar.Redraw(e);
 
-        Tower selectedTower = null;
+        
 
         foreach (Tower t in towers)
         {
-            //Drawing each tower.
-            t.Redraw(e);
-
-            //If the tower has been clicked on..
-            if (t.Selected)
+            if (t.Placed)
             {
-                //is has been selected.
-                selectedTower = t;
+                //Drawing each tower.
+                t.Redraw(e);
+
+                //If the tower has been clicked on..
+                if (t.Selected)
+                {
+                    //is has been selected.
+                    selectedTower = t;
+                }
             }
         }
 
@@ -224,17 +231,12 @@ public class Main_State : Basic_State
             (int)selectedTower.Range * 2,
             (int)selectedTower.Range * 2);
 
-            radiusTex.MakeTransparent();
+            
             //Drawing the towers range.
             e.Graphics.DrawImage(radiusTex, radiusRect);
         }
     }
 }
-
-
-
-
-
 
 
 

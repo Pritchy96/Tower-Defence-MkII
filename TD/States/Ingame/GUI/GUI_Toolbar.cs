@@ -25,7 +25,7 @@ namespace Tower_Defence.States.Ingame
             textPosition = new Vector2(20, rect.Top + 15);
         }
 
-        public void Draw(PaintEventArgs e)
+        public void Redraw(PaintEventArgs e)
         {
             e.Graphics.DrawImage(texture, rect);
 

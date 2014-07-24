@@ -21,6 +21,7 @@ namespace Tower_Defence.States.Ingame
         protected System.Timers.Timer bulletTimer = new System.Timers.Timer(); //Time since bullet was fired. this.Interval is ROF.
         protected Enemy target;  //Current Enemy object which is being targeted. 
         protected bool selected;    //Is the tower clicked?
+        private bool placed = false;
         protected int maxLevel = 5;     //Maximum level of the tower.
         protected int upgradeLevel = 0;     //The actual level the tower is
         protected float upgradeAlphaAmount = 0.5f;    //How transparent the colour overlay should be (1 = fully upgraded!)
@@ -63,6 +64,12 @@ namespace Tower_Defence.States.Ingame
         {
             get { return selected; }
             set { selected = value; }
+        }
+
+        public bool Placed
+        {
+            get { return placed; }
+            set { placed = value; }
         }
 
         public virtual bool HasTarget   //Check if the tower has a target.
@@ -143,11 +150,11 @@ namespace Tower_Defence.States.Ingame
             //than the last closest enemy, that is Set as the target. 
             foreach (Enemy enemy in enemies.ToList())
             {
-                if (Vector2.Distance(center, enemy.Center) < smallestRange)
-                {
-                    smallestRange = Vector2.Distance(center, enemy.Center);
-                    target = enemy;
-                }
+                    if (Vector2.Distance(center, enemy.Center) < smallestRange)
+                    {
+                        smallestRange = Vector2.Distance(center, enemy.Center);
+                        target = enemy;
+                    }
             }
         }
 
@@ -178,7 +185,7 @@ namespace Tower_Defence.States.Ingame
         //Drawing.
         public override void Redraw(PaintEventArgs e)
         {
-            foreach (Bullet bullet in bulletList)
+            foreach (Bullet bullet in bulletList.ToList())
             {
                 bullet.Redraw(e);
             }

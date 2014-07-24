@@ -15,13 +15,9 @@ namespace Tower_Defence
     {
         #region Variables
         protected Bitmap texture;
-        //world relative top corner
-        protected Vector2 position;
+        protected Vector2 position; //World relative top corner
         protected Vector2 velocity;
-        //World relative center
-        protected Vector2 center;
-        //Object relative center
-        protected Vector2 origin;
+        protected Vector2 center;   //World relative center
         protected float rotation;
         private Rectangle bounds;
         #endregion
@@ -42,18 +38,19 @@ namespace Tower_Defence
         {
             get { return bounds; }
         }
+
+        public Bitmap Texture
+        {
+            get { return texture; }
+        }
         #endregion
 
         public Sprite(Bitmap tex, Vector2 pos)
         {
             texture = tex;
             position = pos;
-            velocity = new Vector2(0, 0);
             center = new Vector2(position.X + (texture.Width / 2), position.Y + (texture.Height / 2));
-            origin = new Vector2(texture.Width / 2, texture.Height / 2);
-
-            //Initialize rectange to fit around the Sprite.
-            this.bounds = new Rectangle((int)position.X, (int)Position.Y, texture.Width, texture.Height);
+            bounds = new Rectangle((int)position.X, (int)position.Y, texture.Width, texture.Height); //Rect to fit around the Sprite.
         }
 
         public Sprite(Bitmap tex)
@@ -61,10 +58,10 @@ namespace Tower_Defence
             texture = tex;
         }
 
-
         public virtual void Update()
         {
             center = new Vector2(position.X + (texture.Width / 2), position.Y + (texture.Height / 2));
+            bounds = new Rectangle((int)position.X, (int)position.Y, texture.Width, texture.Height); //Rect to fit around the Sprite.
         }
 
         /// <summary>

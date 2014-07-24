@@ -94,7 +94,7 @@ namespace Tower_Defence
                 }
         }
 
-        public void Draw(PaintEventArgs e)
+        public void Redraw(PaintEventArgs e)
         {
 
             //Redraw the tiles
