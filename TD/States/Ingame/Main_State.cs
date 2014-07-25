@@ -91,6 +91,7 @@ public class Main_State : Basic_State
     {
         toolbar = new GUI_Toolbar();
         manager.Buttons.Add(new GUI_Basic_Tow_But(this));
+        manager.Buttons.Add(new GUI_Slow_Tow_But(this));
     }
 
     //A method to check whether a cell is clear of towers and path.
@@ -126,9 +127,8 @@ public class Main_State : Basic_State
             //Making the tower real: giving it a position and adding it to the tower list.
             towerToAdd.Position = new Vector2(tileX, tileY);
             towers.Add(towerToAdd);
-            towerToAdd.Placed = true;   //Allows the tower to update.
-            //Deduct cost from money total.
-            money -= towerToAdd.Cost;
+            towerToAdd.Placed = true;   //Allows the tower to update.            
+            money -= towerToAdd.Cost;   //Deduct cost from money total.
             towerToAdd = null;
         }
     }
@@ -177,14 +177,15 @@ public class Main_State : Basic_State
                         }
                     }
 
-                    //If a tower is found to be selected, skip the rest of the loop.
+                    //Selecting a tower.
                     foreach (Tower tower in towers)
                     {
-                        //If the tower contains the mouse, it is the selected tower.
+                        //If the tower contains the mouse, it has been clicked.
                         if (tower.Bounds.Contains(e.X, e.Y))
                         {
                             selectedTower = tower;
                             tower.Selected = true;
+                            tower.Upgrade();
                             return;
                         }
                     }
@@ -200,8 +201,7 @@ public class Main_State : Basic_State
         waveManager.Redraw(e);
         toolbar.Redraw(e);
 
-        
-
+        //Redrawing tower stuff
         foreach (Tower t in towers)
         {
             if (t.Placed)
@@ -218,8 +218,8 @@ public class Main_State : Basic_State
             }
         }
 
-        //We move this outside the loop so that the radius is drawn after all the towers have,
-        //therefore always being on top of all towers.
+        //Drawing selected towers range. We move this outside the loop so that the radius 
+        //is drawn after all the towers have, therefore always being on top of all towers.
         if (selectedTower != null)
         {
             //Calculating a rectangle from the range, to scale the radius texture to it.
@@ -232,6 +232,26 @@ public class Main_State : Basic_State
             (int)selectedTower.Range * 2);
 
             
+            //Drawing the towers range.
+            e.Graphics.DrawImage(radiusTex, radiusRect);
+        }
+
+        //Drawing tower placement graphic.
+        if (towerToAdd != null)
+        {
+            Bitmap placeMarker = towerToAdd.SetBitmapOpacity(towerToAdd.Texture, 0.3f);
+            e.Graphics.DrawImage(placeMarker, new Rectangle(tileX, tileY, towerToAdd.Texture.Width, towerToAdd.Texture.Height));
+
+            //Calculating a rectangle from the range, to scale the radius texture to it.
+            Vector2 radiusPosition = new Vector2(tileX + 20, tileY + 20) - new Vector2(towerToAdd.Range);
+
+            Rectangle radiusRect = new Rectangle(
+            (int)radiusPosition.X,
+            (int)radiusPosition.Y,
+            (int)towerToAdd.Range * 2,
+            (int)towerToAdd.Range * 2);
+
+
             //Drawing the towers range.
             e.Graphics.DrawImage(radiusTex, radiusRect);
         }

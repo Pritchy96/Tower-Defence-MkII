@@ -24,7 +24,7 @@ namespace Tower_Defence.States.Ingame
         private bool placed = false;
         protected int maxLevel = 5;     //Maximum level of the tower.
         protected int upgradeLevel = 0;     //The actual level the tower is
-        protected float upgradeAlphaAmount = 0.5f;    //How transparent the colour overlay should be (1 = fully upgraded!)
+        protected float upgradeAlphaAmount = 0f;    //How transparent the colour overlay should be (1 = fully upgraded!)
         protected int upgradeTotal;
         protected List<Bullet> bulletList = new List<Bullet>();    //List of bullets.
 
@@ -93,11 +93,16 @@ namespace Tower_Defence.States.Ingame
             set { upgradeTotal = value; }
         }
 
+        public float UpgradeAlpha
+        {
+            get { return upgradeAlphaAmount; }
+            set { upgradeAlphaAmount = value; }
+        }
+
         public System.Timers.Timer BulletTimer
         {
             get { return bulletTimer; }
         }
-
         #endregion
 
         public Tower(Bitmap baseTexture, Bitmap upgradedTower, Bitmap bulletTexture)
@@ -170,7 +175,7 @@ namespace Tower_Defence.States.Ingame
             upgradeAlphaAmount = float.Parse((upgradeLevel * 0.2).ToString());
         }
 
-        //Evil Maths stuff to rotate the image to face the enemy.
+        //Evil Maths stuff to rotate the Bitmap to face the enemy.
         protected void FaceTarget()
         {
             Vector2 direction = center - target.Center;
@@ -190,13 +195,13 @@ namespace Tower_Defence.States.Ingame
                 bullet.Redraw(e);
             }
 
-           // base.Redraw(e);
+            base.Redraw(e);
 
-            Bitmap overlay = new Bitmap(upgradedTower);
+            Image overlay = upgradedTower;
             //Drawing the colour Upgrade Overlay TODO
-            overlay = RotateImage(overlay, (float)(rotation * (180 / Math.PI)), false, true, Color.Transparent);
-            SetImageOpacity(overlay, upgradeAlphaAmount);
-            
+            overlay = RotateBitmap((Bitmap)overlay, (float)(rotation * (180 / Math.PI)), false, true, Color.Transparent);
+            overlay = SetBitmapOpacity((Bitmap)overlay, upgradeAlphaAmount);
+
             e.Graphics.DrawImage(overlay, new Rectangle((int)position.X, (int)position.Y, texture.Width, texture.Height));
             // spriteBatch.Redraw(upgradedTower, center, null, Color.White * upgradeAlphaAmount, rotation, origin, 1.0f, SpriteEffects.None, 0);
         }

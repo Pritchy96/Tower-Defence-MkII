@@ -105,7 +105,7 @@ namespace Tower_Defence
                     Bitmap tileTexture = textures[map[y, x]];
 
                     Rectangle tileRectangle = new Rectangle(x * TileWidth, y * TileWidth, TileWidth, TileWidth);
-                    e.Graphics.DrawImage((Image)(tileTexture), tileRectangle);
+                    e.Graphics.DrawImage((Bitmap)(tileTexture), tileRectangle);
                 }
             }
         }

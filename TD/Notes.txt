@@ -47,7 +47,8 @@ Finished the implimentation of the Basic Tower. Had to rejiggle a lot of stuff, 
 24/07/14
 Renamed all Draw methods to Redraw
 Altered implimentation of Tower Buttons so that it works without Vector2.Distance throwing a NullReferenceException error.
-
+Added graphics while tower is being placed.
+Added Slow Tower button.
 
 
 

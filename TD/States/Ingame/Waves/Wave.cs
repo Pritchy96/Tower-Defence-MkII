@@ -143,7 +143,7 @@ namespace Tower_Defence
 
                 //Need to work out how to do tinting
                 /*
-                e.Graphics.DrawImage(healthTexture, healthRectangle, Color.Gray);
+                e.Graphics.DrawBitmap(healthTexture, healthRectangle, Color.Gray);
 
                 //Drawing the foreground of the Healthbar: the actual Health of the Enemy.
                 float healthPercentage = enemy.HealthPercentage;
