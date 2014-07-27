@@ -27,30 +27,27 @@ namespace Tower_Defence.States.Ingame.Towers
 
         public override void Update()
         {
-            for (int i = 0; i < bulletList.Count; i++)
+            foreach (Bullet b in bulletList.ToList())
             {
-                Bullet bullet = bulletList[i];
-
                 //'bending' bullets toward enemys.
-                bullet.SetRotation(rotation);
-                bullet.Update();
+                b.SetRotation(rotation);
+                b.Update();
 
                 //If the bullet is out of the range of the tower, kill it.
-                if (!IsInRange(bullet.Center))
-                    bullet.Kill();
+                if (!IsInRange(b.Center))
+                    b.Kill();
 
                 //Does the bullet get close enough to the enemy to consider it a hit?
-                if (target != null && Vector2.Distance(bullet.Center, target.Center) < 12)
+                if (target != null && Vector2.Distance(b.Center, target.Center) < 12)
                 {
                     //if so, damage the enemy and destroy the bullet.
-                    target.CurrentHealth -= bullet.Damage;
-                    bullet.Kill();
+                    target.CurrentHealth -= b.Damage;
+                    b.Kill();
                 }
                 // Removing bullet from the game. But not really.
-                if (bullet.isDead())
+                if (b.isDead())
                 {
-                    bulletList.Remove(bullet);
-                    i--;
+                    bulletList.Remove(b);
                 }
             }
             base.Update();

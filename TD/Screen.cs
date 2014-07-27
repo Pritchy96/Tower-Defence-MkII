@@ -12,6 +12,7 @@ using System.Windows.Forms;
 
     public partial class Screen : Form
     {
+        #region Variables
         //Screen size.
         public static int HEIGHT = 700;
         public static int WIDTH = 800;
@@ -21,6 +22,7 @@ using System.Windows.Forms;
         Thread thread = null;
 
         public Manager manager = new Manager();
+        #endregion
 
         #region Function Explanation
         //Constructor, sets Screen size and then begins Thread.
@@ -32,9 +34,7 @@ using System.Windows.Forms;
             BeginThread();
         }
 
-        #region Function Explanation
-        //Exit Event, kills Thread on Window close.
-        #endregion
+        #region Events
         private void OnExit(object sender, FormClosingEventArgs e)
         {
             killThread();
@@ -50,10 +50,26 @@ using System.Windows.Forms;
             manager.MouseMoved(e);
         }
 
+        public void KeyIsPress(object sender, KeyPressEventArgs e)
+        {
+            manager.KeyPress(e);
+        }
+
+        public void KeyIsDown(object sender, KeyEventArgs e)
+        {
+            manager.KeyDown(e);
+        }
+
+        public void KeyIsUp(object sender, KeyEventArgs e)
+        {
+            manager.KeyUp(e);
+        }
+
         private void Redraw(object sender, PaintEventArgs e)
         {
             manager.Redraw(e);
         }
+        #endregion
 
         #region Function Explanation
         //Creates and starts a Thread.

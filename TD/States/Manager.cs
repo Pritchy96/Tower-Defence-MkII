@@ -44,6 +44,7 @@ public class Manager
         
     }
 
+    #region Events
     public void MouseMoved(MouseEventArgs e)
     {
         currentState.MouseMoved(e);
@@ -66,6 +67,22 @@ public class Manager
         if (!ButtonClicked)
             currentState.MouseClicked(e);
     }
+
+    public void KeyPress(KeyPressEventArgs e)
+    {
+        currentState.KeyPress(e);
+    }
+
+    public void KeyDown(KeyEventArgs e)
+    {
+        currentState.KeyDown(e);
+    }
+
+    public void KeyUp(KeyEventArgs e)
+    {
+        currentState.KeyUp(e);
+    }
+    #endregion
 
     public void Redraw(PaintEventArgs e)
     {

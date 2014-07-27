@@ -132,7 +132,7 @@ namespace Tower_Defence
 
         public void Draw(PaintEventArgs e)
         {
-            foreach (Enemy enemy in enemies)
+            foreach (Enemy enemy in enemies.ToList())
             {
                 enemy.Redraw(e);
 

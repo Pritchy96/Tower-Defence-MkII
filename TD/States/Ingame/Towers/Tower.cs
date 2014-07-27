@@ -14,22 +14,28 @@ namespace Tower_Defence.States.Ingame
     public abstract class Tower : Sprite
     {
         #region Variables
-        //Qualities of the towers.
+        //Qualities of the towers
         protected int cost;
         protected float damage;
         protected float range;
         protected System.Timers.Timer bulletTimer = new System.Timers.Timer(); //Time since bullet was fired. this.Interval is ROF.
-        protected Enemy target;  //Current Enemy object which is being targeted. 
-        protected bool selected;    //Is the tower clicked?
-        private bool placed = false;
+
+        //Upgrading Stuff
         protected int maxLevel = 5;     //Maximum level of the tower.
         protected int upgradeLevel = 0;     //The actual level the tower is
         protected float upgradeAlphaAmount = 0f;    //How transparent the colour overlay should be (1 = fully upgraded!)
         protected int upgradeTotal;
-        protected List<Bullet> bulletList = new List<Bullet>();    //List of bullets.
-
-        protected Bitmap bulletTexture;  //Texture of the towers bullet.
         protected Bitmap upgradedTower;    //Texture for the upgraded tower (for the overlay, drawn here)
+        private int upgradeCost;
+
+        //GUI stuff
+        protected bool selected;    //Is the tower clicked?
+        private bool placed = false;    //Has the tower been placed?
+
+        //Shooting/Targetting stuff.
+        protected Enemy target;  //Current Enemy object which is being targeted. 
+        protected List<Bullet> bulletList = new List<Bullet>();    //List of bullet
+        protected Bitmap bulletTexture;  //Texture of the towers bullet.    
         #endregion
 
         #region Properties
@@ -37,6 +43,11 @@ namespace Tower_Defence.States.Ingame
         public int Cost
         {
             get { return cost; }
+        }
+
+        public int UpgradeCode
+        {
+            get { return upgradeCost; }
         }
 
         public float Damage
@@ -111,31 +122,9 @@ namespace Tower_Defence.States.Ingame
             this.bulletTexture = bulletTexture;
             this.upgradedTower = upgradedTower;
             bulletTimer.Start();
+            upgradeCost = cost * (upgradeLevel + 1);    //calculating upgrade cost (add one because we are checking for the NEXT level)
         }
 
-        //Update loop
-        public override void Update()
-        {
-            base.Update();
-
-            if (target != null)
-            {
-                if (!target.IsDead)
-                    FaceTarget();
-
-                //If the target is out of range or dead...
-                if (!IsInRange(target.Center) || target.IsDead)
-                {
-                    //set target to nothing(null)
-                    target = null;
-
-                    //and restart the bullet timer. This seems to break slower shooting towers.
-                    //bulletTimer = 0;
-                }
-            }
-        }
-
-        //Check to see if the passed position is within range.
         public bool IsInRange(Vector2 position)
         {
             if (Vector2.Distance(center, position) <= range)
@@ -144,7 +133,6 @@ namespace Tower_Defence.States.Ingame
                 return false;
         }
 
-        //Gets the enemy closest to the tower.
         public virtual void GetClosestEnemy(List<Enemy> enemies)
         {
 
@@ -166,13 +154,13 @@ namespace Tower_Defence.States.Ingame
         //Upgrading the tower (visually, the actual changes are in the sub classes)
         public virtual void Upgrade()
         {
-            //calculating upgrade cost (add one because we are checking for the NEXT level)
-            int upgradeCost = cost * (upgradeLevel + 1);
             //Updates the level by 1
             upgradeLevel++;
             //Increases the alpha of the colour overlay, the visual representation of the
             //towers level (drawn in this class!) by 0.2.
             upgradeAlphaAmount = float.Parse((upgradeLevel * 0.2).ToString());
+            //calculating upgrade cost (add one because we are checking for the NEXT level)
+            upgradeCost = cost * (upgradeLevel + 1);
         }
 
         //Evil Maths stuff to rotate the Bitmap to face the enemy.
@@ -184,10 +172,30 @@ namespace Tower_Defence.States.Ingame
             rotation = (float)Math.Atan2(-direction.X, direction.Y);
         }
 
-        //Ensures the sub classes have a fire method (So I don't forget :D)
+        //Ensures the sub classes have a fire method
         public abstract void Fire(Object source, ElapsedEventArgs e);
 
-        //Drawing.
+        public override void Update()
+        {
+            base.Update();
+
+            if (target != null)
+            {
+                if (!target.IsDead)
+                    FaceTarget();
+
+                //If the target is out of range or dead...
+                if (!IsInRange(target.Center) || target.IsDead)
+                {
+                    //set target to nothing(null)
+                    target = null;
+
+                    //and restart the bullet timer. This seems to break slower shooting towers.
+                    //bulletTimer = 0;
+                }
+            }
+        }
+
         public override void Redraw(PaintEventArgs e)
         {
             foreach (Bullet bullet in bulletList.ToList())

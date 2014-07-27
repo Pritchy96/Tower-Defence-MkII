@@ -57,6 +57,9 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Tower Defence";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.OnExit);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.KeyIsDown);
+            this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.KeyIsPress);
+            this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.KeyIsUp);
             this.ResumeLayout(false);
 
         }

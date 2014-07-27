@@ -26,14 +26,14 @@ Began using a new rotation method that works without clipping.
 Transparency, Clipping, Scaling issues and all graphics related errors are now fixed.
 
 08/07/14
-Implimented a radius feature.
+Implemented a radius feature.
 
 12/07/14
 Integrated Player.cs into Mainstate.cs: it was superflurous to have them seperate.
-Implimented a basic Toolbar graphic.
+Implemented a basic Toolbar graphic.
 
 23/07/14
-Implimented the upgrade tower visual code: need to find a way of setting Opacity in the Tower class, current method does not work.
+Implemented the upgrade tower visual code: need to find a way of setting Opacity in the Tower class, current method does not work.
 Altered tower code so that the graphics are not required to be passed to a tower when it is created.
 Began to impliment a GUI Input system.
 Renamed classes to conform to the X_Y_Z.cs name structure.
@@ -50,9 +50,14 @@ Altered implimentation of Tower Buttons so that it works without Vector2.Distanc
 Added graphics while tower is being placed.
 Added Slow Tower button.
 
-
-
-
+26/07/14
+Began to add Keyboard based input.
+Towers can no longer be placed on top of eachother.
+Upgrade now uses "U" keyboard press.
+Fully implimented a Keyboard based input system.
+Towers now have a max upgrade level and cost money to upgrade.
+Implemented Selling mechanics by using the "S" key
+New Title Graphic
 
 
 
@@ -61,4 +66,5 @@ Better wave spawning system: Player initialised waves, multiple waves onscreen e
 Input
 Tower Upgrades
 Healthbars
-
+The world is fliped: all X coordinates refer to Y coordinate space and vice versa. Somethign is wrong with TIleX and 
+TileY, I think, which gives all towers flipped coordinates when they are placed (they are given their coords from TileX and Y).

@@ -35,6 +35,7 @@ public class Main_State : Basic_State
     
     //Placing Towers
     private Tower towerToAdd;
+    private bool shiftDown = false;
 
     public Wave_Manager waveManager;
     public Level level = new Level();  //DEBUG
@@ -86,7 +87,7 @@ public class Main_State : Basic_State
         waveManager.Update();
     }
 
-    //This must be called after the class is created as the buttons are cleared after that.
+    //This must be called after the class is created as the button list is cleared after that.
     public override void CreateGUI()
     {
         toolbar = new GUI_Toolbar();
@@ -106,10 +107,11 @@ public class Main_State : Basic_State
         //is not where we want to place the new tower.
         foreach (Tower tower in towers)
         {
-            spaceClear = (tower.Position != new Vector2(tileX, tileY)); //DOESN@T RETURN CORRECTLY
-            //No point continuing the loop if a tower is found in the position.
-            if (!spaceClear)
+            if (tower.Position.X == tileX && tower.Position.Y == tileY)
+            {
+                spaceClear = false;
                 break;
+            }
         }
 
         //Check to make sure the position selected is not on a path
@@ -119,30 +121,36 @@ public class Main_State : Basic_State
         return inBounds && spaceClear && onPath; //if these are all true, it will return true.
     }
 
-    public void AddTower()
+    public void AddTower(Tower tower)
     {
         //Only add tower if there is a free space and the player has enough money.
         if (IsCellClear())  // && towerToAdd.Cost <= money
         {
             //Making the tower real: giving it a position and adding it to the tower list.
-            towerToAdd.Position = new Vector2(tileX, tileY);
-            towers.Add(towerToAdd);
-            towerToAdd.Placed = true;   //Allows the tower to update.            
-            money -= towerToAdd.Cost;   //Deduct cost from money total.
-            towerToAdd = null;
+            tower.Position = new Vector2(tileX, tileY);
+            towers.Add(tower);
+            tower.Placed = true;   //Allows the tower to update.            
+            money -= tower.Cost;   //Deduct cost from money total.
+            if (!shiftDown && towerToAdd == tower)  //if shift isn't down and we're adding a tower via mouse
+                towerToAdd = null;
         }
     }
 
-    public void RemoveTower(Tower towerToRemove)
+    public void SellTower(Tower tower)
     {
         //calculating 70% of spent money, and casting to decimal ready for rounding.
-        decimal sellValue = (decimal)((towerToRemove.Cost + towerToRemove.UpgradeTotal) * 0.7);
+        decimal sellValue = (decimal)((tower.Cost + tower.UpgradeTotal) * 0.7);
         //Give back the money, rounded to the nearest integer.
         money += (int)Math.Round(sellValue);
         //Remove tower from the list (Stops it being drawn, shooting etc)
-        towers.Remove(towerToRemove);
+        towers.Remove(tower);
+        if (selectedTower == tower)    //tower is no longer selected tower as it has been sold.
+            selectedTower = null;
+        tower = null;
+       
     }
 
+    #region Events
     public override void MouseMoved(MouseEventArgs e)
     {
         //Essentially this converts to the nearest cell by casting to integers when dividing 
@@ -159,7 +167,7 @@ public class Main_State : Basic_State
                 //(isCellClear is handled in the add tower method).
                 if (towerToAdd != null)
                 {
-                    AddTower();
+                    AddTower(towerToAdd);
                     return;
                 }
                     //if there is a tower clicked..
@@ -185,7 +193,6 @@ public class Main_State : Basic_State
                         {
                             selectedTower = tower;
                             tower.Selected = true;
-                            tower.Upgrade();
                             return;
                         }
                     }
@@ -194,6 +201,43 @@ public class Main_State : Basic_State
 
       //  AddTower(new Tow_Basic(new Vector2(tileX, tileY)));
     }
+
+    public override void KeyDown(KeyEventArgs e)
+    {
+        switch (e.KeyData)
+        {
+            case (Keys.ShiftKey | Keys.Shift):
+                {
+                    shiftDown = true;
+                    break;
+                }
+        }       
+    }
+
+    public override void KeyUp(KeyEventArgs e)
+    {
+        switch (e.KeyData)
+        {
+            case (Keys.ShiftKey):
+                {
+                    shiftDown = false;
+                    break;
+                }
+            case (Keys.U):
+                {
+                    if (selectedTower != null && selectedTower.UpgradeLevel < selectedTower.MaxLevel && money > selectedTower.Cost)
+                        selectedTower.Upgrade();
+                    break;
+                }
+            case (Keys.S):
+                {
+                    if (selectedTower != null)
+                        SellTower(selectedTower);
+                    break;
+                }
+        }       
+    }
+    #endregion
 
     public override void Redraw(PaintEventArgs e)
     {
@@ -257,8 +301,6 @@ public class Main_State : Basic_State
         }
     }
 }
-
-
 
 /*
  //Adding new towers.
@@ -436,7 +478,7 @@ public class Main_State : Basic_State
             //Selling Towers
             if (currentKeyState.IsKeyUp(Keys.S) && prevKeyState.IsKeyDown(Keys.S) && selectedTower != null)
             {
-                    RemoveTower(selectedTower);
+                    SellTower(selectedTower);
                     selectedTower = null;
             }
         */
