@@ -73,10 +73,22 @@ namespace Tower_Defence.Util
             return new Vector2(V1.X - V2.X, V1.Y - V2.Y);
         }
 
-        //Method to multiply two Vector2's using operators
+        //Method to multiply a Vector2 by an int.
         public static Vector2 operator *(Vector2 V1, int num)
         {
             return new Vector2(V1.X * num, V1.Y * num);
+        }
+
+        //Method to multiply a Vector2 by a float.
+        public static Vector2 operator *(Vector2 V1, float num)
+        {
+            return new Vector2(V1.X * num, V1.Y * num);
+        }
+
+        //Method to divide a Vector2 by a float.
+        public static Vector2 operator /(Vector2 V1, float num)
+        {
+            return new Vector2(V1.X / num, V1.Y / num);
         }
 
         //Method to multiply two Vector2's

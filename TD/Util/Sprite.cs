@@ -14,18 +14,31 @@ namespace Tower_Defence
     public class Sprite
     {
         #region Variables
-        protected Bitmap texture;
-        protected Vector2 position; //World relative top corner
-        protected Vector2 velocity;
-        protected Vector2 center;   //World relative center
-        protected float rotation;
+        private Bitmap texture;
+        private Vector2 position; //World relative top corner
+        private Vector2 velocity;
+        private Vector2 center = new Vector2(0,0);   //World relative center
+        private float rotation;
         private Rectangle bounds;
         #endregion
 
         #region Properties
         public Vector2 Center
         {
-            get { return center; }
+            get { lock (center) { return center; } }
+            set { lock (center) { center = value; } }
+        }
+
+        public Vector2 Velocity
+        {
+            get { return velocity * Main_State.speedCoef; }
+            set { velocity = value * Main_State.speedCoef; }
+        }
+
+        public float Rotation
+        {
+            get { return rotation; }
+            set { rotation = value; }
         }
 
         public Vector2 Position
@@ -37,6 +50,7 @@ namespace Tower_Defence
         public Rectangle Bounds
         {
             get { return bounds; }
+            set { bounds = value; }
         }
 
         public Bitmap Texture
@@ -60,8 +74,17 @@ namespace Tower_Defence
 
         public virtual void Update()
         {
-            center = new Vector2(position.X + (texture.Width / 2), position.Y + (texture.Height / 2));
-            bounds = new Rectangle((int)position.X, (int)position.Y, texture.Width, texture.Height); //Rect to fit around the Sprite.
+            try
+            {
+                Center = new Vector2(position.X + (texture.Width / 2), position.Y + (texture.Height / 2));
+            }
+            catch(InvalidOperationException) {  }   //Variable is currently being used, will have to wait.
+
+            try
+            {
+            Bounds = new Rectangle((int)position.X, (int)position.Y, texture.Width, texture.Height); //Rect to fit around the Sprite.
+            }
+            catch (InvalidOperationException) { }   //Variable is currently being used, will have to wait.
         }
 
         /// <summary>
@@ -185,8 +208,13 @@ namespace Tower_Defence
 
         public virtual void Redraw(PaintEventArgs e)
         {
-            Bitmap textureToDraw = RotateBitmap(texture, (float)(rotation * (180 / Math.PI)), false, true, Color.Transparent);
-            e.Graphics.DrawImage(textureToDraw, new Rectangle((int)position.X, (int)position.Y, texture.Width, texture.Height));
+            try
+            {
+                Bitmap textureToDraw = RotateBitmap(texture, (float)(rotation * (180 / Math.PI)), false, true, Color.Transparent);
+                e.Graphics.DrawImage(textureToDraw, new Rectangle((int)position.X, (int)position.Y, texture.Width, texture.Height));
+            }
+            catch (InvalidOperationException) { }   //Variable is currently being used, will have to wait.
+
         }
 
         /*Tinted' Redraw function, override.

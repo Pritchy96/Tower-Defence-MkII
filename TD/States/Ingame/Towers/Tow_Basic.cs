@@ -30,7 +30,7 @@ namespace Tower_Defence.States.Ingame.Towers
             foreach (Bullet b in bulletList.ToList())
             {
                 //'bending' bullets toward enemys.
-                b.SetRotation(rotation);
+                b.SetRotation(Rotation);
                 b.Update();
 
                 //If the bullet is out of the range of the tower, kill it.
@@ -65,11 +65,11 @@ namespace Tower_Defence.States.Ingame.Towers
             //If we have a target..
             if (target != null)
             {
-                lock (center)
+                lock (Center)
                 {
                     //create a bullet at the centre of the tower.
-                    Bullet bullet = new Bullet(bulletTexture, center -
-                        new Vector2(bulletTexture.Width / 2), rotation, 20, damage);
+                    Bullet bullet = new Bullet(bulletTexture, Center -
+                        new Vector2(bulletTexture.Width / 2), Rotation, 20, damage);
 
 
                     //Add bullet to list.

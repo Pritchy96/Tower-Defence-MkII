@@ -40,7 +40,7 @@ namespace Tower_Defence.States.Ingame.Towers
                 Bullet bullet = bulletList[i];
 
                 //'bending' bullets toward enemys.
-                bullet.SetRotation(rotation);
+                bullet.SetRotation(Rotation);
                 bullet.Update();
 
                 //If the bullet is out of the range of the tower, kill it.
@@ -50,7 +50,6 @@ namespace Tower_Defence.States.Ingame.Towers
                 //Does the bullet get close enough to the enemy to consider it a hit?
                 if (target != null && Vector2.Distance(bullet.Center, target.Center) < 12)
                 {
-
                     //If the speed modifier is better than anything affecting the target, apply it.
                     if (target.SpeedCoef <= modiferCoef)
                     {
@@ -99,8 +98,8 @@ namespace Tower_Defence.States.Ingame.Towers
             if (target != null)
             {
                     //create a bullet at the centre of the tower.
-                    Bullet bullet = new Bullet(bulletTexture, center -
-                        new Vector2(bulletTexture.Width / 2), rotation, 20, damage);
+                    Bullet bullet = new Bullet(bulletTexture, Center -
+                        new Vector2(bulletTexture.Width / 2), Rotation, 20, damage);
 
                     //Add bullet to list.
                     bulletList.Add(bullet);

@@ -18,7 +18,7 @@ namespace Tower_Defence
         private int health; //Enemies health.
         private int cashDrop; //How much money a creep drops.
         private int enemiesSpawned = 0;  //How many enimies have spawned.
-        private System.Timers.Timer spawnTimer = new System.Timers.Timer(); //Timer to set time between creep spawns during a wave.
+        public System.Timers.Timer spawnTimer = new System.Timers.Timer(); //Timer to set time between creep spawns during a wave.
         private bool enemyAtEnd; //Has an enemy reached the end of the path?
         private Bitmap enemyTexture; //Texture for the enemy.
         private Bitmap healthTexture; //a Texture for the health bar.
@@ -43,7 +43,7 @@ namespace Tower_Defence
         public bool EnemyAtEnd
         {
             get { return enemyAtEnd; }
-            set { enemyAtEnd = value; }  //?
+            set { enemyAtEnd = value; } 
         }
 
         public List<Enemy> Enemies
@@ -77,7 +77,7 @@ namespace Tower_Defence
         {
             for (int i = 0; i < enemies.Count; i++)
             {
-                Enemy enemy = enemies[i];   //?
+                Enemy enemy = enemies[i];  
                 enemy.Update();
 
 

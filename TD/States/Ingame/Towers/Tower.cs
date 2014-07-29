@@ -18,19 +18,19 @@ namespace Tower_Defence.States.Ingame
         protected int cost;
         protected float damage;
         protected float range;
-        protected System.Timers.Timer bulletTimer = new System.Timers.Timer(); //Time since bullet was fired. this.Interval is ROF.
+        private System.Timers.Timer bulletTimer = new System.Timers.Timer(); //Time since bullet was fired.
 
         //Upgrading Stuff
-        protected int maxLevel = 5;     //Maximum level of the tower.
-        protected int upgradeLevel = 0;     //The actual level the tower is
+        protected int maxLevel = 5;     //Maximum level of the Center.
+        protected int upgradeLevel = 0;     //The actual level the Center is
         protected float upgradeAlphaAmount = 0f;    //How transparent the colour overlay should be (1 = fully upgraded!)
         protected int upgradeTotal;
-        protected Bitmap upgradedTower;    //Texture for the upgraded tower (for the overlay, drawn here)
+        protected Bitmap upgradedTower;    //Texture for the upgraded Center (for the overlay, drawn here)
         private int upgradeCost;
 
         //GUI stuff
-        protected bool selected;    //Is the tower clicked?
-        private bool placed = false;    //Has the tower been placed?
+        protected bool selected;    //Is the Center clicked?
+        private bool placed = false;    //Has the Center been placed?
 
         //Shooting/Targetting stuff.
         protected Enemy target;  //Current Enemy object which is being targeted. 
@@ -62,8 +62,8 @@ namespace Tower_Defence.States.Ingame
 
         public float RoF
         {
-            get { return (float)bulletTimer.Interval; }
-            set { bulletTimer.Interval = value; }
+            get { return (float)bulletTimer.Interval / Main_State.speedCoef; }
+            set { bulletTimer.Interval = value / Main_State.speedCoef; }
         }
 
         public Enemy Target
@@ -83,22 +83,22 @@ namespace Tower_Defence.States.Ingame
             set { placed = value; }
         }
 
-        public virtual bool HasTarget   //Check if the tower has a target.
+        public virtual bool HasTarget   //Check if the Tower has a target.
         {
             get { return target != null; }
         }
 
-        public int UpgradeLevel     //Returns tower level.
+        public int UpgradeLevel     //Returns Tower level.
         {
             get { return upgradeLevel; }
         }
 
-        public int MaxLevel     //Returns max tower level.
+        public int MaxLevel     //Returns max Tower level.
         {
             get { return maxLevel; }
         }
 
-        public int UpgradeTotal  //Returns & sets how much has been spent on tower.
+        public int UpgradeTotal  //Returns & sets how much has been spent on Tower.
         {
             get { return upgradeTotal; }
             set { upgradeTotal = value; }
@@ -125,9 +125,9 @@ namespace Tower_Defence.States.Ingame
             upgradeCost = cost * (upgradeLevel + 1);    //calculating upgrade cost (add one because we are checking for the NEXT level)
         }
 
-        public bool IsInRange(Vector2 position)
+        public bool IsInRange(Vector2 Position)
         {
-            if (Vector2.Distance(center, position) <= range)
+            if (Vector2.Distance(Center, Position) <= range)
                 return true;
             else
                 return false;
@@ -139,19 +139,19 @@ namespace Tower_Defence.States.Ingame
             target = null;
             float smallestRange = range;
 
-            //Loops through the enemies, if the current enemy is closer to the tower
+            //Loops through the enemies, if the current enemy is closer to the Center
             //than the last closest enemy, that is Set as the target. 
             foreach (Enemy enemy in enemies.ToList())
             {
-                    if (Vector2.Distance(center, enemy.Center) < smallestRange)
+                    if (Vector2.Distance(Center, enemy.Center) < smallestRange)
                     {
-                        smallestRange = Vector2.Distance(center, enemy.Center);
+                        smallestRange = Vector2.Distance(Center, enemy.Center);
                         target = enemy;
                     }
             }
         }
 
-        //Upgrading the tower (visually, the actual changes are in the sub classes)
+        //Upgrading the Center (visually, the actual changes are in the sub classes)
         public virtual void Upgrade()
         {
             //Updates the level by 1
@@ -166,10 +166,10 @@ namespace Tower_Defence.States.Ingame
         //Evil Maths stuff to rotate the Bitmap to face the enemy.
         protected void FaceTarget()
         {
-            Vector2 direction = center - target.Center;
+            Vector2 direction = Center - target.Center;
             direction.Normalise();
 
-            rotation = (float)Math.Atan2(-direction.X, direction.Y);
+            Rotation = (float)Math.Atan2(-direction.X, direction.Y);
         }
 
         //Ensures the sub classes have a fire method
@@ -205,14 +205,19 @@ namespace Tower_Defence.States.Ingame
 
             base.Redraw(e);
 
-            Image overlay = upgradedTower;
-            //Drawing the colour Upgrade Overlay TODO
-            overlay = RotateBitmap((Bitmap)overlay, (float)(rotation * (180 / Math.PI)), false, true, Color.Transparent);
-            overlay = SetBitmapOpacity((Bitmap)overlay, upgradeAlphaAmount);
+            try
+            {
+                Image overlay = upgradedTower;
+                //Drawing the colour Upgrade Overlay TODO
+                overlay = RotateBitmap((Bitmap)overlay, (float)(Rotation * (180 / Math.PI)), false, true, Color.Transparent);
+                overlay = SetBitmapOpacity((Bitmap)overlay, upgradeAlphaAmount);
 
-            //e.Graphics.DrawImage(overlay, new Rectangle((int)position.X - (texture.Width / 2), (int)position.Y - (texture.Height / 2), texture.Width, texture.Height));
-            e.Graphics.DrawImage(overlay, new Rectangle((int)position.X, (int)position.Y, texture.Width, texture.Height));
-            // spriteBatch.Redraw(upgradedTower, center, null, Color.White * upgradeAlphaAmount, rotation, origin, 1.0f, SpriteEffects.None, 0);
+                //e.Graphics.DrawImage(overlay, new Rectangle((int)Position.X - (Texture.Width / 2), (int)Position.Y - (Texture.Height / 2), Texture.Width, Texture.Height));
+                e.Graphics.DrawImage(overlay, new Rectangle((int)Position.X, (int)Position.Y, Texture.Width, Texture.Height));
+                // spriteBatch.Redraw(upgradedTower, Center, null, Color.White * upgradeAlphaAmount, Rotation, origin, 1.0f, SpriteEffects.None, 0);
+            }
+            catch (InvalidOperationException) { }   //Variable is currently being used, will have to wait.
+            
         }
     }
 }

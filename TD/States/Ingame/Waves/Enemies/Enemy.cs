@@ -48,8 +48,8 @@ namespace Tower_Defence
         {
             get
             {
-                //Pythagoras to find distance from enemy position to next waypoint.
-                return (float)Math.Sqrt(((Math.Pow((position.X - waypoints.Peek().X), 2f)) + (Math.Pow((position.Y - waypoints.Peek().Y), 2f))));
+                //Pythagoras to find distance from enemy Position to next waypoint.
+                return (float)Math.Sqrt(((Math.Pow((Position.X - waypoints.Peek().X), 2f)) + (Math.Pow((Position.Y - waypoints.Peek().Y), 2f))));
             }
         }
 
@@ -74,8 +74,8 @@ namespace Tower_Defence
         }
         #endregion
 
-        public Enemy(Bitmap texture, Vector2 position, float health, int bountyGiven, float speed)
-            : base(texture, position)
+        public Enemy(Bitmap texture, Vector2 Position, float health, int bountyGiven, float speed)
+            : base(texture, Position)
         {
             this.startHealth = health;
             this.currentHealth = startHealth;
@@ -90,7 +90,7 @@ namespace Tower_Defence
             foreach (Vector2 waypoint in waypoints)
                 this.waypoints.Enqueue(waypoint);
 
-            this.position = this.waypoints.Dequeue();
+            this.Position = this.waypoints.Dequeue();
         }
 
         public override void Update()
@@ -103,13 +103,13 @@ namespace Tower_Defence
                 //If the distance to waypoint is less than it's speed, place it at the waypoint and remove it from the queue?
                 if (DistanceToDestination < speed)
                 {
-                    position = waypoints.Peek();
+                    Position = waypoints.Peek();
                     waypoints.Dequeue();
                 }
                 //Or if the distance to waypoint is greater than speed...
                 else
                 {
-                    Vector2 direction = waypoints.Peek() - position;
+                    Vector2 direction = waypoints.Peek() - Position;
                     direction.Normalise();
 
                     //Store the original speed of the enemy.
@@ -119,9 +119,9 @@ namespace Tower_Defence
                     temporarySpeed *= speedCoef;
 
                     //Calculate a vector for the enemy to move by.
-                    velocity = Vector2.Multiply(direction, temporarySpeed);
+                    Velocity = Vector2.Multiply(direction, temporarySpeed);
 
-                    position += velocity;
+                    Position += Velocity;
                 }
                 //If there are no more waypoints, it must be at the end of it's path, therefore remove it from the game/screen.
             }

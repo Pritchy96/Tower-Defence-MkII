@@ -15,7 +15,7 @@ using Tower_Defence.Util;
 public class Main_State : Basic_State
 {
     #region Variables
-    public float speedCoef = 1; //Game speed
+    public static float speedCoef = 1f; //Game speed
     public int money = 300;
     public int lives = 30;
     private List<Tower> towers = new List<Tower>();
@@ -237,11 +237,19 @@ public class Main_State : Basic_State
                         SellTower(selectedTower);
                     break;
                 }
-            case (Keys.P):
+            case (Keys.Add):
                 {
-                    Console.WriteLine(tileX.ToString() + ", " + tileY.ToString());
+                    speedCoef += 0.1f;
+                    waveManager.AdjustGameSpeed();
                     break;
                 }
+            case (Keys.Subtract):
+                {
+                    speedCoef -= 0.1f;
+                    waveManager.AdjustGameSpeed();
+                    break;
+                }
+
         }
     }
     #endregion

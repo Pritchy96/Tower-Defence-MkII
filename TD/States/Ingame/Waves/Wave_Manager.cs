@@ -73,14 +73,6 @@ namespace Tower_Defence.States.Ingame
             waveTimer.Start();
         }
 
-        public void Update()
-        {
-            CurrentWave.Update();   //Update wave.
-
-            if (CurrentWave.RoundOver)  //If the wave is over
-                waveTimer.Start();
-        }
-
         private void NewWave(Object source, ElapsedEventArgs e)
         {
             waves.Dequeue();    //Remove finished wave.
@@ -92,6 +84,23 @@ namespace Tower_Defence.States.Ingame
 
             waveTimer.Stop();   //Stop timer for wait between waves.
         }
+
+        public void AdjustGameSpeed()
+        {
+            waveTimer.Interval *= Main_State.speedCoef;
+            foreach (Wave w in waves)
+                w.spawnTimer.Interval /= Main_State.speedCoef;
+        }
+
+        public void Update()
+        {
+            CurrentWave.Update();   //Update wave.
+
+            if (CurrentWave.RoundOver)  //If the wave is over
+                waveTimer.Start();
+        }
+
+
 
         public void Redraw(PaintEventArgs e)
         {

@@ -1,69 +1,76 @@
 ﻿04/07/14
-Transferred inital Graphics
-Implemented Drawing mechanics
-Completed conversion of Level Class
-Level loading is piss poor
-Implemented Enemy class
-Created a Vector2 class which emulates the one found in the XNA framework - Converted all instances of Points to Vector2's
-Redid Level loading code so it runs, still needs work to make it a nice system.
+* Transferred inital Graphics
+* Implemented Drawing mechanics
+* Completed conversion of Level Class
+* Level loading is piss poor
+* Implemented Enemy class
+* Created a Vector2 class which emulates the one found in the XNA framework - Converted all instances of Points to Vector2's
+* Redid Level loading code so it runs, still needs work to make it a nice system.
 
 05/07/14
-Imported more of the graphics: towers, bullets etc.
-Implemented the wave, wavemanager, tower, basic tower, and bullet class.
-Wave class now works.
-Reorganised classes into a better file structure.
-Continued to develop the Vector2 class as it's functionality needed expansion.
-Implemented rotation code for bullets: Pretty sure it won't work.
+* Imported more of the graphics: towers, bullets etc.
+* Implemented the wave, wavemanager, tower, basic tower, and bullet class.
+* Wave class now works.
+* Reorganised classes into a better file structure.
+* Continued to develop the Vector2 class as it's functionality needed expansion.
+* Implemented rotation code for bullets: Pretty sure it won't work.
 
 07/07/14
-Gun now rotates correctly.
-Bullets now travel in the correct direction.
-Began to impliment slow tower: Works, but does not slow.
-Bullets damage and kill enemies. Hard to tell without Healthbars.
-Slow tower now correctly slows enemies. Currently only targets enemies without a modifier attarched via a TEMP method.
-Need to remove this temp method and make it so it only targets enemies if it's modifier is better than the one currently affecting the enemy. 
-Began using a new rotation method that works without clipping.
-Transparency, Clipping, Scaling issues and all graphics related errors are now fixed.
+* Gun now rotates correctly.
+* Bullets now travel in the correct direction.
+* Began to impliment slow tower: Works, but does not slow.
+* Bullets damage and kill enemies. Hard to tell without Healthbars.
+* Slow tower now correctly slows enemies. Currently only targets enemies without a modifier attarched via a TEMP method.
+* Need to remove this temp method and make it so it only targets enemies if it's modifier is better than the one currently affecting the enemy. 
+* Began using a new rotation method that works without clipping.
+* Transparency, Clipping, Scaling issues and all graphics related errors are now fixed.
 
 08/07/14
-Implemented a radius feature.
+* Implemented a radius feature.
 
 12/07/14
-Integrated Player.cs into Mainstate.cs: it was superflurous to have them seperate.
-Implemented a basic Toolbar graphic.
+* Integrated Player.cs into Mainstate.cs: it was superflurous to have them seperate.
+* Implemented a basic Toolbar graphic.
 
 23/07/14
-Implemented the upgrade tower visual code: need to find a way of setting Opacity in the Tower class, current method does not work.
-Altered tower code so that the graphics are not required to be passed to a tower when it is created.
-Began to impliment a GUI Input system.
-Renamed classes to conform to the X_Y_Z.cs name structure.
-Changed State Changing from accessing a property to a method - this allows the buttons list to be automatically cleared when changing a state.
-Converted Play button on MainMenu to use the new system.
-BEgan to add Tower creation GUI.
-Creating towers recoded: the tower now has no parameters in it's constructor, these are now facilitated in Main States AddTower() method. 
+* Implemented the upgrade tower visual code: need to find a way of setting Opacity in the Tower class, current method does not work.
+* Altered tower code so that the graphics are not required to be passed to a tower when it is created.
+* Began to impliment a GUI Input system.
+* Renamed classes to conform to the X_Y_Z.cs name structure.
+* Changed State Changing from accessing a property to a method - this allows the buttons list to be automatically cleared when changing a state.
+* Converted Play button on MainMenu to use the new system.
+* BEgan to add Tower creation GUI.
+* Creating towers recoded: the tower now has no parameters in it's constructor, these are now facilitated in Main States AddTower() method. 
 	This is to facilitate creation of towers - they don't have a position when first initialised. (Tower is created and then placed).
-Finished the implimentation of the Basic Tower. Had to rejiggle a lot of stuff, to add new towers just copy the basic tower button.
+* Finished the implimentation of the Basic Tower. Had to rejiggle a lot of stuff, to add new towers just copy the basic tower button.
 
 24/07/14
-Renamed all Draw methods to Redraw
-Altered implimentation of Tower Buttons so that it works without Vector2.Distance throwing a NullReferenceException error.
-Added graphics while tower is being placed.
-Added Slow Tower button.
+* Renamed all Draw methods to Redraw
+* Altered implimentation of Tower Buttons so that it works without Vector2.Distance throwing a NullReferenceException error.
+* Added graphics while tower is being placed.
+* Added Slow Tower button.
 
 26/07/14
-Began to add Keyboard based input.
-Towers can no longer be placed on top of eachother.
-Upgrade now uses "U" keyboard press.
-Fully implimented a Keyboard based input system.
-Towers now have a max upgrade level and cost money to upgrade.
-Implemented Selling mechanics by using the "S" key
-New Title Graphic
+* Began to add Keyboard based input.
+* Towers can no longer be placed on top of eachother.
+* Upgrade now uses "U" keyboard press.
+* Fully implemented a Keyboard based input system.
+* Towers now have a max upgrade level and cost money to upgrade.
+* Implemented Selling mechanics by using the "S" key
+* New Title Graphic
 
 28/07/14
-Resized the tilesize from 40x40 to 25x25.
-Edited the spite draw event such that it can center things bigger than the tile size to a tile. Expect bugs.
-Resized all the graphics that needed it to still work/look good and are being used.
-
+* Resized the tilesize from 40x40 to 25x25.
+* Edited the spite draw event such that it can center things bigger than the tile size to a tile. Expect bugs.
+* Resized all the graphics that needed it to still work/look good and are being used.
+* Modifed look of Toolbar to mock up what a UI would look like, and adjusted the tower button positions to suit.
+* Added a Menu button to the toolbar. No functionality yet.
+* Began to impliment a speed modifier coefficient for speeding up the game. I first made all references to Velocity 
+	is a property in Sprite, even those local. I then modifed the property to be divided by the modifier so that all uses of 
+	the speed are modifed by the global speed modifier
+* Made all references to all variables via a property for Sprite. May do so for all other classes if no bugs arise.
+* Added a method in WaveManager which handles modifying spawning rates when the global speed modifier is altered.
+* Encased all multiple thread spanning variables in try/catch statements. Seems to stop the problems with exceptions, may result in bugs.
 
 
 TODO:
@@ -73,3 +80,4 @@ Tower Upgrades
 Healthbars
 The world is fliped: all X coordinates refer to Y coordinate space and vice versa. Somethign is wrong with TIleX and 
 TileY, I think, which gives all towers flipped coordinates when they are placed (they are given their coords from TileX and Y).
+Fix adjusting wave timers when changic global speed modifier.
