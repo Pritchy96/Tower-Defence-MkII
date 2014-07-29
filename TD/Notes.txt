@@ -59,6 +59,11 @@ Towers now have a max upgrade level and cost money to upgrade.
 Implemented Selling mechanics by using the "S" key
 New Title Graphic
 
+28/07/14
+Resized the tilesize from 40x40 to 25x25.
+Edited the spite draw event such that it can center things bigger than the tile size to a tile. Expect bugs.
+Resized all the graphics that needed it to still work/look good and are being used.
+
 
 
 TODO:

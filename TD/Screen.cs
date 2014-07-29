@@ -14,8 +14,8 @@ using System.Windows.Forms;
     {
         #region Variables
         //Screen size.
-        public static int HEIGHT = 700;
-        public static int WIDTH = 800;
+        public static int HEIGHT = 700 + 10;
+        public static int WIDTH = 800 + 9;
 
         //Thread Variables.
         Boolean running = false;
@@ -125,6 +125,11 @@ using System.Windows.Forms;
         {
             this.Width = width + 6;
             this.Height = height + 28;
+        }
+
+        private void Screen_Load(object sender, EventArgs e)
+        {
+
         }
     }
 

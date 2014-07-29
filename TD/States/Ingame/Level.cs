@@ -16,27 +16,35 @@ namespace Tower_Defence
         private Queue<Vector2> waypoints = new Queue<Vector2>();
         Bitmap[] textures = { Resources.Placeable_Tile, Resources.Top_Right, Resources.Bottom_Right, Resources.Top_Left, 
                                 Resources.Bottom_Left, Resources.Horizontal, Resources.Vertical, Resources.Cross };
-        public static int TileWidth = 40;
+        public static int TileWidth = 25;
 
         #region Map Array Code
         private static int[,] map = 
         {
-            {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-            {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,5,5,1,0},
-            {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,6,0,0,6,0},
-            {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,6,0,0,6,0},
-            {5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,7,5,5,2,0},
-            {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,6,0,0,0,0},
-            {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,6,0,0,0,0},
-            {0,0,0,0,0,0,3,5,5,5,5,5,5,5,5,7,5,5,1,0},
-            {0,0,0,0,0,0,6,0,0,0,0,0,0,0,0,6,0,0,6,0},
-            {0,0,0,0,0,0,6,0,0,0,0,0,0,0,0,6,0,0,6,0},
-            {5,5,5,5,5,5,2,0,0,0,0,0,0,0,0,4,5,5,2,0},
-            {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-            {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-            {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-            {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}
-
+            {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+            {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+            {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,5,5,5,5,5,5,5,5,1,0,0,0},
+            {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,6,0,0,0,0,0,0,0,0,6,0,0,0},
+            {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,6,0,0,0,0,0,0,0,0,6,0,0,0},
+            {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,6,0,0,0,0,0,0,0,0,6,0,0,0},         
+            {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,6,0,0,0,0,0,0,0,0,6,0,0,0},
+            {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,6,0,0,0,0,0,0,0,0,6,0,0,0},
+            {5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,7,5,5,5,5,5,5,5,5,2,0,0,0},           
+            {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,6,0,0,0,0,0,0,0,0,0,0,0,0},
+            {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,6,0,0,0,0,0,0,0,0,0,0,0,0},
+            {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,6,0,0,0,0,0,0,0,0,0,0,0,0},
+            {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,6,0,0,0,0,0,0,0,0,0,0,0,0},
+            {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,6,0,0,0,0,0,0,0,0,0,0,0,0},
+            {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,6,0,0,0,0,0,0,0,0,0,0,0,0},
+            {0,0,0,0,0,0,3,5,5,5,5,5,5,5,5,5,5,5,5,7,5,5,5,5,5,5,5,5,1,0,0,0},
+            {0,0,0,0,0,0,6,0,0,0,0,0,0,0,0,0,0,0,0,6,0,0,0,0,0,0,0,0,6,0,0,0},
+            {0,0,0,0,0,0,6,0,0,0,0,0,0,0,0,0,0,0,0,6,0,0,0,0,0,0,0,0,6,0,0,0},
+            {0,0,0,0,0,0,6,0,0,0,0,0,0,0,0,0,0,0,0,6,0,0,0,0,0,0,0,0,6,0,0,0},
+            {0,0,0,0,0,0,6,0,0,0,0,0,0,0,0,0,0,0,0,6,0,0,0,0,0,0,0,0,6,0,0,0},
+            {0,0,0,0,0,0,6,0,0,0,0,0,0,0,0,0,0,0,0,6,0,0,0,0,0,0,0,0,6,0,0,0},
+            {5,5,5,5,5,5,2,0,0,0,0,0,0,0,0,0,0,0,0,4,5,5,5,5,5,5,5,5,2,0,0,0},
+            {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+            {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
         };
         #endregion
         #endregion
@@ -60,16 +68,16 @@ namespace Tower_Defence
 
         public Level()
         {
-            waypoints.Enqueue(MultiplyPoint(new Vector2(0, 4), 40));
-            waypoints.Enqueue(MultiplyPoint(new Vector2(18, 4), 40));
-            waypoints.Enqueue(MultiplyPoint(new Vector2(18, 1), 40));
-            waypoints.Enqueue(MultiplyPoint(new Vector2(15, 1), 40));
-            waypoints.Enqueue(MultiplyPoint(new Vector2(15, 10), 40));
-            waypoints.Enqueue(MultiplyPoint(new Vector2(18, 10), 40));
-            waypoints.Enqueue(MultiplyPoint(new Vector2(18, 7), 40));
-            waypoints.Enqueue(MultiplyPoint(new Vector2(6, 7), 40));
-            waypoints.Enqueue(MultiplyPoint(new Vector2(6, 10), 40));
-            waypoints.Enqueue(MultiplyPoint(new Vector2(0, 10), 40));
+            waypoints.Enqueue(MultiplyPoint(new Vector2(0, 8), TileWidth));
+            waypoints.Enqueue(MultiplyPoint(new Vector2(28, 8), TileWidth));
+            waypoints.Enqueue(MultiplyPoint(new Vector2(28, 2), TileWidth));
+            waypoints.Enqueue(MultiplyPoint(new Vector2(19, 2), TileWidth));
+            waypoints.Enqueue(MultiplyPoint(new Vector2(19, 21), TileWidth));
+            waypoints.Enqueue(MultiplyPoint(new Vector2(28, 21), TileWidth));
+            waypoints.Enqueue(MultiplyPoint(new Vector2(28, 15), TileWidth));
+            waypoints.Enqueue(MultiplyPoint(new Vector2(6, 15), TileWidth));
+            waypoints.Enqueue(MultiplyPoint(new Vector2(6, 21), TileWidth));
+            waypoints.Enqueue(MultiplyPoint(new Vector2(0, 21), TileWidth));
         }
 
         Vector2 MultiplyPoint(Vector2 point, int coefficient)

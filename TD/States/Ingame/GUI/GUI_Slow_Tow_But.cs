@@ -13,8 +13,8 @@ namespace Tower_Defence.States
     class GUI_Slow_Tow_But : GUI_Button
     {
         private Main_State mainState;
-        static int X = 100;
-        static int Y = Screen.HEIGHT - 75;
+        static int X = 75 - ((Resources.Tow_Basic.Width - Level.TileWidth) / 2);
+        static int Y = 625 - ((Resources.Tow_Basic.Height - Level.TileWidth) / 2);
 
         public GUI_Slow_Tow_But(Main_State mainState)
             : base(Resources.Tow_Slow, Resources.Tow_Slow, X, Y)

@@ -109,7 +109,7 @@ namespace Tower_Defence
         private void AddEnemy()
         {
             //Actually adding the enemy.
-            Enemy enemy = new Enemy(enemyTexture, mainState.level.Waypoints.Peek(), health, cashDrop, 2f);
+            Enemy enemy = new Enemy(enemyTexture, mainState.level.Waypoints.Peek(), health, cashDrop, 4f);
             //Set the waypoint of the enemy, so it knows where to go.
             enemy.SetWaypoints(mainState.level.Waypoints);
             //Add enemy to list.

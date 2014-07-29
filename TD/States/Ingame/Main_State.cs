@@ -93,6 +93,7 @@ public class Main_State : Basic_State
         toolbar = new GUI_Toolbar();
         manager.Buttons.Add(new GUI_Basic_Tow_But(this));
         manager.Buttons.Add(new GUI_Slow_Tow_But(this));
+        manager.Buttons.Add(new GUI_Menu_But(this));
     }
 
     //A method to check whether a cell is clear of towers and path.
@@ -127,7 +128,8 @@ public class Main_State : Basic_State
         if (IsCellClear())  // && towerToAdd.Cost <= money
         {
             //Making the tower real: giving it a position and adding it to the tower list.
-            tower.Position = new Vector2(tileX, tileY);
+            tower.Position = new Vector2(tileX - ((tower.Texture.Width - Level.TileWidth) / 2),
+                tileY - ((tower.Texture.Height - Level.TileWidth) / 2));
             towers.Add(tower);
             tower.Placed = true;   //Allows the tower to update.            
             money -= tower.Cost;   //Deduct cost from money total.
@@ -154,11 +156,11 @@ public class Main_State : Basic_State
     public override void MouseMoved(MouseEventArgs e)
     {
         //Essentially this converts to the nearest cell by casting to integers when dividing 
-        //by 40 and then multiplying by 40, giving the top rigth corner of the nearest cell.
-        cellX = (int)(e.X / 40); //Convert from Mouse position...
-        cellY = (int)(e.Y / 40); //... To array number.
-        tileX = cellX * 40; //Comvert from Array number to level space.
-        tileY = cellY * 40; //^
+        //by Level.TileWidth and then multiplying by Level.TileWidth, giving the top rigth corner of the nearest cell.
+        cellX = (int)(e.X / Level.TileWidth); //Convert from Mouse position...
+        cellY = (int)(e.Y / Level.TileWidth); //... To array number.
+        tileX = cellX * Level.TileWidth; //Comvert from Array number to level space.
+        tileY = cellY * Level.TileWidth; //^
     }
 
     public override void MouseClicked(MouseEventArgs e)
@@ -235,7 +237,12 @@ public class Main_State : Basic_State
                         SellTower(selectedTower);
                     break;
                 }
-        }       
+            case (Keys.P):
+                {
+                    Console.WriteLine(tileX.ToString() + ", " + tileY.ToString());
+                    break;
+                }
+        }
     }
     #endregion
 
@@ -284,17 +291,16 @@ public class Main_State : Basic_State
         if (towerToAdd != null)
         {
             Bitmap placeMarker = towerToAdd.SetBitmapOpacity(towerToAdd.Texture, 0.3f);
-            e.Graphics.DrawImage(placeMarker, new Rectangle(tileX, tileY, towerToAdd.Texture.Width, towerToAdd.Texture.Height));
+            e.Graphics.DrawImage(placeMarker, new Rectangle(tileX - ((towerToAdd.Texture.Width - Level.TileWidth) / 2), tileY - ((towerToAdd.Texture.Height - Level.TileWidth) / 2), towerToAdd.Texture.Width, towerToAdd.Texture.Height));
 
             //Calculating a rectangle from the range, to scale the radius texture to it.
-            Vector2 radiusPosition = new Vector2(tileX + 20, tileY + 20) - new Vector2(towerToAdd.Range);
+            Vector2 radiusPosition = new Vector2(tileX + (Level.TileWidth / 2), tileY + (Level.TileWidth / 2)) - new Vector2(towerToAdd.Range);
 
             Rectangle radiusRect = new Rectangle(
             (int)radiusPosition.X,
             (int)radiusPosition.Y,
             (int)towerToAdd.Range * 2,
             (int)towerToAdd.Range * 2);
-
 
             //Drawing the towers range.
             e.Graphics.DrawImage(radiusTex, radiusRect);

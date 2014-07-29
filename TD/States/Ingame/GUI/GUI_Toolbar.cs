@@ -16,13 +16,16 @@ namespace Tower_Defence.States.Ingame
         private Bitmap texture = Resources.GUI_Toolbar;
 
         //Position of toolbar & font.
-        private Rectangle rect = new Rectangle(0, Level.Height * Level.TileWidth, 800, 90);
+        private Rectangle rect;
         private Vector2 textPosition;
 
         public GUI_Toolbar()
         {
+            rect = new Rectangle(0, Level.Height * Level.TileWidth, 800, texture.Height);
+
             //Offset text to bottom right corner (Random values which work nicely are used).
             textPosition = new Vector2(20, rect.Top + 15);
+
         }
 
         public void Redraw(PaintEventArgs e)

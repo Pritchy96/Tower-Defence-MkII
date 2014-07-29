@@ -113,6 +113,16 @@ namespace Tower_Defence.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        public static System.Drawing.Bitmap GUI_But_Menu {
+            get {
+                object obj = ResourceManager.GetObject("GUI_But_Menu", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         public static System.Drawing.Bitmap GUI_Toolbar {
             get {
                 object obj = ResourceManager.GetObject("GUI_Toolbar", resourceCulture);

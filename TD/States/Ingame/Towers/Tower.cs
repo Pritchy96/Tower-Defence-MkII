@@ -210,6 +210,7 @@ namespace Tower_Defence.States.Ingame
             overlay = RotateBitmap((Bitmap)overlay, (float)(rotation * (180 / Math.PI)), false, true, Color.Transparent);
             overlay = SetBitmapOpacity((Bitmap)overlay, upgradeAlphaAmount);
 
+            //e.Graphics.DrawImage(overlay, new Rectangle((int)position.X - (texture.Width / 2), (int)position.Y - (texture.Height / 2), texture.Width, texture.Height));
             e.Graphics.DrawImage(overlay, new Rectangle((int)position.X, (int)position.Y, texture.Width, texture.Height));
             // spriteBatch.Redraw(upgradedTower, center, null, Color.White * upgradeAlphaAmount, rotation, origin, 1.0f, SpriteEffects.None, 0);
         }
