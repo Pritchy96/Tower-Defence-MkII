@@ -78,6 +78,10 @@
 * The world is no longer flipped.
 * Began to work on a map loading system.
 
+06/07/14
+* Over the last few days I have been working on a level loading system. Levels are now nearly completely 
+	loaded from a single 4 colour 32x24 image, with red as entrance, blue as exit, and white as a path.
+
 TODO:
 Better wave spawning system: Player initialised waves, multiple waves onscreen etc.
 Input
