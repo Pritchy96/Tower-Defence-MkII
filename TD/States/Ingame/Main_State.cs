@@ -18,7 +18,7 @@ public class Main_State : Basic_State
     public static float speedCoef = 1f; //Game speed
     public int money = 300;
     public int lives = 30;
-    private List<Tower> towers = new List<Tower>();
+    public List<Tower> towers = new List<Tower>();
 
     
     protected Bitmap radiusTex = Resources.Radius_Texture;
@@ -91,9 +91,11 @@ public class Main_State : Basic_State
     public override void CreateGUI()
     {
         toolbar = new GUI_Toolbar();
+        manager.Buttons.Add(new GUI_Menu_But(this));
         manager.Buttons.Add(new GUI_Basic_Tow_But(this));
         manager.Buttons.Add(new GUI_Slow_Tow_But(this));
-        manager.Buttons.Add(new GUI_Menu_But(this));
+        manager.Buttons.Add(new GUI_Boost_Tow_But(this));
+        
     }
 
     //A method to check whether a cell is clear of towers and path.
@@ -108,7 +110,7 @@ public class Main_State : Basic_State
         //is not where we want to place the new tower.
         foreach (Tower tower in towers)
         {
-            if (tower.Position.X == tileX && tower.Position.Y == tileY)
+            if (tower.Position.X + (tower.Texture.Width / 2) == tileX && tower.Position.Y == tileY + (tower.Texture.Height / 2))
             {
                 spaceClear = false;
                 break;
@@ -117,7 +119,7 @@ public class Main_State : Basic_State
 
         //Check to make sure the position selected is not on a path
         //(remember if it = 1, it's a path tile, if it's 0, it's not)
-        bool onPath = (level.GetIndex(cellX, cellY) == 0);
+        bool onPath = (level.GetTile(cellX, cellY) == Resources.Placeable_Tile);
 
         return inBounds && spaceClear && onPath; //if these are all true, it will return true.
     }
@@ -131,7 +133,8 @@ public class Main_State : Basic_State
             tower.Position = new Vector2(tileX - ((tower.Texture.Width - Level.TileWidth) / 2),
                 tileY - ((tower.Texture.Height - Level.TileWidth) / 2));
             towers.Add(tower);
-            tower.Placed = true;   //Allows the tower to update.            
+            tower.Placed = true;   //Allows the tower to update.  
+            tower.OnPlace(); 
             money -= tower.Cost;   //Deduct cost from money total.
             if (!shiftDown && towerToAdd == tower)  //if shift isn't down and we're adding a tower via mouse
                 towerToAdd = null;
@@ -146,6 +149,7 @@ public class Main_State : Basic_State
         money += (int)Math.Round(sellValue);
         //Remove tower from the list (Stops it being drawn, shooting etc)
         towers.Remove(tower);
+        tower.OnRemove();   //Call it's remove method.
         if (selectedTower == tower)    //tower is no longer selected tower as it has been sold.
             selectedTower = null;
         tower = null;
@@ -235,6 +239,11 @@ public class Main_State : Basic_State
                 {
                     if (selectedTower != null)
                         SellTower(selectedTower);
+                    break;
+                }
+            case (Keys.P):
+                {
+                    Console.WriteLine(tileX + ", " + tileY);
                     break;
                 }
             case (Keys.Add):

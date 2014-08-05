@@ -72,12 +72,14 @@
 * Added a method in WaveManager which handles modifying spawning rates when the global speed modifier is altered.
 * Encased all multiple thread spanning variables in try/catch statements. Seems to stop the problems with exceptions, may result in bugs.
 
+30/07/14
+* Added OnPlace and OnRemove methods for towers.
+* Added a Boost tower, needs much balance.
+* The world is no longer flipped.
+* Began to work on a map loading system.
 
 TODO:
 Better wave spawning system: Player initialised waves, multiple waves onscreen etc.
 Input
 Tower Upgrades
 Healthbars
-The world is fliped: all X coordinates refer to Y coordinate space and vice versa. Somethign is wrong with TIleX and 
-TileY, I think, which gives all towers flipped coordinates when they are placed (they are given their coords from TileX and Y).
-Fix adjusting wave timers when changic global speed modifier.

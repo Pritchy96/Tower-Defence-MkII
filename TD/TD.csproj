@@ -49,9 +49,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="States\Ingame\GUI\GUI_Boost_Tow_But.cs" />
     <Compile Include="States\Ingame\GUI\GUI_Menu_But.cs" />
     <Compile Include="States\Ingame\GUI\GUI_Slow_Tow_But.cs" />
     <Compile Include="States\Ingame\GUI\GUI_Toolbar.cs" />
+    <Compile Include="States\Ingame\Towers\Tow_Boost.cs" />
     <Compile Include="States\Ingame\Towers\Tow_Basic.cs" />
     <Compile Include="States\Ingame\Towers\Bullet.cs" />
     <Compile Include="States\Ingame\Towers\Tow_Slow.cs" />
@@ -126,13 +128,17 @@
     <Content Include="Resources\Ingame\Towers\Basic\Bul_Basic.png" />
     <Content Include="Resources\Ingame\Towers\Basic\Tow_Basic.png" />
     <Content Include="Resources\Ingame\Towers\Basic\Tow_Basic_Upgrade.png" />
+    <Content Include="Resources\Ingame\Towers\Boost\Tow_Boost.png" />
+    <Content Include="Resources\Ingame\Towers\Boost\Tow_Boost_Upgrade.png" />
     <Content Include="Resources\Ingame\Towers\Slow\Bul_Slow.png" />
     <Content Include="Resources\Ingame\Towers\Slow\Tow_Slow.png" />
     <Content Include="Resources\Ingame\Towers\Slow\Tow_Slow_Upgrade.png" />
     <Content Include="Resources\Menu\Menu_Background.png" />
     <Content Include="Resources\Menu\Menu_Play_But.png" />
+    <Content Include="Resources\Ingame\Test_Level.png" />
     <None Include="Resources\En_Basic.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

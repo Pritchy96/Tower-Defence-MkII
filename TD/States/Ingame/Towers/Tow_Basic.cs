@@ -71,7 +71,6 @@ namespace Tower_Defence.States.Ingame.Towers
                     Bullet bullet = new Bullet(bulletTexture, Center -
                         new Vector2(bulletTexture.Width / 2), Rotation, 20, damage);
 
-
                     //Add bullet to list.
                     bulletList.Add(bullet);
                 }

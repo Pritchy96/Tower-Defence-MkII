@@ -193,6 +193,16 @@ namespace Tower_Defence.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        public static System.Drawing.Bitmap Test_Level {
+            get {
+                object obj = ResourceManager.GetObject("Test_Level", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         public static System.Drawing.Bitmap Top_Left {
             get {
                 object obj = ResourceManager.GetObject("Top_Left", resourceCulture);
@@ -213,16 +223,6 @@ namespace Tower_Defence.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        public static System.Drawing.Bitmap Top_Right1 {
-            get {
-                object obj = ResourceManager.GetObject("Top_Right1", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
         public static System.Drawing.Bitmap Tow_Basic {
             get {
                 object obj = ResourceManager.GetObject("Tow_Basic", resourceCulture);
@@ -236,6 +236,26 @@ namespace Tower_Defence.Properties {
         public static System.Drawing.Bitmap Tow_Basic_Upgrade {
             get {
                 object obj = ResourceManager.GetObject("Tow_Basic_Upgrade", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap Tow_Boost {
+            get {
+                object obj = ResourceManager.GetObject("Tow_Boost", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap Tow_Boost_Upgrade {
+            get {
+                object obj = ResourceManager.GetObject("Tow_Boost_Upgrade", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

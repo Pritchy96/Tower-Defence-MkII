@@ -53,13 +53,14 @@ namespace Tower_Defence.States.Ingame
         public float Damage
         {
             get { return damage; }
+            set { damage = value; }
         }
 
         public float Range
         {
             get { return range; }
+            set { range = value; }
         }
-
         public float RoF
         {
             get { return (float)bulletTimer.Interval / Main_State.speedCoef; }
@@ -123,6 +124,16 @@ namespace Tower_Defence.States.Ingame
             this.upgradedTower = upgradedTower;
             bulletTimer.Start();
             upgradeCost = cost * (upgradeLevel + 1);    //calculating upgrade cost (add one because we are checking for the NEXT level)
+        }
+
+        //Triggers when tower is placed.
+        public virtual void OnPlace()
+        {
+        }
+
+        //Triggers when tower is Removed.
+        public virtual void OnRemove()
+        {
         }
 
         public bool IsInRange(Vector2 Position)

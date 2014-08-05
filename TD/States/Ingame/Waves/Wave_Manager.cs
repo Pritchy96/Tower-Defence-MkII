@@ -100,8 +100,6 @@ namespace Tower_Defence.States.Ingame
                 waveTimer.Start();
         }
 
-
-
         public void Redraw(PaintEventArgs e)
         {
             CurrentWave.Draw(e);
