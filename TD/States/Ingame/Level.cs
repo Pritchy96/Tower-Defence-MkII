@@ -204,7 +204,7 @@ namespace Tower_Defence
             else
             {
                 atEnd = true;
-                return Resources.Placeable_Tile;
+                return Resources.Radius_Texture;
             }
         }
 
@@ -284,20 +284,20 @@ namespace Tower_Defence
         /// <param name="cellX"></param>
         /// <param name="cellY"></param>
         /// <returns></returns>
-        public Bitmap GetTile(int cellX, int cellY)
+        public bool IsPath(int cellX, int cellY)
         {
             //If the requested cell is out of bounds, return 0
             if (cellX < 0 || cellX > Width || cellY < 0 || cellY > Height)
-                return null;
-            //Otherwise return the index of the cell.
+                return false;
+            //Otherwise whether the cell is a path cell.
             else
                 try
                 {
-                    return mapTextureArray[cellY, cellX];
+                    return (mapImage.GetPixel(cellX, cellY) == Color.FromArgb(0, 0, 0)) == true;    //Check to see if the pixel on mapImage is black. If so, it's not a path.
                 }
                 catch (IndexOutOfRangeException)
                 {
-                    return null;
+                    return false;
                 }
         }
 

@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -119,7 +121,7 @@ public class Main_State : Basic_State
 
         //Check to make sure the position selected is not on a path
         //(remember if it = 1, it's a path tile, if it's 0, it's not)
-        bool onPath = (level.GetTile(cellX, cellY) == Resources.Placeable_Tile);
+        bool onPath = level.IsPath(cellX, cellY);
 
         return inBounds && spaceClear && onPath; //if these are all true, it will return true.
     }

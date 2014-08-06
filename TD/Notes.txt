@@ -83,6 +83,7 @@
 	loaded from a single 4 colour 32x24 image, with red as entrance, blue as exit, and white as a path.
 - Both the entrance and exit is now drawn. Need a custom graphic for them.
 - Waypoints are now added dynamically based on the path constructed.
+- Fixed tower placement, which was broken due to removal of int array for map.
 
 TODO:
 Better wave spawning system: Player initialised waves, multiple waves onscreen etc.
