@@ -19,7 +19,7 @@ namespace Tower_Defence
         Color[,] colourArray = new Color[32, 24];
         Vector2 currentPosition, oldPosition;
         private Queue<Vector2> waypoints = new Queue<Vector2>();
-        
+
 
 
 
@@ -46,6 +46,7 @@ namespace Tower_Defence
 
         public Level()
         {
+            /*
             waypoints.Enqueue(MultiplyPoint(new Vector2(0, 8), TileWidth));
             waypoints.Enqueue(MultiplyPoint(new Vector2(28, 8), TileWidth));
             waypoints.Enqueue(MultiplyPoint(new Vector2(28, 2), TileWidth));
@@ -56,6 +57,7 @@ namespace Tower_Defence
             waypoints.Enqueue(MultiplyPoint(new Vector2(6, 15), TileWidth));
             waypoints.Enqueue(MultiplyPoint(new Vector2(6, 21), TileWidth));
             waypoints.Enqueue(MultiplyPoint(new Vector2(0, 21), TileWidth));
+             * */
             LoadMap();
         }
 
@@ -69,44 +71,65 @@ namespace Tower_Defence
                     colourArray[x, y] = mapImage.GetPixel(x, y);
                     //Make all tiles placeable, the path will overwrite these tiles later.
                     mapTextureArray[x, y] = Resources.Placeable_Tile;
-
-                    if (colourArray[x, y] == Color.FromArgb(0, 0, 255))
-                    {
-                        oldPosition = new Vector2(x, y);   //Start position (Blue pixel)
-                        currentPosition = new Vector2(x + 1, y);
-                    }
                 }
             }
 
+            #region Set spawn point and current position
+            for (int x = 0; x < mapImage.Width; x++)
+            {
+                for (int y = 0; y < mapImage.Height; y++)
+                {
+                    if (colourArray[x, y] == Color.FromArgb(0, 0, 255))
+                    {
+                        oldPosition = new Vector2(x, y);   //Start position (Blue pixel)
+                        waypoints.Enqueue(MultiplyPoint(oldPosition, TileWidth));   //Adding first waypoint
+
+                        #region Finding next position
+                        if ((x - 1) > 0 && colourArray[x - 1, y] == Color.FromArgb(255, 255, 255))
+                        {
+                            currentPosition = new Vector2(x - 1, y);
+                            mapTextureArray[x, y] = Resources.Horizontal;
+                        }
+                        else if ((x + 1) < 32 && colourArray[x + 1, y] == Color.FromArgb(255, 255, 255))
+                        {
+                            currentPosition = new Vector2(x + 1, y);
+                            mapTextureArray[x, y] = Resources.Horizontal;
+                        }
+                        else if ((y - 1) > 0 && colourArray[x, y - 1] == Color.FromArgb(255, 255, 255))
+                        {
+                            currentPosition = new Vector2(x, y - 1);
+                            mapTextureArray[x, y] = Resources.Vertical;
+                        }
+                        else if ((y + 1) < 24 && colourArray[x, y + 1] == Color.FromArgb(255, 255, 255))
+                        {
+                            currentPosition = new Vector2(x - 1, y);
+                            mapTextureArray[x, y] = Resources.Vertical;
+                        }
+
+                        waypoints.Enqueue(MultiplyPoint(currentPosition, TileWidth));   //Adding last waypoint
+                        #endregion
+                    }
+                }
+            }
+            #endregion
+
             while (!atEnd)
             {
-                if (currentPosition.Y > 0 && colourArray[(int)currentPosition.X, (int)currentPosition.Y ] == Color.FromArgb(255, 0, 0))
+                if (colourArray[(int)currentPosition.X, (int)currentPosition.Y] == Color.FromArgb(255, 0, 0))
                 {
-                    mapTextureArray[(int) currentPosition.X, (int) currentPosition.Y] = Resources.Vertical;
+
                     atEnd = true;
 
-                }
-               //Down
-                else if (currentPosition.Y < 23 && colourArray[(int)currentPosition.X, (int)currentPosition.Y ] == Color.FromArgb(255, 0, 0))
-                {
-                    mapTextureArray[(int)currentPosition.X, (int)currentPosition.Y] = Resources.Vertical;
-                    atEnd = true;
+                    Vector2 delta = currentPosition - oldPosition;
 
-                }
-
-                //Left
-                else if (currentPosition.X > 0 && colourArray[(int)currentPosition.X , (int)currentPosition.Y] == Color.FromArgb(255, 0, 0))
-                {
-                    mapTextureArray[(int)currentPosition.X, (int)currentPosition.Y] = Resources.Horizontal;
-                    atEnd = true;
-
-                }
-                //Right
-                else if (currentPosition.X < 31 && colourArray[(int)currentPosition.X + 1, (int)currentPosition.Y] == Color.FromArgb(255, 0, 0))
-                {
-                    mapTextureArray[(int)currentPosition.X, (int)currentPosition.Y] = Resources.Horizontal;
-                    atEnd = true;
-
+                    if (delta.X != 0)
+                    {
+                        mapTextureArray[(int)currentPosition.X, (int)currentPosition.Y] = Resources.Horizontal;
+                    }
+                    else if (delta.Y != 0)
+                    {
+                        mapTextureArray[(int)currentPosition.X, (int)currentPosition.Y] = Resources.Vertical;
+                    }
                 }
                 else
                 {
@@ -126,11 +149,13 @@ namespace Tower_Defence
             Vector2 Delta = currentPosition - oldPosition;  //Opposite to the one we've come from - a straight line
             Vector2 DeltaOpposite = new Vector2(Delta.Y, Delta.X);  //At a right angle to the one we've come from.
 
-            if (colourArray[(int)(currentPosition.X + Delta.X), (int)(currentPosition.Y + Delta.Y)] 
-                == Color.FromArgb(255, 255, 255))   //If the position opposite the one we've come from is white..
+            //If the position opposite the one we've come from is white..
+            if (colourArray[(int)(currentPosition.X + Delta.X), (int)(currentPosition.Y + Delta.Y)] == Color.FromArgb(255, 255, 255)
+                || colourArray[(int)(currentPosition.X + Delta.X), (int)(currentPosition.Y + Delta.Y)] == Color.FromArgb(255, 0, 0))
             {
-                if (colourArray[(int)(currentPosition.X + DeltaOpposite.X), (int)(currentPosition.Y + DeltaOpposite.Y)] 
-                    == Color.FromArgb(255, 255, 255))   //If it's also going in another direction..
+                //If it's also going in another direction..
+                if (colourArray[(int)(currentPosition.X + DeltaOpposite.X), (int)(currentPosition.Y + DeltaOpposite.Y)] == Color.FromArgb(255, 255, 255)
+                    || colourArray[(int)(currentPosition.X + DeltaOpposite.X), (int)(currentPosition.Y + DeltaOpposite.Y)] == Color.FromArgb(255, 0, 0))
                 {
                     oldPosition = currentPosition;
                     currentPosition += Delta;   //Actual enemies are going across though
@@ -150,7 +175,8 @@ namespace Tower_Defence
                 }
             }
             //If it's at a right angle to the one we've come from..
-            else if (colourArray[(int)(currentPosition.X - DeltaOpposite.X), (int)(currentPosition.Y - DeltaOpposite.Y)] == Color.FromArgb(255, 255, 255))
+            else if (colourArray[(int)(currentPosition.X - DeltaOpposite.X), (int)(currentPosition.Y - DeltaOpposite.Y)] == Color.FromArgb(255, 255, 255)
+                || colourArray[(int)(currentPosition.X - DeltaOpposite.X), (int)(currentPosition.Y - DeltaOpposite.Y)] == Color.FromArgb(255, 0, 0))
             {
                 //Calculate position of the direction current tile is going.
                 Vector2 newPos = new Vector2(currentPosition.X - DeltaOpposite.X, currentPosition.Y - DeltaOpposite.Y);
@@ -159,19 +185,21 @@ namespace Tower_Defence
 
                 oldPosition = currentPosition;
                 currentPosition = newPos;
-
+                waypoints.Enqueue(MultiplyPoint(oldPosition, TileWidth));
                 return ChooseRightAngle(Delta, newDelta);
             }
-                //Or if it's a right angle going the other way (ie; up instead of down or vice versa)
-            else if (colourArray[(int)(currentPosition.X + DeltaOpposite.X), (int)(currentPosition.Y + DeltaOpposite.Y)] == Color.FromArgb(255, 255, 255))
+            //Or if it's a right angle going the other way (ie; up instead of down or vice versa)
+            else if (colourArray[(int)(currentPosition.X + DeltaOpposite.X), (int)(currentPosition.Y + DeltaOpposite.Y)] == Color.FromArgb(255, 255, 255)
+                || colourArray[(int)(currentPosition.X + DeltaOpposite.X), (int)(currentPosition.Y + DeltaOpposite.Y)] == Color.FromArgb(255, 0, 0))
             {
                 Vector2 newPos = new Vector2(currentPosition.X + DeltaOpposite.X, currentPosition.Y + DeltaOpposite.Y);
                 Vector2 newDelta = newPos - oldPosition;
 
                 oldPosition = currentPosition;
                 currentPosition = newPos;
+                waypoints.Enqueue(MultiplyPoint(oldPosition, TileWidth));   //We are changing direction so we need to add a waypoint.
                 return ChooseRightAngle(Delta, newDelta);
-                
+
             }
             else
             {
@@ -220,30 +248,30 @@ namespace Tower_Defence
             }
             else //We are coming from the left or right into the right angle
             {
-                    if (OldToCurrentDelta.X == 1)   //Coming in from the left.
+                if (OldToCurrentDelta.X == 1)   //Coming in from the left.
+                {
+                    if (CurrentToNewDelta.Y == 1)  //Exiting right angle downwards
                     {
-                        if (CurrentToNewDelta.Y == 1)  //Exiting right angle downwards
-                        {
-                            return Resources.Top_Right;
-                        }
-                        else    //Exiting right angle Upwards
-                        {
-                            return Resources.Bottom_Right;
-                        }
+                        return Resources.Top_Right;
                     }
-                    else    //Coming in from the right
+                    else    //Exiting right angle Upwards
                     {
-                        if (CurrentToNewDelta.Y == 1)  //Exiting right angle downwards.
-                        {
-                            return Resources.Top_Left;
-                        }
-                        else    //Exiting right angle Upwards
-                        {
-                            return Resources.Bottom_Left;
-                        }
+                        return Resources.Bottom_Right;
+                    }
+                }
+                else    //Coming in from the right
+                {
+                    if (CurrentToNewDelta.Y == 1)  //Exiting right angle downwards.
+                    {
+                        return Resources.Top_Left;
+                    }
+                    else    //Exiting right angle Upwards
+                    {
+                        return Resources.Bottom_Left;
                     }
                 }
             }
+        }
 
         Vector2 MultiplyPoint(Vector2 point, int coefficient)
         {
@@ -282,7 +310,7 @@ namespace Tower_Defence
                 for (int y = 0; y < Height; y++)
                 {
                     Rectangle tileRectangle = new Rectangle(x * TileWidth, y * TileWidth, TileWidth, TileWidth);
-                    e.Graphics.DrawImage(mapTextureArray[x,y], tileRectangle);
+                    e.Graphics.DrawImage(mapTextureArray[x, y], tileRectangle);
                 }
             }
         }
