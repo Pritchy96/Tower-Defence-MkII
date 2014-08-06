@@ -102,7 +102,7 @@ namespace Tower_Defence
                         }
                         else if ((y + 1) < 24 && colourArray[x, y + 1] == Color.FromArgb(255, 255, 255))
                         {
-                            currentPosition = new Vector2(x - 1, y);
+                            currentPosition = new Vector2(x, y + 1);
                             mapTextureArray[x, y] = Resources.Vertical;
                         }
 

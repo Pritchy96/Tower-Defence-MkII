@@ -131,6 +131,8 @@ public class Main_State : Basic_State
         //Only add tower if there is a free space and the player has enough money.
         if (IsCellClear())  // && towerToAdd.Cost <= money
         {
+            Tower add 
+
             //Making the tower real: giving it a position and adding it to the tower list.
             tower.Position = new Vector2(tileX - ((tower.Texture.Width - Level.TileWidth) / 2),
                 tileY - ((tower.Texture.Height - Level.TileWidth) / 2));

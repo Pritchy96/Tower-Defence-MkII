@@ -39,7 +39,7 @@
 - Renamed classes to conform to the X_Y_Z.cs name structure.
 - Changed State Changing from accessing a property to a method - this allows the buttons list to be automatically cleared when changing a state.
 - Converted Play button on MainMenu to use the new system.
-- BEgan to add Tower creation GUI.
+- Began to add Tower creation GUI.
 - Creating towers recoded: the tower now has no parameters in it's constructor, these are now facilitated in Main States AddTower() method. 
 	This is to facilitate creation of towers - they don't have a position when first initialised. (Tower is created and then placed).
 - Finished the implimentation of the Basic Tower. Had to rejiggle a lot of stuff, to add new towers just copy the basic tower button.
