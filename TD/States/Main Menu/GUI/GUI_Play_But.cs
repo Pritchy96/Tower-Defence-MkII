@@ -20,7 +20,7 @@ namespace Tower_Defence.States.Main_Menu
 
         public override void Press(System.Windows.Forms.MouseEventArgs e)
         {
-            manager.ChangeState(new Main_State(manager));
+            manager.ChangeState(new Level_Select(manager));
         }
 
     }

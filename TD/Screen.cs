@@ -67,6 +67,7 @@ using System.Windows.Forms;
 
         private void Redraw(object sender, PaintEventArgs e)
         {
+            e.Graphics.Clear(Color.Black);
             manager.Redraw(e);
         }
         #endregion

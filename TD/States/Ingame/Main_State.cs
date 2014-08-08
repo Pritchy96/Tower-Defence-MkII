@@ -40,7 +40,7 @@ public class Main_State : Basic_State
     private bool shiftDown = false;
 
     public Wave_Manager waveManager;
-    public Level level = new Level();  //DEBUG
+    public Level level;
     #endregion
 
     #region Properties
@@ -62,9 +62,10 @@ public class Main_State : Basic_State
     }
     #endregion
 
-    public Main_State(Manager manager)
+    public Main_State(Manager manager, Bitmap mapImage)
         : base(manager)
     {
+        level = new Level(mapImage);
         waveManager = new Wave_Manager(this, 10, Resources.En_Basic, Resources.Health_Bar);
         radiusTex.MakeTransparent();
     }
@@ -131,7 +132,7 @@ public class Main_State : Basic_State
         //Only add tower if there is a free space and the player has enough money.
         if (IsCellClear())  // && towerToAdd.Cost <= money
         {
-            Tower add 
+           // Tower add 
 
             //Making the tower real: giving it a position and adding it to the tower list.
             tower.Position = new Vector2(tileX - ((tower.Texture.Width - Level.TileWidth) / 2),

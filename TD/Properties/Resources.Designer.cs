@@ -153,6 +153,66 @@ namespace Tower_Defence.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        public static System.Drawing.Bitmap Level_1 {
+            get {
+                object obj = ResourceManager.GetObject("Level_1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap Level_2 {
+            get {
+                object obj = ResourceManager.GetObject("Level_2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap Level_3 {
+            get {
+                object obj = ResourceManager.GetObject("Level_3", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap Level_4 {
+            get {
+                object obj = ResourceManager.GetObject("Level_4", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap Level_5 {
+            get {
+                object obj = ResourceManager.GetObject("Level_5", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap Level_Select_Screen {
+            get {
+                object obj = ResourceManager.GetObject("Level_Select_Screen", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         public static System.Drawing.Bitmap Menu_Background {
             get {
                 object obj = ResourceManager.GetObject("Menu_Background", resourceCulture);
@@ -186,16 +246,6 @@ namespace Tower_Defence.Properties {
         public static System.Drawing.Bitmap Radius_Texture {
             get {
                 object obj = ResourceManager.GetObject("Radius_Texture", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap Test_Level {
-            get {
-                object obj = ResourceManager.GetObject("Test_Level", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

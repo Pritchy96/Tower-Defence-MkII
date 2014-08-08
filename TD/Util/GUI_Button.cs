@@ -11,12 +11,16 @@ namespace Tower_Defence.Util
     public abstract class GUI_Button
     {
         private Bitmap buttonNormTex, buttonPressTex;
-        private Rectangle rectangle;
+        protected Rectangle rectangle;
         private bool pressed = false;
 
-        public Bitmap ButtonNormTex
+        public Bitmap GetButtonNormTex
         {
             get { return buttonNormTex; }
+        }
+        protected Bitmap SetButtonNormTex
+        {
+            set { buttonNormTex = value; }
         }
 
         public Bitmap ButtonPressTex
@@ -49,7 +53,7 @@ namespace Tower_Defence.Util
         {
             if (!pressed)
             {
-                e.Graphics.DrawImage(ButtonNormTex, Rectangle);
+                e.Graphics.DrawImage(GetButtonNormTex, Rectangle);
             }
             else
             {

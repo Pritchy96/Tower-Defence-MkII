@@ -15,7 +15,7 @@ namespace Tower_Defence
         #region Variables
         public static int TileWidth = 25;
         private static Bitmap[,] mapTextureArray = new Bitmap[32, 24];
-        private Bitmap mapImage = Resources.Test_Level;
+        private Bitmap mapImage;
         Color[,] colourArray = new Color[32, 24];
         Vector2 currentPosition, oldPosition;
         private Queue<Vector2> waypoints = new Queue<Vector2>();
@@ -44,20 +44,9 @@ namespace Tower_Defence
         }
         #endregion
 
-        public Level()
+        public Level(Bitmap mapImage)
         {
-            /*
-            waypoints.Enqueue(MultiplyPoint(new Vector2(0, 8), TileWidth));
-            waypoints.Enqueue(MultiplyPoint(new Vector2(28, 8), TileWidth));
-            waypoints.Enqueue(MultiplyPoint(new Vector2(28, 2), TileWidth));
-            waypoints.Enqueue(MultiplyPoint(new Vector2(19, 2), TileWidth));
-            waypoints.Enqueue(MultiplyPoint(new Vector2(19, 21), TileWidth));
-            waypoints.Enqueue(MultiplyPoint(new Vector2(28, 21), TileWidth));
-            waypoints.Enqueue(MultiplyPoint(new Vector2(28, 15), TileWidth));
-            waypoints.Enqueue(MultiplyPoint(new Vector2(6, 15), TileWidth));
-            waypoints.Enqueue(MultiplyPoint(new Vector2(6, 21), TileWidth));
-            waypoints.Enqueue(MultiplyPoint(new Vector2(0, 21), TileWidth));
-             * */
+            this.mapImage = mapImage;
             LoadMap();
         }
 

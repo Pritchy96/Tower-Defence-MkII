@@ -49,6 +49,8 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="States\Level Select\GUI\Level_But.cs" />
+    <Compile Include="States\Level Select\Level_Select.cs" />
     <Compile Include="States\Ingame\GUI\GUI_Boost_Tow_But.cs" />
     <Compile Include="States\Ingame\GUI\GUI_Menu_But.cs" />
     <Compile Include="States\Ingame\GUI\GUI_Slow_Tow_But.cs" />
@@ -116,6 +118,12 @@
     <Content Include="Resources\Ingame\GUI\Tow_Slow\Tow_Slow_But_Hover.png" />
     <Content Include="Resources\Ingame\GUI\Tow_Slow\Tow_Slow_But_Normal.png" />
     <Content Include="Resources\Ingame\Health_Bar.png" />
+    <Content Include="Resources\Ingame\Level Select\Level_Select_Screen.png" />
+    <Content Include="Resources\Ingame\Levels\Level_1.png" />
+    <Content Include="Resources\Ingame\Levels\Level_2.png" />
+    <Content Include="Resources\Ingame\Levels\Level_3.png" />
+    <Content Include="Resources\Ingame\Levels\Level_4.png" />
+    <Content Include="Resources\Ingame\Levels\Level_5.png" />
     <Content Include="Resources\Ingame\Radius_Texture.png" />
     <Content Include="Resources\Ingame\Tiles\Bottom_Left.png" />
     <Content Include="Resources\Ingame\Tiles\Bottom_Right.png" />
@@ -133,8 +141,8 @@
     <Content Include="Resources\Ingame\Towers\Slow\Bul_Slow.png" />
     <Content Include="Resources\Ingame\Towers\Slow\Tow_Slow.png" />
     <Content Include="Resources\Ingame\Towers\Slow\Tow_Slow_Upgrade.png" />
-    <Content Include="Resources\Menu\Menu_Background.png" />
-    <Content Include="Resources\Menu\Menu_Play_But.png" />
+    <Content Include="Resources\Main Menu\Menu_Background.png" />
+    <Content Include="Resources\Main Menu\Menu_Play_But.png" />
     <Content Include="Resources\Ingame\Test_Level.png" />
     <None Include="Resources\En_Basic.png" />
   </ItemGroup>

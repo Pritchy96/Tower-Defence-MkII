@@ -85,8 +85,12 @@
 - Waypoints are now added dynamically based on the path constructed.
 - Fixed tower placement, which was broken due to removal of int array for map.
 
+
+07/07/14
+- Began to impliment a map select screen
+- Screen is now cleared with black at the start of every draw cycle in the Screen class/obect.
+
+
 TODO:
 Better wave spawning system: Player initialised waves, multiple waves onscreen etc.
-Input
-Tower Upgrades
 Healthbars
