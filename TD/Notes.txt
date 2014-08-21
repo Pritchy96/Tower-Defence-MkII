@@ -55,7 +55,7 @@
 - Towers can no longer be placed on top of eachother.
 - Upgrade now uses "U" keyboard press.
 - Fully implemented a Keyboard based input system.
-- Towers now have a max upgrade level and cost money to upgrade.
+- Towers now have a max upgrade level and implemented money to upgrade.
 - Implemented Selling mechanics by using the "S" key
 - New Title Graphic
 
@@ -85,12 +85,24 @@
 - Waypoints are now added dynamically based on the path constructed.
 - Fixed tower placement, which was broken due to removal of int array for map.
 
-
 07/07/14
 - Began to impliment a map select screen
 - Screen is now cleared with black at the start of every draw cycle in the Screen class/obect.
+- Map select screen now implemented. Needs improvements (see TODO)
+- Map screen is now much cleaner (Code added to remove blurring created when map objects are stretched).
+- Fast Forward Button implemented
+
+21/07/14
+- Money and Life text implemented
+- Towers now cost money
+- Slowed down enemies so that they can be hit by towers. Needs further adjustment.
+- Right clicking now deselects towers and cancels buying.
+- Upgrading towers now cost money.
+
 
 
 TODO:
 Better wave spawning system: Player initialised waves, multiple waves onscreen etc.
-Healthbars
+Difficulties. Ties in to wave system.
+Bullets do not always hit enemies, is worse at faster speeds.
+Enemies sometimes get stuck on corners when game speed is too fast.

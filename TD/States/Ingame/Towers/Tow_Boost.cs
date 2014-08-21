@@ -21,11 +21,10 @@ namespace Tower_Defence.States.Ingame.Towers
 
         //For placing towers: No position
         public Tow_Boost(List<Tower> towers)
-            : base(Resources.Tow_Boost, Resources.Tow_Boost_Upgrade, Resources.Bul_Basic)
+            : base(Resources.Tow_Boost, Resources.Tow_Boost_Upgrade, Resources.Bul_Basic, 15)
         {
             //setting range, cost, damage.
             this.damage = 0;
-            this.cost = 15;
             this.range = 120;
             this.RoF = 1;
             base.BulletTimer.Stop();

@@ -55,7 +55,7 @@ namespace Tower_Defence
 
         public float SpeedCoef
         {
-            get { return speedCoef; }
+            get { return speedCoef * Main_State.speedCoef; }
             set { speedCoef = value; }
         }
 
@@ -153,28 +153,34 @@ namespace Tower_Defence
 
         public override void Redraw(PaintEventArgs e)
         {
+            #region Draw Healthbar
+            try
+            {
+            int visableWidth = (int)(Texture.Width * (HealthPercentage / 100));
+
+
+            Rectangle HealthRect = new Rectangle((int)Position.X,
+                (int)Position.Y - 10, (int)visableWidth,  5);
+
+            //Dark magic to get fading healthbar.
+            int red = (int)(HealthPercentage < 50 ? 100 : 100 - (2 * HealthPercentage - 100));
+            int green = (int)(HealthPercentage > 50 ? 100 : (2 * HealthPercentage - 100));
+
+
+                e.Graphics.FillRectangle(new SolidBrush(Color.Red), HealthRect);
+            }
+            catch (InvalidOperationException) { Console.WriteLine("Oops! Healthbar screwed up!"); }
+
+
+
+
+            //spriteBatch.Redraw(healthTexture, healthRectangle, healthColor);
+            #endregion
+
             if (alive)
             {
                 base.Redraw(e);
-            }
+            }           
         }
     }
 }
-
-
-/*
-        //Tinting the Enemys colour when damaged.
-        public override void Redraw(SpriteBatch spriteBatch)
-        {
-            if (alive)
-            {
-                float healthPercentage = (float)currentHealth
-                     / (float)startHealth;
-
-                Color color = new Color(new Vector3(1 - healthPercentage, 
-                    1 - healthPercentage, 1 - healthPercentage));
-
-                base.Redraw(spriteBatch, color);
-            }
-        }
-*/

@@ -109,7 +109,7 @@ namespace Tower_Defence
         private void AddEnemy()
         {
             //Actually adding the enemy.
-            Enemy enemy = new Enemy(enemyTexture, mainState.level.Waypoints.Peek(), health, cashDrop, 4f);
+            Enemy enemy = new Enemy(enemyTexture, mainState.level.Waypoints.Peek(), health, cashDrop, 2f);
             //Set the waypoint of the enemy, so it knows where to go.
             enemy.SetWaypoints(mainState.level.Waypoints);
             //Add enemy to list.
@@ -135,31 +135,6 @@ namespace Tower_Defence
             foreach (Enemy enemy in enemies.ToList())
             {
                 enemy.Redraw(e);
-
-                //Drawing the background of the healthbar.
-                Rectangle healthRectangle = new Rectangle((int)enemy.Position.X,
-                    (int)enemy.Position.Y, healthTexture.Width, healthTexture.Height);
-
-
-                //Need to work out how to do tinting
-                /*
-                e.Graphics.DrawBitmap(healthTexture, healthRectangle, Color.Gray);
-
-                //Drawing the foreground of the Healthbar: the actual Health of the Enemy.
-                float healthPercentage = enemy.HealthPercentage;
-                float visableWidth = (float)healthTexture.Width * (healthPercentage / 100);
-
-                healthRectangle = new Rectangle((int)enemy.Position.X,
-                    (int)enemy.Position.Y, (int) visableWidth, healthTexture.Height);
-
-                //Dark magic to get fading healthbar.
-                float red = (healthPercentage < 50 ? 100 : 100 - (2 * healthPercentage - 100));
-                float green = (healthPercentage > 50 ? 100 : (2 * healthPercentage - 100));
-
-                //Creating the colour blend and then drawing the forground of the healthbar.
-                Color healthColor = new Color(red, green, 0);
-                spriteBatch.Redraw(healthTexture, healthRectangle, healthColor);
-                 */
             }
 
         }

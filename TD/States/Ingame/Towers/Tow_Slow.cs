@@ -20,11 +20,10 @@ namespace Tower_Defence.States.Ingame.Towers
 
         //For placing towers: No position
         public Tow_Slow()
-            : base(Resources.Tow_Slow, Resources.Tow_Slow_Upgrade, Resources.Bul_Basic)    //Inheriting the Tower class & providing it's constructors.
+            : base(Resources.Tow_Slow, Resources.Tow_Slow_Upgrade, Resources.Bul_Basic, 30)    //Inheriting the Tower class & providing it's constructors.
         {
             //setting range, cost, damage.
             this.damage = 0;
-            this.cost = 30;
             this.range = 80;
             this.RoF = 500f;
             this.modiferCoef = 0.2f;

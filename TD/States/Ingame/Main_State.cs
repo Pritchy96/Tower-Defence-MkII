@@ -18,7 +18,7 @@ public class Main_State : Basic_State
 {
     #region Variables
     public static float speedCoef = 1f; //Game speed
-    public int money = 300;
+    public int money = 30;
     public int lives = 30;
     public List<Tower> towers = new List<Tower>();
 
@@ -66,7 +66,7 @@ public class Main_State : Basic_State
         : base(manager)
     {
         level = new Level(mapImage);
-        waveManager = new Wave_Manager(this, 10, Resources.En_Basic, Resources.Health_Bar);
+        waveManager = new Wave_Manager(this, 1000, Resources.En_Basic, Resources.Health_Bar);
         radiusTex.MakeTransparent();
     }
 
@@ -93,12 +93,12 @@ public class Main_State : Basic_State
     //This must be called after the class is created as the button list is cleared after that.
     public override void CreateGUI()
     {
-        toolbar = new GUI_Toolbar();
-        manager.Buttons.Add(new GUI_Menu_But(this));
+        toolbar = new GUI_Toolbar(this);
+        manager.Buttons.Add(new GUI_Menu_But(base.manager));
         manager.Buttons.Add(new GUI_Basic_Tow_But(this));
         manager.Buttons.Add(new GUI_Slow_Tow_But(this));
-        manager.Buttons.Add(new GUI_Boost_Tow_But(this));
-        
+        new GUI_Boost_Tow_But(this);
+        manager.Buttons.Add(new GUI_Fast_Forward_But(manager));
     }
 
     //A method to check whether a cell is clear of towers and path.
@@ -130,9 +130,9 @@ public class Main_State : Basic_State
     public void AddTower(Tower tower)
     {
         //Only add tower if there is a free space and the player has enough money.
-        if (IsCellClear())  // && towerToAdd.Cost <= money
+        if (IsCellClear()  && towerToAdd.Cost <= money)
         {
-           // Tower add 
+
 
             //Making the tower real: giving it a position and adding it to the tower list.
             tower.Position = new Vector2(tileX - ((tower.Texture.Width - Level.TileWidth) / 2),
@@ -174,40 +174,48 @@ public class Main_State : Basic_State
 
     public override void MouseClicked(MouseEventArgs e)
     {
-                //Adding a tower to the position clicked as long as a tower is being placed 
-                //(isCellClear is handled in the add tower method).
-                if (towerToAdd != null)
+        if (e.Button == MouseButtons.Left)
+        {
+            //Adding a tower to the position clicked as long as a tower is being placed 
+            //(isCellClear is handled in the add tower method).
+            if (towerToAdd != null)
+            {
+                AddTower(towerToAdd);
+                return;
+            }
+            //if there is a tower clicked..
+            else
+            {
+                //Deselecting towers.
+                if (selectedTower != null)
                 {
-                    AddTower(towerToAdd);
-                    return;
-                }
-                    //if there is a tower clicked..
-                else
-                {
-                    //Deselecting towers.
-                    if (selectedTower != null)
+                    // If the selected tower does not contain the mouse and there is a click, 
+                    //unselect it.
+                    if (selectedTower.Bounds.Contains(e.X, e.Y) == false)
                     {
-                        // If the selected tower does not contain the mouse and there is a click, 
-                        //unselect it.
-                        if (selectedTower.Bounds.Contains(e.X, e.Y) == false)
-                        {
-                            selectedTower.Selected = false;
-                            selectedTower = null;
-                        }
+                        selectedTower.Selected = false;
+                        selectedTower = null;
                     }
+                }
 
-                    //Selecting a tower.
-                    foreach (Tower tower in towers)
+                //Selecting a tower.
+                foreach (Tower tower in towers)
+                {
+                    //If the tower contains the mouse, it has been clicked.
+                    if (tower.Bounds.Contains(e.X, e.Y))
                     {
-                        //If the tower contains the mouse, it has been clicked.
-                        if (tower.Bounds.Contains(e.X, e.Y))
-                        {
-                            selectedTower = tower;
-                            tower.Selected = true;
-                            return;
-                        }
+                        selectedTower = tower;
+                        tower.Selected = true;
+                        return;
                     }
                 }
+            }
+        }
+        else
+        {
+            selectedTower = null;
+            towerToAdd = null;
+        }
                      
 
       //  AddTower(new Tow_Basic(new Vector2(tileX, tileY)));
@@ -236,8 +244,11 @@ public class Main_State : Basic_State
                 }
             case (Keys.U):
                 {
-                    if (selectedTower != null && selectedTower.UpgradeLevel < selectedTower.MaxLevel && money > selectedTower.Cost)
+                    if (selectedTower != null && selectedTower.UpgradeLevel < selectedTower.MaxLevel && money >= selectedTower.UpgradeCost)
+                    {
+                        money -= selectedTower.UpgradeCost;
                         selectedTower.Upgrade();
+                    }
                     break;
                 }
             case (Keys.S):

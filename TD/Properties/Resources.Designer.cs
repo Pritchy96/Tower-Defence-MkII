@@ -113,6 +113,16 @@ namespace Tower_Defence.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        public static System.Drawing.Bitmap Fast_Forward_But {
+            get {
+                object obj = ResourceManager.GetObject("Fast_Forward_But", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         public static System.Drawing.Bitmap GUI_But_Menu {
             get {
                 object obj = ResourceManager.GetObject("GUI_But_Menu", resourceCulture);
@@ -226,6 +236,16 @@ namespace Tower_Defence.Properties {
         public static System.Drawing.Bitmap Menu_Play_But {
             get {
                 object obj = ResourceManager.GetObject("Menu_Play_But", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap Options_But {
+            get {
+                object obj = ResourceManager.GetObject("Options_But", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

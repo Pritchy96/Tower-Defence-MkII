@@ -32,7 +32,7 @@ namespace Tower_Defence
         public Vector2 Velocity
         {
             get { return velocity * Main_State.speedCoef; }
-            set { velocity = value * Main_State.speedCoef; }
+            set { velocity = value; }
         }
 
         public float Rotation
@@ -217,13 +217,24 @@ namespace Tower_Defence
 
         }
 
-        /*Tinted' Redraw function, override.
-        public virtual void Redraw(PaintEventArgs e, Color color)
+        /*
+        public virtual void Redraw(PaintEventArgs e, Color colour)
         {
-            spriteBatch.Redraw(texture, center, null, color, rotation, origin, 1.0f, SpriteEffects.None, 0);
-        }
-         * */
+            Bitmap textureToDraw;
 
+            try
+            {
+                textureToDraw = RotateBitmap(texture, (float)(rotation * (180 / Math.PI)), false, true, Color.Transparent);
+                //Draw Base
+                Rectangle rect = new Rectangle((int)position.X, (int)position.Y, texture.Width, texture.Height);
+                e.Graphics.DrawImage(textureToDraw, rect);
+
+                e.Graphics.FillRectangle(new SolidBrush(Color.FromArgb(100, 255, 0, 0)), rect);
+                
+            }
+            catch (InvalidOperationException) { }   //Variable is currently being used, will have to wait.
+        }
+         */
     }
 }
 

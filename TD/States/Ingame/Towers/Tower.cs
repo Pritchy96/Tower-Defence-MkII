@@ -45,7 +45,7 @@ namespace Tower_Defence.States.Ingame
             get { return cost; }
         }
 
-        public int UpgradeCode
+        public int UpgradeCost
         {
             get { return upgradeCost; }
         }
@@ -117,12 +117,13 @@ namespace Tower_Defence.States.Ingame
         }
         #endregion
 
-        public Tower(Bitmap baseTexture, Bitmap upgradedTower, Bitmap bulletTexture)
+        public Tower(Bitmap baseTexture, Bitmap upgradedTower, Bitmap bulletTexture, int cost)
             : base(baseTexture)
         {
             this.bulletTexture = bulletTexture;
             this.upgradedTower = upgradedTower;
             bulletTimer.Start();
+            this.cost = cost;
             upgradeCost = cost * (upgradeLevel + 1);    //calculating upgrade cost (add one because we are checking for the NEXT level)
         }
 

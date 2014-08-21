@@ -7,7 +7,7 @@ using System.Windows.Forms;
 
 public abstract class Basic_State
 {
-    protected Manager manager;
+    public Manager manager;
 
     public Basic_State(Manager manager)
     {

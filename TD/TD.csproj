@@ -49,6 +49,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="States\Ingame\GUI\GUI_Fast_Forward_But.cs" />
     <Compile Include="States\Level Select\GUI\Level_But.cs" />
     <Compile Include="States\Level Select\Level_Select.cs" />
     <Compile Include="States\Ingame\GUI\GUI_Boost_Tow_But.cs" />
@@ -111,6 +112,8 @@
   <ItemGroup>
     <Content Include="Notes.txt" />
     <Content Include="Resources\Ingame\Enemies\En_Basic.png" />
+    <Content Include="Resources\Ingame\GUI\Fast_Forward_But.png" />
+    <Content Include="Resources\Ingame\GUI\Options_But.png" />
     <Content Include="Resources\Ingame\GUI\Toolbar\GUI_Toolbar.png" />
     <Content Include="Resources\Ingame\GUI\Toolbar\GUI_But_Menu.png" />
     <Content Include="Resources\Ingame\GUI\Tow_Basic\Tow_Basic_But_Hover.png" />

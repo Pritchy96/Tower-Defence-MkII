@@ -14,7 +14,7 @@ namespace Tower_Defence.States.Ingame.Towers
     {
         //For placing towers: No position
         public Tow_Basic()
-            : base(Resources.Tow_Basic, Resources.Tow_Basic_Upgrade, Resources.Bul_Basic)    //Inheriting the Tower class & providing it's constructors.
+            : base(Resources.Tow_Basic, Resources.Tow_Basic_Upgrade, Resources.Bul_Basic, 15)    //Inheriting the Tower class & providing it's constructors.
         {
             //setting range, cost, damage.
             this.damage = 1;

@@ -20,9 +20,6 @@ namespace Tower_Defence
         Vector2 currentPosition, oldPosition;
         private Queue<Vector2> waypoints = new Queue<Vector2>();
 
-
-
-
         //TEMP
         bool atEnd = false;
         #endregion
@@ -95,7 +92,7 @@ namespace Tower_Defence
                             mapTextureArray[x, y] = Resources.Vertical;
                         }
 
-                        waypoints.Enqueue(MultiplyPoint(currentPosition, TileWidth));   //Adding last waypoint
+                     //   waypoints.Enqueue(MultiplyPoint(currentPosition, TileWidth));   //Adding last waypoint
                         #endregion
                     }
                 }
@@ -114,10 +111,12 @@ namespace Tower_Defence
                     if (delta.X != 0)
                     {
                         mapTextureArray[(int)currentPosition.X, (int)currentPosition.Y] = Resources.Horizontal;
+                        waypoints.Enqueue(MultiplyPoint(currentPosition, TileWidth));
                     }
                     else if (delta.Y != 0)
                     {
                         mapTextureArray[(int)currentPosition.X, (int)currentPosition.Y] = Resources.Vertical;
+                        waypoints.Enqueue(MultiplyPoint(currentPosition, TileWidth));
                     }
                 }
                 else

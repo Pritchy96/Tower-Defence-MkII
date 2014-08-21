@@ -10,21 +10,28 @@ using Tower_Defence.Util;
 
 namespace Tower_Defence.States
 {
-    class GUI_Menu_But : GUI_Button
+    class GUI_Fast_Forward_But : GUI_Button
     {
         private Manager manager;
-        static int X = 663;
-        static int Y = Screen.HEIGHT - 110;
+        static int X = Screen.WIDTH - 50;
+        static int Y = 15;
 
-        public GUI_Menu_But(Manager manager)
-            : base(Resources.GUI_But_Menu, Resources.GUI_But_Menu, X, Y)
+        public GUI_Fast_Forward_But(Manager manager)
+            : base(Resources.Fast_Forward_But, Resources.Fast_Forward_But, X, Y)
         {
             this.manager = manager;
         }
 
         public override void Press(System.Windows.Forms.MouseEventArgs e)
         {
-            manager.ChangeState(new Menu_State(manager));
+            if (Main_State.speedCoef == 3f)
+            {
+                Main_State.speedCoef = 1f;
+            }
+            else
+            {
+                Main_State.speedCoef = 3f;
+            }
         }
 
     }
