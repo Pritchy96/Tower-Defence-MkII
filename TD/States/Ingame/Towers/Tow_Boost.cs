@@ -29,9 +29,14 @@ namespace Tower_Defence.States.Ingame.Towers
             this.RoF = 1;
             base.BulletTimer.Stop();
             this.allTowers = towers;
-
-            
         }
+
+        //For temp towers: no parameters
+        public Tow_Boost()
+            : base(Resources.Tow_Boost, Resources.Tow_Boost_Upgrade, Resources.Bul_Basic, 15)
+        {
+        }
+
 
         //Triggers when tower is placed.
         public override void OnPlace()

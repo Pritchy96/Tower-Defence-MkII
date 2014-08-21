@@ -63,7 +63,7 @@ namespace Tower_Defence
         {
             texture = tex;
             position = pos;
-            center = new Vector2(position.X + (texture.Width / 2), position.Y + (texture.Height / 2));
+            //center = new Vector2(position.X + (texture.Width / 2), position.Y + (texture.Height / 2));
             bounds = new Rectangle((int)position.X, (int)position.Y, texture.Width, texture.Height); //Rect to fit around the Sprite.
         }
 
@@ -78,13 +78,13 @@ namespace Tower_Defence
             {
                 Center = new Vector2(position.X + (texture.Width / 2), position.Y + (texture.Height / 2));
             }
-            catch(InvalidOperationException) {  }   //Variable is currently being used, will have to wait.
+            catch (InvalidOperationException) { Console.WriteLine("Oops! Thread Conflict! (Sprite Center)"); }   //Variable is currently being used, will have to wait.
 
             try
             {
             Bounds = new Rectangle((int)position.X, (int)position.Y, texture.Width, texture.Height); //Rect to fit around the Sprite.
             }
-            catch (InvalidOperationException) { }   //Variable is currently being used, will have to wait.
+            catch (InvalidOperationException) { Console.WriteLine("Oops! Thread Conflict! (Sprite Bounds)"); }   //Variable is currently being used, will have to wait.
         }
 
         /// <summary>
@@ -213,7 +213,7 @@ namespace Tower_Defence
                 Bitmap textureToDraw = RotateBitmap(texture, (float)(rotation * (180 / Math.PI)), false, true, Color.Transparent);
                 e.Graphics.DrawImage(textureToDraw, new Rectangle((int)position.X, (int)position.Y, texture.Width, texture.Height));
             }
-            catch (InvalidOperationException) { }   //Variable is currently being used, will have to wait.
+            catch (InvalidOperationException) { Console.WriteLine("Oops! Thread Conflict! (Sprite)");}   //Variable is currently being used, will have to wait.
 
         }
 

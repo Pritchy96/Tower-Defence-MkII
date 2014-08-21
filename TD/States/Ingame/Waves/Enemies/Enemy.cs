@@ -158,23 +158,16 @@ namespace Tower_Defence
             {
             int visableWidth = (int)(Texture.Width * (HealthPercentage / 100));
 
-
             Rectangle HealthRect = new Rectangle((int)Position.X,
                 (int)Position.Y - 10, (int)visableWidth,  5);
 
-            //Dark magic to get fading healthbar.
-            int red = (int)(HealthPercentage < 50 ? 100 : 100 - (2 * HealthPercentage - 100));
-            int green = (int)(HealthPercentage > 50 ? 100 : (2 * HealthPercentage - 100));
+            //Fading healthbar
+            int red = (int)(HealthPercentage < 50 ? 255 : 255 - (((HealthPercentage - 50) / 50) * 255));
+            int green = (int)(HealthPercentage > 50 ? 255 : ((HealthPercentage / 50) * 255));
 
-
-                e.Graphics.FillRectangle(new SolidBrush(Color.Red), HealthRect);
+            e.Graphics.FillRectangle(new SolidBrush(Color.FromArgb(red, green, 0)), HealthRect);
             }
             catch (InvalidOperationException) { Console.WriteLine("Oops! Healthbar screwed up!"); }
-
-
-
-
-            //spriteBatch.Redraw(healthTexture, healthRectangle, healthColor);
             #endregion
 
             if (alive)

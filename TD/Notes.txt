@@ -1,4 +1,5 @@
-﻿04/07/14
+﻿ 
+ 04/07/14
 - Transferred inital Graphics
 - Implemented Drawing mechanics
 - Completed conversion of Level Class
@@ -98,8 +99,8 @@
 - Slowed down enemies so that they can be hit by towers. Needs further adjustment.
 - Right clicking now deselects towers and cancels buying.
 - Upgrading towers now cost money.
-
-
+- Implemented fading healthbar
+- Fixed towers being able to be stacked (again)
 
 TODO:
 Better wave spawning system: Player initialised waves, multiple waves onscreen etc.

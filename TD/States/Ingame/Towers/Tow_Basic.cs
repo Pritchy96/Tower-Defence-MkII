@@ -65,18 +65,15 @@ namespace Tower_Defence.States.Ingame.Towers
             //If we have a target..
             if (target != null)
             {
-                lock (Center)
+                try
                 {
-                    //create a bullet at the centre of the tower.
-                    Bullet bullet = new Bullet(bulletTexture, Center -
-                        new Vector2(bulletTexture.Width / 2), Rotation, 20, damage);
-
                     //Add bullet to list.
-                    bulletList.Add(bullet);
+                    bulletList.Add(new Bullet(bulletTexture, Center -
+                        new Vector2(bulletTexture.Width / 2), Rotation, 20, damage));
                 }
+                catch (InvalidOperationException) { Console.WriteLine("Oops! Thread Conflict! (Tow_Basic)"); }
             }
         }
-
     }
 }
 

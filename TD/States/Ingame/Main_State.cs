@@ -97,7 +97,7 @@ public class Main_State : Basic_State
         manager.Buttons.Add(new GUI_Menu_But(base.manager));
         manager.Buttons.Add(new GUI_Basic_Tow_But(this));
         manager.Buttons.Add(new GUI_Slow_Tow_But(this));
-        new GUI_Boost_Tow_But(this);
+        manager.Buttons.Add((new GUI_Boost_Tow_But(this))); 
         manager.Buttons.Add(new GUI_Fast_Forward_But(manager));
     }
 
@@ -113,7 +113,7 @@ public class Main_State : Basic_State
         //is not where we want to place the new tower.
         foreach (Tower tower in towers)
         {
-            if (tower.Position.X + (tower.Texture.Width / 2) == tileX && tower.Position.Y == tileY + (tower.Texture.Height / 2))
+            if (Math.Round(tower.Position.X / Level.TileWidth) == cellX && Math.Round(tower.Position.Y / Level.TileWidth) == cellY)
             {
                 spaceClear = false;
                 break;
@@ -133,7 +133,6 @@ public class Main_State : Basic_State
         if (IsCellClear()  && towerToAdd.Cost <= money)
         {
 
-
             //Making the tower real: giving it a position and adding it to the tower list.
             tower.Position = new Vector2(tileX - ((tower.Texture.Width - Level.TileWidth) / 2),
                 tileY - ((tower.Texture.Height - Level.TileWidth) / 2));
@@ -143,6 +142,24 @@ public class Main_State : Basic_State
             money -= tower.Cost;   //Deduct cost from money total.
             if (!shiftDown && towerToAdd == tower)  //if shift isn't down and we're adding a tower via mouse
                 towerToAdd = null;
+            else
+            {
+                if (object.ReferenceEquals(towerToAdd.GetType(), new Tow_Basic().GetType()))
+                {
+                    towerToAdd = null;
+                    towerToAdd = new Tow_Basic();
+                }
+                else if (object.ReferenceEquals(towerToAdd.GetType(), new Tow_Slow().GetType()))
+                {
+                    towerToAdd = null;
+                    towerToAdd = new Tow_Slow();
+                }
+                else if (object.ReferenceEquals(towerToAdd.GetType(), new Tow_Boost().GetType()))
+                {
+                    towerToAdd = null;
+                    towerToAdd = new Tow_Slow();
+                }
+            }
         }
     }
 
@@ -274,7 +291,22 @@ public class Main_State : Basic_State
                     waveManager.AdjustGameSpeed();
                     break;
                 }
+            case (Keys.D1):
+                {
+                    TowerToAdd = new Tow_Basic();
+                    break;
+                }
 
+            case (Keys.D2):
+                {
+                    TowerToAdd = new Tow_Slow();
+                    break;
+                }
+            case (Keys.D3):
+                {
+                    TowerToAdd = new Tow_Boost(towers);
+                    break;
+                }
         }
     }
     #endregion
