@@ -102,6 +102,10 @@
 - Implemented fading healthbar
 - Fixed towers being able to be stacked (again)
 
+27/07/14
+- Rewrote the Wave system so it supports multiple waves at once.
+- Player can now manually call waves (Space).
+
 TODO:
 Better wave spawning system: Player initialised waves, multiple waves onscreen etc.
 Difficulties. Ties in to wave system.

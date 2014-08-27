@@ -66,7 +66,7 @@ public class Main_State : Basic_State
         : base(manager)
     {
         level = new Level(mapImage);
-        waveManager = new Wave_Manager(this, 1000, Resources.En_Basic, Resources.Health_Bar);
+        waveManager = new Wave_Manager(this, 1000);
         radiusTex.MakeTransparent();
     }
 
@@ -289,6 +289,11 @@ public class Main_State : Basic_State
                 {
                     speedCoef -= 0.1f;
                     waveManager.AdjustGameSpeed();
+                    break;
+                }
+            case (Keys.Space):
+                {
+                    waveManager.SendNextWave();
                     break;
                 }
             case (Keys.D1):
